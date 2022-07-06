@@ -1,7 +1,7 @@
 # About
 
--   Online-wallet it's app for you tracking budget/finance/expenses etc.
--   Contact: Exadel Angular SandBox2022 ( info@exadel.com )
+-   Online-wallet is an app to track budget/finance/expenses etc.
+-   Contact: Exadel Angular SandBox2022 ( https://join.skype.com/CAamZ4QCa2ZZ )
 -   References:
     -   [Angular](https://angular.io/) (2022)
     -   [GitHub](https://github.com/) (2022)
