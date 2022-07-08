@@ -5,8 +5,9 @@
 -   References:
     -   [Angular](https://angular.io/) (2022)
     -   [GitHub](https://github.com/) (2022)
+    -   [Naming Convension](https://) (2022)
 
-<a href="http://potree.org/wp/demo/" target="_blank"> ![](./docs/images/potree_screens.png) </a>
+
 
 # Getting Started
 
