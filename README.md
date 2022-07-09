@@ -18,6 +18,6 @@
 3. On Windows client computers: Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 4. Build for production: npm run build
 5. Linters launch: npm run lint
-6. Install 'Prettier - Code formatter' from Extensions, than go to File-Preferences-Settings search 'format on save' and ON it. Than search 'default formatter' and choose Prettier - Code formatter.
+6. Install 'Prettier - Code formatter' from Extensions, go to File-Preferences-Settings, search 'format on save' and tick the check-box "Editor: Format ON SAVE". Than search 'default formatter' and choose Prettier - Code formatter.
 
 Use command ng lint before your every commit.
