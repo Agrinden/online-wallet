@@ -5,7 +5,7 @@
 -   References:
     -   [Angular](https://angular.io/) (2022)
     -   [GitHub](https://github.com/) (2022)
-    -   [Naming Convension]([https://](https://github.com/Agrinden/online-wallet/blob/main/docs/naming_convension.md)) (2022)
+    -   [Naming Convension](https://github.com/Agrinden/online-wallet/blob/main/docs/naming_convension.md) (2022)
 
 
 
