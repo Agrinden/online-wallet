@@ -9,19 +9,11 @@ import { SharedModule } from '@app-shared/shared.module';
 import { SidenavComponent } from './core/sidenav/sidenav.component';
 import { MaterialModule } from './shared/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StatisticsBarComponent } from './core/statistics-bar/statistics-bar.component';
 
 @NgModule({
-    declarations: [AppComponent, SidenavComponent],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        CoreModule,
-        SharedModule,
-        MaterialModule,
-        ReactiveFormsModule,
-        FormsModule,
-    ],
+    declarations: [AppComponent, StatisticsBarComponent],
+    imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, SharedModule, ReactiveFormsModule, FormsModule],
     providers: [],
     bootstrap: [AppComponent],
 })
