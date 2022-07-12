@@ -10,6 +10,7 @@ import { SidenavComponent } from './core/sidenav/sidenav.component';
 import { MaterialModule } from './shared/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from '@app/core/header/header.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
     declarations: [AppComponent, SidenavComponent, HeaderComponent],
@@ -20,6 +21,7 @@ import { HeaderComponent } from '@app/core/header/header.component';
         CoreModule,
         SharedModule,
         MaterialModule,
+        MatIconModule,
         ReactiveFormsModule,
         FormsModule,
     ],
