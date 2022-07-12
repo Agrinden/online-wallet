@@ -1,0 +1,21 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav
+        #drawer
+        class="sidenav"
+        fixedInViewport
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        [opened]="(isHandset$ | async) === false"
+    >
+        <mat-toolbar>Menu</mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item href="#"> <mat-icon>notifications</mat-icon><span>Link 1</span></a>
+            <a mat-list-item href="#"><mat-icon> insert_link</mat-icon><span>Link 2</span></a>
+            <a mat-list-item href="#"> <mat-icon>equalizer</mat-icon><span>Link 3</span></a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <app-header [drawer]="drawer" [isHandset]="isHandset$ | async"> </app-header>
+        <!-- Add Content Here -->
+    </mat-sidenav-content>
+</mat-sidenav-container>
