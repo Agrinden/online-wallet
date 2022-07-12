@@ -9,9 +9,11 @@ import { SharedModule } from '@app-shared/shared.module';
 import { SidenavComponent } from './core/sidenav/sidenav.component';
 import { MaterialModule } from './shared/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from '@app/core/header/header.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-    declarations: [AppComponent, SidenavComponent],
+    declarations: [AppComponent, SidenavComponent, HeaderComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -19,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         CoreModule,
         SharedModule,
         MaterialModule,
+        MatIconModule,
         ReactiveFormsModule,
         FormsModule,
     ],
