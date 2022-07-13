@@ -9,7 +9,7 @@ const routes: Routes = [
     },
     {
         path: 'login',
-        loadComponent: () => import('./core/login/login.component').then((c) => c.LoginComponent),
+        loadChildren: () => import('./core/login/login.module').then((m) => m.LoginModule),
     },
 ];
 
