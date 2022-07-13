@@ -1,19 +1,11 @@
 <div [matMenuTriggerFor]="menu">
     <mat-icon>more_vert</mat-icon>
 </div>
-<mat-menu #menu="matMenu">
-    <button mat-menu-item>
-        <mat-icon>notifications</mat-icon>
-        <span>Notifications</span>
+<mat-menu #menu="matMenu" >
+    <ng-container *ngFor="let item of statisticsBarItems" >
+        <button mat-menu-item>
+        <mat-icon> {{ item.icon }} </mat-icon>
+        <span> {{ item.name }} </span>
     </button>
-
-    <button mat-menu-item disabled>
-        <mat-icon>link</mat-icon>
-        <span>Link</span>
-    </button>
-
-    <button mat-menu-item>
-        <mat-icon>bar_chart</mat-icon>
-        <span>Statistics</span>
-    </button>
+</ng-container>   
 </mat-menu>
