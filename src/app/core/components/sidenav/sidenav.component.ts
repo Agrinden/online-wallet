@@ -14,5 +14,11 @@ export class SidenavComponent {
         shareReplay()
     );
 
+    menuItems = [
+        { name: 'Login', icon: 'lock', route: '' },
+        { name: 'Register', icon: 'person_add', route: '' },
+        { name: 'Logout', icon: 'exit_to_app', route: '' },
+    ];
+
     constructor(private breakpointObserver: BreakpointObserver) {}
 }
