@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
@@ -6,11 +6,7 @@ import { MatSidenav } from '@angular/material/sidenav';
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
     @Input() drawer!: MatSidenav;
     @Input() isHandset!: boolean | null;
-
-    constructor() {}
-
-    ngOnInit(): void {}
 }

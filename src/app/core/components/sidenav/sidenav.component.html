@@ -9,9 +9,10 @@
     >
         <mat-toolbar>Menu</mat-toolbar>
         <mat-nav-list>
-            <a mat-list-item href="#"> <mat-icon>notifications</mat-icon><span>Link 1</span></a>
-            <a mat-list-item href="#"><mat-icon> insert_link</mat-icon><span>Link 2</span></a>
-            <a mat-list-item href="#"> <mat-icon>equalizer</mat-icon><span>Link 3</span></a>
+            <a *ngFor="let item of menuItems" mat-list-item href="{{ item.route }}">
+                <mat-icon>{{ item.icon }}</mat-icon
+                ><span>{{ item.name }}</span></a
+            >
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
