@@ -1,0 +1,77 @@
+@mixin generalWidth($margin: 0 auto, $display: flex) {
+    margin: $margin;
+    display: $display;
+}
+
+$backColor: #225367;
+
+.wrapper {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(45deg, $backColor, #c5dde8);
+    padding: 0 10px;
+}
+
+.form {
+    @include generalWidth;
+    flex-direction: column;
+    width: 320px;
+    margin-top: 100px;
+    border: 1px solid white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.logo {
+    @include generalWidth;
+    max-width: 100%;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+.login-btn {
+    color: blue;
+    display: flex;
+    justify-content: center;
+}
+
+.welcome {
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    font-size: 7rem;
+    margin-top: 200px;
+    font-style: italic;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-shadow: 3px 3px gray;
+    line-height: 60px;
+}
+
+.errors {
+    color: red;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    color: #c74c73;
+}
+
+@media screen and (max-width: 720px) {
+    .welcome {
+        font-size: 4rem;
+        margin-top: 100px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .welcome {
+        font-size: 3rem;
+        margin-top: 50px;
+        line-height: 30px;
+    }
+    .form {
+        width: 260px;
+        padding: 0 5px;
+    }
+}
