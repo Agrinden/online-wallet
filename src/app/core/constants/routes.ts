@@ -1,5 +1,5 @@
 export enum RouteUrls {
-    login = '/',
+    login = 'login',
     budget = 'budget',
     expenses = 'expenses',
     savings = 'savings',
