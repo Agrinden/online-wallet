@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'app-root',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     title = 'onlineWallet';
+    constructor() {
+        console.log('environment', environment.apiUrl);
+    }
 }
