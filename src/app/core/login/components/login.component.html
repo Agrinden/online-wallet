@@ -1,0 +1,17 @@
+<div class="wrapper">
+  <img src="../assets/logo.svg" alt="Exadel logo" class='logo'>
+  <form class="form" [formGroup]="loginForm">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input formControlName="email" matInput placeholder="yourname@exadel.com">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input formControlName="password" matInput type="password">
+    </mat-form-field>
+
+    <button mat-button color="primary" (click)="login()" class="login-btn">Login</button>
+  </form>
+  <span class="welcome">Budget planning app welcomes you!</span>
+</div>
