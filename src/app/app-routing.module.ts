@@ -24,18 +24,19 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         children: [
             {
-                path: RouteUrls.budget,
-                loadChildren: () => import('./modules/budget/budget.module').then((m) => m.BudgetModule),
+                path: RouteUrls.main,
+                loadChildren: () => import('./modules/main-page/main-page.module').then((m) => m.MainPageModule),
             },
 
             {
-                path: RouteUrls.expenses,
-                loadChildren: () => import('./modules/expense/expense.module').then((m) => m.ExpenseModule),
+                path: RouteUrls.categories,
+                loadChildren: () => import('./modules/categories/categories.module').then((m) => m.CategoriesModule),
             },
 
             {
-                path: RouteUrls.savings,
-                loadChildren: () => import('./modules/savings/savings.module').then((m) => m.SavingsModule),
+                path: RouteUrls.incomes_expenses,
+                loadChildren: () =>
+                    import('./modules/incomes-expenses/incomes-expenses.module').then((m) => m.IncomesExpensesModule),
             },
 
             {
