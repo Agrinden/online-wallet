@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
     styleUrls: ['./statistics-bar.component.scss'],
 })
 export class StatisticsBarComponent {
-    statisticsBarItems = [
+    public statisticsBarItems = [
         {
             name: 'Notifications',
             icon: 'notifications',
