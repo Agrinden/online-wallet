@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { StatisticsRoutingModule } from './statistics-routing.module';
 import { SharedModule } from '@app/shared/shared.module';
-import { StatisticsComponent } from './statistics.component';
 import { CoreModule } from '@app/core/core.module';
+import { StatisticsComponent } from '@app/modules/statistics/component/statistics/statistics.component';
+import { StatisticsRoutingModule } from '@app/modules/statistics/statistics-routing.module';
 
 @NgModule({
     declarations: [StatisticsComponent],

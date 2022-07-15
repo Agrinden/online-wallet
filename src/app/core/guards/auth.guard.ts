@@ -9,8 +9,8 @@ import {
     UrlSegment,
     UrlTree,
 } from '@angular/router';
+import { RouteUrls } from '@app/core/constants/routes';
 import { map, Observable, first, of } from 'rxjs';
-import { RouteUrls } from '../constants/routes';
 
 @Injectable({
     providedIn: 'root',
