@@ -6,6 +6,17 @@ import { NotFoundComponent } from '@app/modules/not-found/not-found.component';
 
 const routes: Routes = [
     {
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full',
+    },
+
+    {
+        path: 'login',
+        loadChildren: () => import('./core/login/login.module').then((m) => m.LoginModule),
+    },
+
+    {
         path: RouteUrls.budget,
         loadChildren: () => import('./modules/budget/budget.module').then((m) => m.BudgetModule),
         canActivate: [AuthGuard],
