@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BudgetComponent } from '@app/modules/budget/components/budget/budget.component';
+import { BudgetComponent } from '@modules-budget/budget/budget.component';
 
 const routes: Routes = [{ path: '', component: BudgetComponent }];
 
