@@ -12,7 +12,9 @@
             "@core-constants/*": ["app/core/constants/*"],
             "@modules/*": ["app/modules/*"],
             "@modules-budget/*": ["app/modules/budget/components/*"],
-            "@modules-expense/*": ["app/modules/expense/components/*"]
+            "@modules-expense/*": ["app/modules/expense/components/*"],
+            "@modules-savings/*": ["app/modules/savings/components/*"],
+            "@modules-statistics/*": ["app/modules/statistics/components/*"]
         },
         "outDir": "./dist/out-tsc",
         "forceConsistentCasingInFileNames": true,
