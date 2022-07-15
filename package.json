@@ -4,9 +4,9 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve -o",
-        "team1": "ng serve --configuration team1 -o",
-        "team2": "ng serve --configuration team2 -o",
-        "team3": "ng serve --configuration team3 -o",
+        "start:team1": "ng serve --configuration team1 -o",
+        "start:team2": "ng serve --configuration team2 -o",
+        "start:team3": "ng serve --configuration team3 -o",
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
