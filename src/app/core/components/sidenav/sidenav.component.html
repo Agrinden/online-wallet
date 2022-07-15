@@ -1,0 +1,22 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav
+        #drawer
+        class="sidenav"
+        fixedInViewport
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        [opened]="(isHandset$ | async) === false"
+    >
+        <mat-toolbar>Menu</mat-toolbar>
+        <mat-nav-list>
+            <a *ngFor="let item of menuItems" mat-list-item href="{{ item.route }}">
+                <mat-icon>{{ item.icon }}</mat-icon
+                ><span>{{ item.name }}</span></a
+            >
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <app-header [drawer]="drawer" [isHandset]="isHandset$ | async"> </app-header>
+        <!-- Add Content Here -->
+    </mat-sidenav-content>
+</mat-sidenav-container>
