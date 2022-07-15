@@ -8,6 +8,6 @@ import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
     declarations: [BudgetComponent],
-    imports: [CommonModule, BudgetRoutingModule, SharedModule],
+    imports: [CommonModule, BudgetRoutingModule, SharedModule, CoreModule],
 })
 export class BudgetModule {}

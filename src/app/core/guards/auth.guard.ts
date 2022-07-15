@@ -16,7 +16,7 @@ import { RouteUrls } from '../constants/routes';
     providedIn: 'root',
 })
 export class AuthGuard implements CanActivate, CanLoad {
-    private isAuth$!: Observable<boolean>;
+    private isAuth$: Observable<boolean> = of(true);
 
     constructor(private router: Router) {}
     canLoad(
