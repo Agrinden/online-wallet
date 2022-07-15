@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { StatisticsComponent } from './component/statistics/statistics.component';
+import { StatisticsComponent } from '@modules-statistics/statistics/statistics.component';
 
 const routes: Routes = [{ path: '', component: StatisticsComponent }];
 
