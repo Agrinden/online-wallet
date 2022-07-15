@@ -8,9 +8,11 @@ import { CoreModule } from '@core/core.module';
 import { SharedModule } from '@shared/shared.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
+import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, LoginLayoutComponent, HomeLayoutComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
