@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SavingsComponent } from './savings.component';
+import { SavingsComponent } from './components/savings/savings.component';
 
 const routes: Routes = [{ path: '', component: SavingsComponent }];
 
