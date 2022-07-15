@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiUrl: 'http://bing.com',
+    searchEngineUrl: 'http://bing.com',
 };
