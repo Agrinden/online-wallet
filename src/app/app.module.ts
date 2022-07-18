@@ -8,6 +8,8 @@ import { CoreModule } from '@core/core.module';
 import { SharedModule } from '@shared/shared.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SocialLoginModule, GoogleLoginProvider, SocialAuthServiceConfig } from 'angularx-social-login';
+import { environment } from '@env/environment';
 
 @NgModule({
     declarations: [AppComponent],
@@ -19,8 +21,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         SharedModule,
         ReactiveFormsModule,
         FormsModule,
+        SocialLoginModule,
     ],
-    providers: [],
+    providers: [
+        {
+            provide: 'SocialAuthServiceConfig',
+            useValue: {
+                autoLogin: false,
+                providers: [
+                    {
+                        id: GoogleLoginProvider.PROVIDER_ID,
+                        provider: new GoogleLoginProvider(environment.googleClientId),
+                    },
+                ],
+            } as SocialAuthServiceConfig,
+        },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}
