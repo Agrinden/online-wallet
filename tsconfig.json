@@ -10,6 +10,7 @@
             "@core/*": ["app/core/*"],
             "@core-components/*": ["app/core/components/*"],
             "@core-constants/*": ["app/core/constants/*"],
+            "@core-services/*": ["app/core/services/*"],
             "@modules/*": ["app/modules/*"],
             "@modules-main-page/*": ["app/modules/main-page/components/*"],
             "@modules-categories/*": ["app/modules/categories/components/*"],
