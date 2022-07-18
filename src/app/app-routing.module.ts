@@ -40,6 +40,11 @@ const routes: Routes = [
             },
 
             {
+                path: RouteUrls.incomes,
+                loadChildren: () => import('./modules/incomes/incomes.module').then((m) => m.IncomesModule),
+            },
+
+            {
                 path: RouteUrls.statistics,
                 loadChildren: () => import('./modules/statistics/statistics.module').then((m) => m.StatisticsModule),
             },

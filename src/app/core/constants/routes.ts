@@ -3,5 +3,6 @@ export enum RouteUrls {
     main = 'main',
     categories = 'categories',
     incomes_expenses = 'expenses',
+    incomes = 'incomes',
     statistics = 'statistics',
 }
