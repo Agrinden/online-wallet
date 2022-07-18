@@ -7,3 +7,9 @@ export const mockNotifications = [
         ],
     },
 ];
+
+export const User = {
+    name: 'User',
+    surname: 'Surr',
+    role: 'admin',
+};
