@@ -1,6 +1,8 @@
+<span class="user-name">Hi, {{ user.name }}</span>
 <div [matMenuTriggerFor]="menu">
     <ng-content select=".profile-menu"></ng-content>
 </div>
+
 <mat-menu #menu="matMenu">
     <ng-container *ngFor="let item of userProfileItems">
         <ng-container [ngSwitch]="item.name">
@@ -28,4 +30,3 @@
         </button>
     </ng-container>
 </mat-menu>
-<span class="user-name">Hi, {{ user.name }}</span>
