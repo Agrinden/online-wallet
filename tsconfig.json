@@ -8,7 +8,13 @@
             "@app/*": ["app/*"],
             "@shared/*": ["app/shared/*"],
             "@core/*": ["app/core/*"],
-            "@core-components/*": ["app/core/components/*"]
+            "@core-components/*": ["app/core/components/*"],
+            "@core-constants/*": ["app/core/constants/*"],
+            "@modules/*": ["app/modules/*"],
+            "@modules-main-page/*": ["app/modules/main-page/components/*"],
+            "@modules-categories/*": ["app/modules/categories/components/*"],
+            "@modules-statistics/*": ["app/modules/statistics/components/*"],
+            "@modules-incomes-expenses/*": ["app/modules/incomes-expenses/components/*"]
         },
         "outDir": "./dist/out-tsc",
         "forceConsistentCasingInFileNames": true,
