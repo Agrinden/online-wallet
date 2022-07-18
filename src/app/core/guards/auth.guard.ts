@@ -16,7 +16,7 @@ import { map, Observable, first, of } from 'rxjs';
     providedIn: 'root',
 })
 export class AuthGuard implements CanActivate, CanLoad {
-    private isAuth$: Observable<boolean> = of(true);
+    private isAuth$: Observable<boolean> = of(false);
 
     constructor(private router: Router) {}
     canLoad(
