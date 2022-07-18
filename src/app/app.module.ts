@@ -10,8 +10,8 @@ import { SharedModule } from '@shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
-import { SocialLoginModule, GoogleLoginProvider, SocialAuthServiceConfig } from 'angularx-social-login';
 import { environment } from '@env/environment';
+import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
 
 @NgModule({
     declarations: [AppComponent, LoginLayoutComponent, HomeLayoutComponent],
@@ -23,20 +23,19 @@ import { environment } from '@env/environment';
         SharedModule,
         ReactiveFormsModule,
         FormsModule,
-    ],
-    providers: [
-        {
-            provide: 'SocialAuthServiceConfig',
-            useValue: {
-                autoLogin: false,
-                providers: [
-                    {
-                        id: GoogleLoginProvider.PROVIDER_ID,
-                        provider: new GoogleLoginProvider(environment.googleClientId),
-                    },
-                ],
-            } as SocialAuthServiceConfig,
-        },
+
+        AuthModule.forRoot({
+            config: {
+                authority: 'https://accounts.google.com',
+                redirectUrl: window.location.origin,
+                clientId: environment.googleClientId,
+                scope: 'openid profile email',
+                responseType: 'id_token token',
+                silentRenew: true,
+                useRefreshToken: true,
+                logLevel: LogLevel.Error,
+            },
+        }),
     ],
     bootstrap: [AppComponent],
 })

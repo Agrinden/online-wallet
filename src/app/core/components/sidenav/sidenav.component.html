@@ -9,7 +9,7 @@
     >
         <mat-toolbar>Menu</mat-toolbar>
         <mat-nav-list>
-            <a *ngFor="let item of menuItems" mat-list-item href="{{ item.route }}">
+            <a *ngFor="let item of menuItems" mat-list-item [routerLink]="item.route" (click)='item.onClick()'>
                 <mat-icon>{{ item.icon }}</mat-icon
                 ><span>{{ item.name }}</span></a
             >

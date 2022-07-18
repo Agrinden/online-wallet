@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { Router } from '@angular/router';
+import { RouteUrls } from '@core/constants/routes';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { take } from 'rxjs';
 
 @Component({
     templateUrl: './login.component.html',
@@ -10,10 +12,19 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
     public loginForm!: FormGroup;
 
-    constructor(private router: Router, private formBuilder: FormBuilder, private authService: SocialAuthService) {}
+    constructor(
+        private router: Router,
+        private formBuilder: FormBuilder,
+        private oidcSecurityService: OidcSecurityService
+    ) {}
 
     public ngOnInit(): void {
         this.loginForm = this.getInitializedForm();
+
+        this.oidcSecurityService
+            .checkAuth()
+            .pipe(take(1))
+            .subscribe(() => {});
     }
 
     public login(): void {
@@ -24,9 +35,12 @@ export class LoginComponent implements OnInit {
     }
 
     public signInGoogleHandler(): void {
-        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data) => {
-            localStorage.setItem('google_auth', JSON.stringify(data));
-        });
+        this.oidcSecurityService
+            .authorizeWithPopUp()
+            .pipe(take(1))
+            .subscribe(() => {
+                this.router.navigate([RouteUrls.main]);
+            });
     }
 
     // TODO: add validators
