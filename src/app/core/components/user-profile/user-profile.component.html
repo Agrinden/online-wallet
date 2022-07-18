@@ -21,7 +21,7 @@
 </mat-menu>
 
 <mat-menu #settings="matMenu">
-    <ng-container *ngFor="let item of settingsItems">
+    <ng-container *ngFor="let item of settingsMenuItems">
         <button mat-menu-item>
             <mat-icon> {{ item.icon }} </mat-icon>
             <span> {{ item.name }} </span>

@@ -9,5 +9,5 @@ import { settingsMenu, userProfileMenu } from '@app/core/constants/menu';
 export class UserProfileComponent {
     public userProfileItems = userProfileMenu;
 
-    public settingsItems = settingsMenu;
+    public settingsMenuItems = settingsMenu;
 }
