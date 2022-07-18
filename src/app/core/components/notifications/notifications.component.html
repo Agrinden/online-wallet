@@ -13,7 +13,7 @@
 <mat-menu #messages="matMenu">
     <ng-container *ngFor="let item of notifications">
         <button mat-menu-item *ngFor="let msg of item.desc">
-            <button mat-menu-item>{{ msg.date }}: {{ msg.text }}</button>
+            <button mat-menu-item>{{ msg.date | date: 'mediumDate' }}: {{ msg.text }}</button>
         </button>
     </ng-container>
 </mat-menu>
