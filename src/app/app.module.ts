@@ -8,11 +8,13 @@ import { CoreModule } from '@core/core.module';
 import { SharedModule } from '@shared/shared.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
+import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
 import { SocialLoginModule, GoogleLoginProvider, SocialAuthServiceConfig } from 'angularx-social-login';
 import { environment } from '@env/environment';
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, LoginLayoutComponent, HomeLayoutComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -21,7 +23,6 @@ import { environment } from '@env/environment';
         SharedModule,
         ReactiveFormsModule,
         FormsModule,
-        SocialLoginModule,
     ],
     providers: [
         {
