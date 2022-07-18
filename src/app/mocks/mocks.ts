@@ -8,8 +8,8 @@ export const mockNotifications = [
     },
 ];
 
-export const User = {
-    name: 'User',
+export const mockUser = {
+    name: 'mockUser',
     surname: 'Surr',
     role: 'admin',
 };

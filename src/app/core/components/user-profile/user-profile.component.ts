@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { settingsMenu, userProfileMenu } from '@app/core/constants/menu';
-import { User } from '@app/mocks/mocks';
+import { mockUser } from '@app/mocks/mocks';
 
 @Component({
     selector: 'app-user-profile',
@@ -12,5 +12,5 @@ export class UserProfileComponent {
 
     public settingsMenuItems = settingsMenu;
 
-    public user = User;
+    public user = mockUser;
 }
