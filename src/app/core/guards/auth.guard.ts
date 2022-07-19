@@ -10,7 +10,7 @@ import {
 } from '@angular/router';
 import { RouteUrls } from '@app/core/constants/routes';
 import { first, map, Observable, of } from 'rxjs';
-import { SessionStorageService } from '../services/session-storage/session-storage.service';
+import { SessionStorageService } from '@core-services/session-storage/session-storage.service';
 
 @Injectable({
     providedIn: 'root',

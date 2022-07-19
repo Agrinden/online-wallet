@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CoreModule } from '@app/core/core.module';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
-    providedIn: CoreModule,
+    providedIn: 'root',
 })
 export class SessionStorageService {
     getAccessToken(): string | null {
@@ -25,6 +24,7 @@ export class SessionStorageService {
     }
 
     public get isLoggedIn$(): Observable<boolean> {
-        return of(!!this.getAccessToken()) || of(!!this.getRefreshToken());
+        // return of(!!this.getAccessToken()) || of(!!this.getRefreshToken());   //  uncomment later
+        return of(true); //  temporary, for delete later
     }
 }
