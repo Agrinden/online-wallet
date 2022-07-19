@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { settingsMenu, userProfileMenu } from '@app/core/constants/menu';
+import { settingsMenu, userProfileMenu } from '@app/core/constants';
+
 import { mockUser } from '@app/mocks';
 
 @Component({
