@@ -8,7 +8,7 @@ import { LoginLayoutComponent } from './layouts/login-layout/login-layout.compon
 
 const routes: Routes = [
     {
-        path: '',
+        path: 'login',
         component: LoginLayoutComponent,
         children: [
             {
