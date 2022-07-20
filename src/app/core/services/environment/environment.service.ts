@@ -1,14 +1,13 @@
+import { CoreModule } from '@app/core/core.module';
+
 import { Observable, throwError, catchError } from 'rxjs';
 import { environment } from '@env/environment';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-interface IEnvironment<T> {
-    data: T;
-}
+import { IEnvironment } from '@app/shared/interfaces/environment.interface';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: CoreModule,
 })
 export class EnvironmentService {
     constructor(private http: HttpClient) {}

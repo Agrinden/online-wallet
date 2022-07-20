@@ -1,7 +1,8 @@
+import { EnvironmentService } from '@core';
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
-import { EnvironmentService } from '@core-services/environment/environment.service';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
