@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { settingsMenu, userProfileMenu } from '@app/core/constants';
+import { UserService } from '@app/core/services';
 
-import { UserStoreService } from '@core-services/user-store/user-store.service';
 import { mockUser } from '@app/mocks';
 
 @Component({
@@ -10,7 +10,7 @@ import { mockUser } from '@app/mocks';
     styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent {
-    constructor(private userStoreService: UserStoreService) {}
+    constructor(private userService: UserService) {}
     public userProfileItems = userProfileMenu;
 
     public settingsMenuItems = settingsMenu;
@@ -18,6 +18,6 @@ export class UserProfileComponent {
     public user = mockUser;
 
     public logout(): void {
-        this.userStoreService.signOut();
+        this.userService.signOut();
     }
 }

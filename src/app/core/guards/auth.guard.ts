@@ -9,14 +9,15 @@ import {
     UrlSegment,
 } from '@angular/router';
 import { RouteUrls } from '@app/core/constants/routes';
-import { first, map, Observable, of } from 'rxjs';
-import { SessionStorageService } from '@core-services/session-storage/session-storage.service';
+
+import { first, map, Observable } from 'rxjs';
+import { UserService } from '@core/services';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthGuard implements CanActivate, CanLoad {
-    constructor(private router: Router, private sessionStorageService: SessionStorageService) {}
+    constructor(private router: Router, private userService: UserService) {}
 
     canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
         return this.getIsAuth$();
@@ -26,7 +27,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     }
 
     private getIsAuth$(): Observable<boolean> {
-        return this.sessionStorageService.isLoggedIn$.pipe(
+        return this.userService.isLoggedIn$.pipe(
             first(),
             map((isLoggedIn) => {
                 if (!isLoggedIn) this.router.navigate([RouteUrls.login]);
