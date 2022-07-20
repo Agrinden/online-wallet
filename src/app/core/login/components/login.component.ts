@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     templateUrl: './login.component.html',
@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
     public loginForm!: FormGroup;
+    public isPassVisible!: boolean;
 
     constructor(private formBuilder: FormBuilder) {}
 
@@ -21,12 +22,22 @@ export class LoginComponent implements OnInit {
         }
     }
 
-    // TODO: add validators
+    public toggleVisibility(): void {
+        this.isPassVisible = !this.isPassVisible;
+    }
+
     /**@description method for creating formGroup */
     private getInitializedForm(): FormGroup {
         const form = this.formBuilder.group({
-            email: '',
-            password: '',
+            email: [
+                '',
+                [
+                    Validators.required,
+                    Validators.pattern(/^[a-z0-9]+[\.]{0,1}[a-z0-9]+@[a-z0-9]+\.[a-z]{2,4}$/),
+                    Validators.maxLength(254),
+                ],
+            ],
+            password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
         });
         return form;
     }
