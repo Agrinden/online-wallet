@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { take } from 'rxjs';
+import { RouteUrls } from '@app/core';
 
 @Component({
     templateUrl: './login.component.html',
@@ -9,10 +13,19 @@ export class LoginComponent implements OnInit {
     public loginForm!: FormGroup;
     public isPassVisible!: boolean;
 
-    constructor(private formBuilder: FormBuilder) {}
+    constructor(
+        private router: Router,
+        private formBuilder: FormBuilder,
+        private oidcSecurityService: OidcSecurityService
+    ) {}
 
     public ngOnInit(): void {
         this.loginForm = this.getInitializedForm();
+
+        this.oidcSecurityService
+            .checkAuth()
+            .pipe(take(1))
+            .subscribe(() => {});
     }
 
     public login(): void {
@@ -20,6 +33,15 @@ export class LoginComponent implements OnInit {
             // TODO: add request to BE
             console.log(this.loginForm.value);
         }
+    }
+
+    public signInGoogleHandler(): void {
+        this.oidcSecurityService
+            .authorizeWithPopUp()
+            .pipe(take(1))
+            .subscribe(() => {
+                this.router.navigate([RouteUrls.main]);
+            });
     }
 
     public toggleVisibility(): void {

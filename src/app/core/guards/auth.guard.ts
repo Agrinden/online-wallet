@@ -9,15 +9,19 @@ import {
     UrlSegment,
 } from '@angular/router';
 import { RouteUrls } from '@app/core/constants/routes';
-import { first, map, Observable, of } from 'rxjs';
+import { first, map, Observable, take } from 'rxjs';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthGuard implements CanActivate, CanLoad {
-    private isAuth$: Observable<boolean> = of(true);
+    private readonly isAuth$: Observable<boolean> = this.oidcSecurityService.checkAuth().pipe(
+        take(1),
+        map(({ isAuthenticated }) => isAuthenticated)
+    );
 
-    constructor(private router: Router) {}
+    constructor(private router: Router, private oidcSecurityService: OidcSecurityService) {}
     canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
         return this.getIsAuth$();
     }
