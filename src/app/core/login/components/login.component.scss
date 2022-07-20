@@ -15,7 +15,7 @@ $backColor: #225367;
 .form {
     @include generalWidth;
     flex-direction: column;
-    width: 320px;
+    width: 400px;
     margin-top: 100px;
     border: 1px solid white;
     padding: 20px;
@@ -23,9 +23,10 @@ $backColor: #225367;
 }
 
 .logo {
-    @include generalWidth;
+    display: flex;
+    justify-content: start;
     max-width: 100%;
-    justify-content: center;
+    width: 500px;
     padding-top: 50px;
 }
 
@@ -33,6 +34,26 @@ $backColor: #225367;
     color: blue;
     display: flex;
     justify-content: center;
+}
+
+.example-full-width {
+    position: relative;
+    width: 360px;
+}
+
+.eye-icon {
+    position: absolute;
+    margin-left: -20px;
+    margin-top: -10px;
+    color: white;
+    cursor: pointer;
+}
+
+.forgot-password {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    color: white;
 }
 
 .welcome {
@@ -59,8 +80,14 @@ $backColor: #225367;
 
 @media screen and (max-width: 720px) {
     .welcome {
-        font-size: 4rem;
-        margin-top: 100px;
+        font-size: 3rem;
+        margin-top: 50px;
+    }
+    .form {
+        width: 320px;
+    }
+    .example-full-width {
+        width: 280px;
     }
 }
 
@@ -73,5 +100,8 @@ $backColor: #225367;
     .form {
         width: 260px;
         padding: 0 5px;
+    }
+    .example-full-width {
+        width: 240px;
     }
 }
