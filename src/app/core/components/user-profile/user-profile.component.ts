@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { settingsMenu, userProfileMenu } from '@app/core/constants';
+import { settingsMenu, userProfileMenu } from '@core';
 
 import { mockUser } from '@app/mocks';
 
