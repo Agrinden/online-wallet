@@ -1,3 +1,4 @@
 export const environment = {
-  searchEngineUrl: 'http://google.com',
+    production: false,
+    searchEngineUrl: 'http://google.com',
 };
