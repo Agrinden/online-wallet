@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '@app/shared/shared.module';
 import { CoreModule } from '@app/core/core.module';
 import { CategoriesRoutingModule } from '@app/modules/categories/categories-routing.module';
-import { CategoriesComponent } from '@app/modules/categories/components/categories/categories.component';
+import { CategoriesComponent } from '@modules-categories/categories/categories.component';
 
 @NgModule({
     declarations: [CategoriesComponent],
