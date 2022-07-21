@@ -1,10 +1,9 @@
-import { CoreModule } from '@app/core/core.module';
-
+import { CoreModule } from '@core/core.module';
 import { Observable, throwError, catchError } from 'rxjs';
 import { environment } from '@env/environment';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IEnvironment } from '@app/shared/interfaces/environment.interface';
+import { IEnvironment } from '@app/shared';
 
 @Injectable({
     providedIn: CoreModule,

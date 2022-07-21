@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { settingsMenu, userProfileMenu } from '@app/core/constants';
-import { UserService } from '@app/core/services';
+import { settingsMenu, userProfileMenu } from '@core/constants';
+import { UserService } from '@core/services';
 
-import { mockUser } from '@app/mocks';
+import { mockUser } from '@core';
 
 @Component({
     selector: 'app-user-profile',

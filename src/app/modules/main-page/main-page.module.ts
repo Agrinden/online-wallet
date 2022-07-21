@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CoreModule } from '@app/core/core.module';
-import { SharedModule } from '@app/shared/shared.module';
-import { MainPageRoutingModule } from '@app/modules/main-page/main-page-routing.module';
-import { MainPageComponent } from '@app/modules/main-page/components/main-page/main-page.component';
+import { CoreModule } from '@core/core.module';
+import { SharedModule } from '@shared/shared.module';
+import { MainPageComponent, MainPageRoutingModule } from '@modules/main-page';
 
 @NgModule({
     declarations: [MainPageComponent],

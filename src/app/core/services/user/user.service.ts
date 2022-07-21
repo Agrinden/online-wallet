@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { RouteUrls } from '@app/core/constants';
-
-import { CoreModule } from '@app/core/core.module';
+import { RouteUrls } from '@core/constants';
+import { CoreModule } from '@core/core.module';
 import { AccessTokenService } from '@core/services';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 

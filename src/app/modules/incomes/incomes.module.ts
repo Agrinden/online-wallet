@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '@app/shared/shared.module';
-import { CoreModule } from '@app/core/core.module';
-import { IncomesRoutingModule } from '@app/modules/incomes/incomes-routing.module';
-import { IncomesComponent } from '@app/modules/incomes/components/incomes/incomes.component';
+import { SharedModule } from '@shared/shared.module';
+import { CoreModule } from '@core/core.module';
+import { IncomesComponent, IncomesRoutingModule } from '@modules/incomes';
 
 @NgModule({
     declarations: [IncomesComponent],

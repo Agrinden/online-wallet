@@ -8,10 +8,10 @@ import {
     RouterStateSnapshot,
     UrlSegment,
 } from '@angular/router';
-import { RouteUrls } from '@app/core/constants/routes';
+import { RouteUrls } from '@core';
 
 import { first, map, Observable } from 'rxjs';
-import { UserService } from '@core/services';
+import { UserService } from '@core';
 
 @Injectable({
     providedIn: 'root',
