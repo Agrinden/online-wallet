@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
+import { CoreModule } from '@app/core/core.module';
 
-@Injectable()
+@Injectable({
+    providedIn: CoreModule,
+})
 export class AccessTokenService {
     get(): string | null {
         return sessionStorage.getItem('token');
