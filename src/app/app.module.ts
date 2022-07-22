@@ -7,11 +7,9 @@ import { AppComponent } from '@app/app.component';
 import { SharedModule } from '@shared/shared.module';
 import { CoreModule } from '@core/core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
-import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
 import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
-import { secrets } from '@secrets/secrets';
 import { HomeLayoutComponent, LoginLayoutComponent } from '@core';
+import { secrets } from '@secrets/secrets';
 
 @NgModule({
     declarations: [AppComponent, LoginLayoutComponent, HomeLayoutComponent],

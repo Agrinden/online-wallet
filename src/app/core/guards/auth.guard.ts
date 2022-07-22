@@ -17,7 +17,8 @@ import { UserService } from '@core';
     providedIn: 'root',
 })
 export class AuthGuard implements CanActivate, CanLoad {
-    constructor(private router: Router,private userService: UserService, private oidcSecurityService: OidcSecurityService) {}
+    constructor(private router: Router, private userService: UserService) {}
+
     canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
         return this.getIsAuth$();
     }
