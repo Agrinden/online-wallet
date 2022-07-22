@@ -11,12 +11,13 @@
         <mat-nav-list>
             <a *ngFor="let item of menuItems" mat-list-item href="{{ item.route }}">
                 <mat-icon>{{ item.icon }}</mat-icon
-                ><span>{{ item.name }}</span></a
-            >
+                ><span>{{ item.name }}</span>
+            </a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
         <app-header [drawer]="drawer" [isHandset]="isHandset$ | async"> </app-header>
+        <app-subheader> </app-subheader>
         <ng-content><!-- Add Content Here --></ng-content>
     </mat-sidenav-content>
 </mat-sidenav-container>

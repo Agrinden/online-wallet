@@ -1,0 +1,11 @@
+::ng-deep {
+    .cdk-global-overlay-wrapper {
+        .cdk-overlay-pane {
+            padding: 20% 0;
+
+            .toaster-container {
+                align-items: center;
+            }
+        }
+    }
+}

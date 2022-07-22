@@ -1,0 +1,27 @@
+.toaster-content--container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .toaster-content--icons {
+        flex-direction: column;
+        display: flex;
+        width: 100%;
+        align-items: center;
+
+        .toaster-content-check-circle {
+            color: green;
+            font-size: 90px;
+            width: 90px;
+            height: fit-content;
+            text-align: center;
+        }
+
+        .toaster-content-close-btn {
+            cursor: pointer;
+            height: 24px;
+            width: 100%;
+            text-align: end;
+        }
+    }
+}
