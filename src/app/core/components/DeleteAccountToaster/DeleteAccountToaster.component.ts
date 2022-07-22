@@ -10,12 +10,12 @@ import { DelAccToasterContent } from '@core/components/DeleteAccountToaster/Dele
 export class DelAccToaster implements OnInit {
     constructor(private _snackBar: MatSnackBar) {}
 
-    dialogHeading = 'Account deletion';
-    dialogContent =
+    public dialogHeading = 'Account deletion';
+    public dialogContent =
         'Are you sure you want to delete your account? All your data will be lost, you can download your report from the\n' +
         'Statistics page before confirming';
 
-    openToaster(value: boolean) {
+    public openToaster(value: boolean) {
         if (value)
             this._snackBar.openFromComponent(DelAccToasterContent, {
                 panelClass: 'snackbar-container',

@@ -7,13 +7,13 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
     templateUrl: 'Dialog.component.html',
 })
 export class Dialog {
-    @Input() handleClose!: (value: boolean) => void;
-    @Input() dialogHeading!: string;
-    @Input() dialogContent!: string;
+    @Input() public handleClose!: (value: boolean) => void;
+    @Input() public dialogHeading!: string;
+    @Input() public dialogContent!: string;
 
     constructor(public dialog: MatDialog) {}
 
-    openDialog(): void {
+    public openDialog(): void {
         const dialogRef = this.dialog.open(DialogContent, {
             data: {
                 dialogHeading: this.dialogHeading,
@@ -41,18 +41,18 @@ interface DialogContentInputValues {
     templateUrl: 'DialogContent.component.html',
 })
 export class DialogContent {
-    dialogHeading = '';
-    dialogContent = '';
+    public dialogHeading = '';
+    public dialogContent = '';
 
     constructor(
-        @Inject(MAT_DIALOG_DATA) data: DialogContentInputValues,
+        @Inject(MAT_DIALOG_DATA) private data: DialogContentInputValues,
         public dialogRef: MatDialogRef<DialogContent>
     ) {
         this.dialogHeading = data.dialogHeading;
         this.dialogContent = data.dialogContent;
     }
 
-    handleClick(res: boolean) {
+    public handleClick(res: boolean) {
         this.dialogRef.close(res);
     }
 }

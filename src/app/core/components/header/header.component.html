@@ -9,7 +9,6 @@
         <mat-icon aria-hidden="false" class="header-icons" aria-label="person outlined">person_outlined</mat-icon>
     </div>
     <div class="header-content">
-        <del-acc-toaster></del-acc-toaster>
         <ng-content></ng-content>
     </div>
     <div class="header-right-icons">
@@ -18,5 +17,17 @@
         <mat-icon aria-hidden="false" class="header-icons" aria-label="email outlined">mail_outlined</mat-icon>
         <mat-icon aria-hidden="false" class="header-icons" aria-label="configure outlined">settings_outlined</mat-icon>
         <mat-icon aria-hidden="false" class="header-icons" aria-label="configure outlined">tune_outlined</mat-icon>
+
+        <app-notifications>
+            <mat-icon aria-hidden="false" class="header-icons notifications" aria-label="notifications">
+                notifications
+            </mat-icon>
+        </app-notifications>
+
+        <app-user-profile class="header-right-icons">
+            <mat-icon aria-hidden="false" class="header-icons profile-menu" aria-label="account_circle">
+                account_circle
+            </mat-icon>
+        </app-user-profile>
     </div>
 </mat-toolbar>

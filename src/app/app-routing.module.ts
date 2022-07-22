@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RouteUrls } from '@app/core/constants/routes';
-import { AuthGuard } from '@app/core/guards/auth.guard';
-import { NotFoundComponent } from '@app/modules/not-found/not-found.component';
-import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
-import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
+import { RouteUrls } from '@core/constants';
+import { AuthGuard, HomeLayoutComponent, LoginLayoutComponent } from '@core';
+import { NotFoundComponent } from './modules/not-found/not-found.component';
 
 const routes: Routes = [
     {
-        path: '',
+        path: 'login',
         component: LoginLayoutComponent,
         children: [
             {

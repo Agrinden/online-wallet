@@ -1,9 +1,10 @@
-.toaster-content--container {
+.toaster-content-container {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    text-align: center;
 
-    .toaster-content--icons {
+    .toaster-content-icons {
         flex-direction: column;
         display: flex;
         width: 100%;
@@ -14,7 +15,6 @@
             font-size: 90px;
             width: 90px;
             height: fit-content;
-            text-align: center;
         }
 
         .toaster-content-close-btn {

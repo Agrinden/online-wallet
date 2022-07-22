@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainPageComponent } from '@app/modules/main-page/components/main-page/main-page.component';
+import { MainPageComponent } from '@modules/main-page';
 
 const routes: Routes = [{ path: '', component: MainPageComponent }];
 

@@ -1,0 +1,19 @@
+<div [matMenuTriggerFor]="menu">
+    <ng-content select=".notifications"></ng-content>
+</div>
+<mat-menu #menu="matMenu">
+    <ng-container *ngFor="let message of notifications">
+        <button mat-menu-item [matMenuTriggerFor]="messages">
+            <mat-icon> person_outlined </mat-icon>
+            <span>{{ message.name }}</span>
+        </button>
+    </ng-container>
+</mat-menu>
+
+<mat-menu #messages="matMenu">
+    <ng-container *ngFor="let item of notifications">
+        <button mat-menu-item *ngFor="let msg of item.desc">
+            <button mat-menu-item>{{ msg.date | date: 'mediumDate' }}: {{ msg.text }}</button>
+        </button>
+    </ng-container>
+</mat-menu>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatSnackBarRef } from '@angular/material/snack-bar';
+import { UserService } from '@core';
 
 @Component({
     selector: 'del-acc-toaster-content',
@@ -7,9 +8,10 @@ import { MatSnackBarRef } from '@angular/material/snack-bar';
     styleUrls: ['DeleteAccountToasterContent.component.scss'],
 })
 export class DelAccToasterContent {
-    constructor(public snackbarRef: MatSnackBarRef<DelAccToasterContent>) {}
+    constructor(private userService: UserService, public snackbarRef: MatSnackBarRef<DelAccToasterContent>) {}
 
-    closeHandler() {
+    public closeHandler() {
         this.snackbarRef.dismiss();
+        this.userService.signOut();
     }
 }

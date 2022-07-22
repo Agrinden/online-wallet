@@ -1,25 +1,22 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
-
-import { LoginComponent } from './components/login.component';
+import { RouterModule } from '@angular/router';
+import { MaterialModule } from '@app/shared';
+import { LoginComponent } from '@core/login';
 
 @NgModule({
-  declarations: [LoginComponent],
-  imports: [
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: LoginComponent
-      }
-  ])],
+    declarations: [LoginComponent],
+    imports: [
+        MaterialModule,
+        ReactiveFormsModule,
+        CommonModule,
+        RouterModule.forChild([
+            {
+                path: '',
+                component: LoginComponent,
+            },
+        ]),
+    ],
 })
 export class LoginModule {}
