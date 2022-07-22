@@ -1,6 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IExpense } from '@app/shared';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-main-page',
@@ -8,7 +6,7 @@ import { IExpense } from '@app/shared';
     styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent implements OnInit {
-    constructor(public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: IExpense) {}
+    constructor() {}
 
     ngOnInit(): void {}
 
