@@ -4,7 +4,6 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { SharedModule } from '@app/shared';
 import { HeaderComponent, NotificationsComponent, SidenavComponent, UserProfileComponent } from '@core/components';
 import { DelAccToaster } from '@core/components/DeleteAccountToaster/DeleteAccountToaster.component';
-import { SubHeaderComponent } from '@core/components/subHeader/subHeader.component';
 import { DelAccToasterContent } from '@core/components/DeleteAccountToaster/DeleteAccountToasterContent/DeleteAccountToasterContent.component';
 
 @NgModule({
@@ -14,7 +13,6 @@ import { DelAccToasterContent } from '@core/components/DeleteAccountToaster/Dele
         UserProfileComponent,
         NotificationsComponent,
         DelAccToaster,
-        SubHeaderComponent,
         DelAccToasterContent,
     ],
     imports: [CommonModule, SharedModule, LayoutModule],
