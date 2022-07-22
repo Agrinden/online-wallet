@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { IncomesComponent } from '@app/modules/incomes/components/incomes/incomes.component';
+import { IncomesComponent } from '@modules/incomes';
 
 const routes: Routes = [{ path: '', component: IncomesComponent }];
 
