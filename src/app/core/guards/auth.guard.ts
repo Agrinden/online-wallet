@@ -8,20 +8,16 @@ import {
     RouterStateSnapshot,
     UrlSegment,
 } from '@angular/router';
-import { RouteUrls } from '@app/core/constants/routes';
-import { first, map, Observable, take } from 'rxjs';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { RouteUrls } from '@core';
+
+import { first, map, Observable } from 'rxjs';
+import { UserService } from '@core';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthGuard implements CanActivate, CanLoad {
-    private readonly isAuth$: Observable<boolean> = this.oidcSecurityService.checkAuth().pipe(
-        take(1),
-        map(({ isAuthenticated }) => isAuthenticated)
-    );
-
-    constructor(private router: Router, private oidcSecurityService: OidcSecurityService) {}
+    constructor(private router: Router,private userService: UserService, private oidcSecurityService: OidcSecurityService) {}
     canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
         return this.getIsAuth$();
     }
@@ -30,11 +26,11 @@ export class AuthGuard implements CanActivate, CanLoad {
     }
 
     private getIsAuth$(): Observable<boolean> {
-        return this.isAuth$.pipe(
+        return this.userService.isLoggedIn$.pipe(
             first(),
-            map((isAuth) => {
-                if (!isAuth) this.router.navigate([RouteUrls.login]);
-                return isAuth;
+            map((isLoggedIn) => {
+                if (!isLoggedIn) this.router.navigate([RouteUrls.login]);
+                return isLoggedIn;
             })
         );
     }

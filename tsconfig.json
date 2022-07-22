@@ -8,12 +8,9 @@
             "@secrets/*": ["secrets/*"],
             "@app/*": ["app/*"],
             "@shared/*": ["app/shared/*"],
+            "@core/*": ["app/core/*"],
             "@core": ["app/core/index.ts"],
-            "@modules/*": ["app/modules/*"],
-            "@modules-main-page/*": ["app/modules/main-page/components/*"],
-            "@modules-categories/*": ["app/modules/categories/components/*"],
-            "@modules-statistics/*": ["app/modules/statistics/components/*"],
-            "@modules-incomes-expenses/*": ["app/modules/incomes-expenses/components/*"]
+            "@modules/*": ["app/modules/*"]
         },
         "outDir": "./dist/out-tsc",
         "forceConsistentCasingInFileNames": true,
