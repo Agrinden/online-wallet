@@ -1,21 +1,8 @@
-<mat-toolbar color="primary" class="header-container">
-    <div class="header-left-icons">
-        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset">
-            <mat-icon aria-label="Side nav toggle icon" class="header-icons">menu</mat-icon>
-        </button>
-        <mat-icon aria-hidden="false" class="header-icons" aria-label="home">home_outlined</mat-icon>
-        <mat-icon aria-hidden="false" class="header-icons" aria-label="person outlined">person_outlined</mat-icon>
-    </div>
+<mat-toolbar class="header-container">
     <div class="header-content">
         <ng-content></ng-content>
     </div>
     <div class="header-right-icons">
-        <mat-icon aria-hidden="false" class="header-icons" aria-label="home">today_outlined</mat-icon>
-        <mat-icon aria-hidden="false" class="header-icons" aria-label="note alt outlined">note_alt_outlined</mat-icon>
-        <mat-icon aria-hidden="false" class="header-icons" aria-label="email outlined">mail_outlined</mat-icon>
-        <mat-icon aria-hidden="false" class="header-icons" aria-label="configure outlined">settings_outlined</mat-icon>
-        <mat-icon aria-hidden="false" class="header-icons" aria-label="configure outlined">tune_outlined</mat-icon>
-
         <app-notifications>
             <mat-icon aria-hidden="false" class="header-icons notifications" aria-label="notifications">
                 notifications

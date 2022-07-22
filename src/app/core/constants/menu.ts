@@ -1,3 +1,5 @@
+import { RouteUrls } from './routes';
+
 export const userProfileMenu = [
     {
         name: 'Settings',
@@ -27,3 +29,22 @@ export const settingsMenu = [
         route: '',
     },
 ];
+
+export const menuTabs = [
+    { name: 'Home', icon: 'home', route: RouteUrls.main },
+    { name: 'Expenses', icon: 'output', route: RouteUrls.expenses },
+    { name: 'Incomes', icon: 'exit_to_app', route: RouteUrls.incomes },
+    { name: 'Categories', icon: 'category', route: RouteUrls.categories },
+    { name: 'Statistics', icon: 'bar_chart', route: RouteUrls.statistics },
+];
+
+export interface IExpense {
+    id: string;
+    walletId: string;
+    amount: number;
+    categoryId: string;
+    subcategoryId?: string;
+    payerId: string;
+    date: string;
+    message: string;
+}

@@ -1,24 +1,16 @@
-import { Component } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { menuTabs } from '@core/constants';
 
 @Component({
     selector: 'app-sidenav',
     templateUrl: './sidenav.component.html',
     styleUrls: ['./sidenav.component.scss'],
 })
-export class SidenavComponent {
-    isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-        map((result) => result.matches),
-        shareReplay()
-    );
+export class SidenavComponent implements OnInit {
+    public menuItems = menuTabs;
+    public activeLink = menuTabs[0];
 
-    menuItems = [
-        { name: 'Login', icon: 'lock', route: '' },
-        { name: 'Register', icon: 'person_add', route: '' },
-        { name: 'Logout', icon: 'exit_to_app', route: '' },
-    ];
-
-    constructor(private breakpointObserver: BreakpointObserver) {}
+    ngOnInit(): void {
+        this.activeLink = this.menuItems[0];
+    }
 }

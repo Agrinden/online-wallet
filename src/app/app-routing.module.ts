@@ -6,21 +6,16 @@ import { NotFoundComponent } from './modules/not-found/not-found.component';
 
 const routes: Routes = [
     {
-        path: 'login',
-        component: LoginLayoutComponent,
-        children: [
-            {
-                path: '',
-                loadChildren: () => import('./core/login/login.module').then((m) => m.LoginModule),
-            },
-        ],
-    },
-
-    {
         path: '',
         component: HomeLayoutComponent,
         canActivate: [AuthGuard],
         children: [
+            {
+                path: '',
+                redirectTo: RouteUrls.main,
+                pathMatch: 'full',
+            },
+
             {
                 path: RouteUrls.main,
                 loadChildren: () => import('./modules/main-page/main-page.module').then((m) => m.MainPageModule),
@@ -32,9 +27,8 @@ const routes: Routes = [
             },
 
             {
-                path: RouteUrls.incomes_expenses,
-                loadChildren: () =>
-                    import('./modules/incomes-expenses/incomes-expenses.module').then((m) => m.IncomesExpensesModule),
+                path: RouteUrls.expenses,
+                loadChildren: () => import('./modules/expenses/expenses.module').then((m) => m.ExpensesModule),
             },
 
             {
@@ -45,6 +39,23 @@ const routes: Routes = [
             {
                 path: RouteUrls.statistics,
                 loadChildren: () => import('./modules/statistics/statistics.module').then((m) => m.StatisticsModule),
+            },
+        ],
+    },
+
+    {
+        path: '',
+        component: LoginLayoutComponent,
+        children: [
+            {
+                path: '',
+                redirectTo: RouteUrls.login,
+                pathMatch: 'full',
+            },
+
+            {
+                path: RouteUrls.login,
+                loadChildren: () => import('./core/login/login.module').then((m) => m.LoginModule),
             },
         ],
     },

@@ -1,22 +1,21 @@
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav
-        #drawer
-        class="sidenav"
-        fixedInViewport
-        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-        [mode]="(isHandset$ | async) ? 'over' : 'side'"
-        [opened]="(isHandset$ | async) === false"
-    >
-        <mat-toolbar>Menu</mat-toolbar>
-        <mat-nav-list>
-            <a *ngFor="let item of menuItems" mat-list-item href="{{ item.route }}">
-                <mat-icon>{{ item.icon }}</mat-icon
-                ><span>{{ item.name }}</span></a
+    <app-header>
+        <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+            <a
+                mat-tab-link
+                routerLinkActive="active-link"
+                *ngFor="let link of menuItems"
+                [routerLinkActiveOptions]="{ exact: true }"
+                #rla="routerLinkActive"
+                [active]="rla.isActive"
+                [routerLink]="link.route"
             >
-        </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <app-header [drawer]="drawer" [isHandset]="isHandset$ | async"> </app-header>
-        <ng-content><!-- Add Content Here --></ng-content>
-    </mat-sidenav-content>
+                <mat-icon aria-hidden="false" class="header-icons"> {{ link.icon }} </mat-icon>
+                <span>{{ link.name }}</span>
+            </a>
+        </nav>
+    </app-header>
+    <mat-tab-nav-panel #tabPanel>
+        <ng-content></ng-content>
+    </mat-tab-nav-panel>
 </mat-sidenav-container>
