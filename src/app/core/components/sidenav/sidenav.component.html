@@ -5,10 +5,10 @@
                 mat-tab-link
                 routerLinkActive="active-link"
                 *ngFor="let link of menuItems"
-                [routerLinkActiveOptions]="{ exact: true }"
                 #rla="routerLinkActive"
                 [active]="rla.isActive"
                 [routerLink]="link.route"
+                [routerLinkActiveOptions]="{ exact: true }"
             >
                 <mat-icon aria-hidden="false" class="header-icons"> {{ link.icon }} </mat-icon>
                 <span>{{ link.name }}</span>

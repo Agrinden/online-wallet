@@ -1,5 +1,13 @@
 :host {
     .sidenav-container {
         height: 100%;
+
+        .active-link {
+            background: var(--active-link);
+        }
+
+        .header-icons {
+            margin: 0 10px;
+        }
     }
 }

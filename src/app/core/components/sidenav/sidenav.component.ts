@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { menuTabs } from '@core/constants';
 
 @Component({
@@ -6,11 +6,7 @@ import { menuTabs } from '@core/constants';
     templateUrl: './sidenav.component.html',
     styleUrls: ['./sidenav.component.scss'],
 })
-export class SidenavComponent implements OnInit {
+export class SidenavComponent {
     public menuItems = menuTabs;
     public activeLink = menuTabs[0];
-
-    ngOnInit(): void {
-        this.activeLink = this.menuItems[0];
-    }
 }
