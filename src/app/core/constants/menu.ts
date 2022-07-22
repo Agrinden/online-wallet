@@ -37,14 +37,3 @@ export const menuTabs = [
     { name: 'Categories', icon: 'category', route: RouteUrls.categories },
     { name: 'Statistics', icon: 'bar_chart', route: RouteUrls.statistics },
 ];
-
-export interface IExpense {
-    id: string;
-    walletId: string;
-    amount: number;
-    categoryId: string;
-    subcategoryId?: string;
-    payerId: string;
-    date: string;
-    message: string;
-}
