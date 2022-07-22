@@ -2,9 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { LayoutModule } from '@angular/cdk/layout';
 import { SharedModule } from '@app/shared';
-import { HeaderComponent, NotificationsComponent, SidenavComponent, UserProfileComponent } from '@core/components';
-import { DelAccToaster } from '@core/components/DeleteAccountToaster/DeleteAccountToaster.component';
-import { DelAccToasterContent } from '@core/components/DeleteAccountToaster/DeleteAccountToasterContent/DeleteAccountToasterContent.component';
+import {
+    DeleteAccountToasterComponent,
+    DeleteAccountToasterContentComponent,
+    HeaderComponent,
+    NotificationsComponent,
+    SidenavComponent,
+    UserProfileComponent,
+} from '@core/components';
 
 @NgModule({
     declarations: [
@@ -12,8 +17,8 @@ import { DelAccToasterContent } from '@core/components/DeleteAccountToaster/Dele
         SidenavComponent,
         UserProfileComponent,
         NotificationsComponent,
-        DelAccToaster,
-        DelAccToasterContent,
+        DeleteAccountToasterContentComponent,
+        DeleteAccountToasterComponent,
     ],
     imports: [CommonModule, SharedModule, LayoutModule],
     exports: [HeaderComponent, SidenavComponent],

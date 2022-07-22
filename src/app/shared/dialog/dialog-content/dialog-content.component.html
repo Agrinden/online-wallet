@@ -1,0 +1,23 @@
+<div class="dialog-text">
+    <div mat-dialog-title class="dialog-heading">{{ dialogHeading }}</div>
+    <div class="dialog-content">{{ dialogContent }}</div>
+</div>
+<div mat-dialog-actions class="dialog-buttons">
+    <button
+        mat-button
+        mat-dialog-close
+        class="dialog-confirm-btn"
+        (click)="handleClose(ConfirmationDialogChoise.confirm)"
+    >
+        Yes
+    </button>
+    <button
+        mat-button
+        mat-dialog-close
+        cdkFocusInitial
+        class="dialog-cancel-btn"
+        (click)="handleClose(ConfirmationDialogChoise.cancel)"
+    >
+        No
+    </button>
+</div>

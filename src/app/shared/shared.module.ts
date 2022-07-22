@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@app/shared/material.module';
 
-import { Dialog, DialogContent } from '@shared/Dialog/Dialog.component';
+import { DialogComponent, DialogContentComponent } from '@shared/dialog';
 
 @NgModule({
-    declarations: [Dialog, DialogContent],
+    declarations: [DialogComponent, DialogContentComponent],
     imports: [CommonModule, MaterialModule, RouterModule],
-    exports: [MaterialModule, RouterModule, Dialog],
+    exports: [MaterialModule, RouterModule, DialogComponent],
 })
 export class SharedModule {}
