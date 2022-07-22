@@ -33,8 +33,7 @@ const routes: Routes = [
 
             {
                 path: RouteUrls.incomes_expenses,
-                loadChildren: () =>
-                    import('./modules/incomes-expenses/incomes-expenses.module').then((m) => m.IncomesExpensesModule),
+                loadChildren: () => import('./modules/expenses/expenses.module').then((m) => m.ExpensesModule),
             },
 
             {
