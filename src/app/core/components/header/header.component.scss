@@ -1,6 +1,7 @@
 :host {
     .header-container {
         width: 100%;
+        align-items: flex-end;
         display: flex;
 
         .header-icons {
