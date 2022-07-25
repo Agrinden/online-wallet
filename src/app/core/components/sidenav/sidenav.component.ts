@@ -29,6 +29,6 @@ export class SidenavComponent {
             .open(IncomeComponent)
             .beforeClosed()
             .pipe(filter((data) => !!data))
-            .subscribe((data) => console.log(data));
+            .subscribe();
     }
 }
