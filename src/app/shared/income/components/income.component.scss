@@ -1,0 +1,102 @@
+:host::ng-deep {
+    .mat-placeholder-required {
+        display: none !important;
+    }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+@mixin generalWidth($display: flex, $justify-content: center) {
+    display: $display;
+    justify-content: $justify-content;
+}
+
+.income-dialog {
+    width: 500px;
+    padding: 10px 20px;
+    background-color: #424242;
+}
+
+.header-module {
+    @include generalWidth(flex, end);
+}
+
+.title {
+    margin-right: 140px;
+}
+
+.delete {
+    margin-top: 5px;
+    background-size: cover;
+    cursor: pointer;
+    outline: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    border: 0.5px solid gray;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.mat-typography {
+    display: flex;
+    flex-direction: column;
+}
+
+.field {
+    @include generalWidth(flex, space-between);
+}
+
+.note-field {
+    margin-top: 10px;
+}
+
+.field-title {
+    display: inline-block;
+    padding-top: 15px;
+}
+
+.income-field {
+    width: 300px;
+}
+
+.example-full-width {
+    width: 300px;
+}
+
+.errors {
+    position: absolute;
+    color: red;
+    padding-top: 50px;
+    padding-left: 160px;
+    margin: 2px 0;
+}
+
+.note-error {
+    position: absolute;
+    color: red;
+    padding-top: 50px;
+    padding-left: 160px;
+    margin-top: 66px;
+}
+
+.form-error {
+    color: red;
+    margin-bottom: 10px;
+    padding-left: 160px;
+}
+
+.down-button {
+    @include generalWidth(flex, end);
+}
+
+.mat-select-placeholder[title='required'] {
+    display: none;
+}

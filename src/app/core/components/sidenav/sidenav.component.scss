@@ -19,3 +19,14 @@
 span {
     padding-left: 10px;
 }
+
+.add-income {
+    display: inline-block;
+    align-items: center;
+    background-color: gray;
+    width: 300px;
+    height: 40px;
+    font-size: medium;
+    border: 1px solid black;
+    cursor: pointer;
+}

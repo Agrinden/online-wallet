@@ -1,3 +1,4 @@
+import { IncomeModule } from './../shared/income/income.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -6,7 +7,7 @@ import { HeaderComponent, NotificationsComponent, SidenavComponent, UserProfileC
 
 @NgModule({
     declarations: [HeaderComponent, SidenavComponent, UserProfileComponent, NotificationsComponent],
-    imports: [CommonModule, SharedModule, LayoutModule],
+    imports: [CommonModule, SharedModule, LayoutModule, IncomeModule],
     exports: [HeaderComponent, SidenavComponent],
 })
 export class CoreModule {}
