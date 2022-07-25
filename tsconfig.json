@@ -12,7 +12,8 @@
             "@modules-main-page/*": ["app/modules/main-page/components/*"],
             "@modules-categories/*": ["app/modules/categories/components/*"],
             "@modules-statistics/*": ["app/modules/statistics/components/*"],
-            "@modules-incomes-expenses/*": ["app/modules/incomes-expenses/components/*"]
+            "@modules-incomes-expenses/*": ["app/modules/incomes-expenses/components/*"],
+            "@modules-wallet/*": ["app/modules/wallet/*"]
         },
         "outDir": "./dist/out-tsc",
         "forceConsistentCasingInFileNames": true,

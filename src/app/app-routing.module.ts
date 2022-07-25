@@ -48,6 +48,10 @@ const routes: Routes = [
                 path: RouteUrls.statistics,
                 loadChildren: () => import('./modules/statistics/statistics.module').then((m) => m.StatisticsModule),
             },
+            {
+                path: RouteUrls.wallet,
+                loadChildren: () => import('./modules/wallet/wallet.module').then((m) => m.WalletModule),
+            },
         ],
     },
 

@@ -1,3 +1,4 @@
+import { WalletModule } from '@modules/wallet/wallet.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CoreModule } from '@app/core/core.module';
@@ -7,6 +8,6 @@ import { MainPageComponent } from '@app/modules/main-page/components/main-page/m
 
 @NgModule({
     declarations: [MainPageComponent],
-    imports: [CommonModule, MainPageRoutingModule, SharedModule, CoreModule],
+    imports: [CommonModule, MainPageRoutingModule, SharedModule, CoreModule, WalletModule],
 })
 export class MainPageModule {}

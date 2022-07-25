@@ -1,3 +1,4 @@
+import { WalletModule } from '@modules/wallet/wallet.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,12 +18,12 @@ import { LoginLayoutComponent } from './layouts/login-layout/login-layout.compon
     declarations: [AppComponent, LoginLayoutComponent, HomeLayoutComponent],
     imports: [
         BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         CoreModule,
         SharedModule,
-        ReactiveFormsModule,
-        FormsModule,
         HttpClientModule,
     ],
     providers: [],

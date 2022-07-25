@@ -1,0 +1,28 @@
+<div class="wrapper" #createWalletForm>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="container">
+            <mat-form-field appearance="fill">
+                <mat-label>Wallet name</mat-label>
+                <input matInput placeholder="Wallet name" formControlName="name" />
+                <mat-hint *ngIf="form.get('name')?.errors">Please enter wallet name</mat-hint>
+            </mat-form-field>
+
+            <app-currency-dropdown (currencyChange)="currencyChange($event)"></app-currency-dropdown>
+
+            <mat-slide-toggle color="warn" formControlName="isDefault">Set as default</mat-slide-toggle>
+
+            <div class="form-buttons">
+                <button
+                    mat-flat-button
+                    color="primary"
+                    [mat-dialog-close]="true"
+                    [disabled]="!form.valid"
+                    type="submit"
+                >
+                    Create
+                </button>
+                <button mat-flat-button color="warn" (click)="onCancel()" [mat-dialog-close]="false">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

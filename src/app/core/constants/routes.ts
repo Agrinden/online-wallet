@@ -5,4 +5,5 @@ export enum RouteUrls {
     incomes_expenses = 'expenses',
     incomes = 'incomes',
     statistics = 'statistics',
+    wallet = 'wallet',
 }
