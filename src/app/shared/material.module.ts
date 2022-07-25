@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -24,6 +24,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         MatInputModule,
         MatFormFieldModule,
         MatMenuModule,
+        MatTabsModule,
         MatDialogModule,
         MatSnackBarModule,
     ],

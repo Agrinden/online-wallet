@@ -1,33 +1,36 @@
-<mat-toolbar color="primary" class="header-container">
-    <div class="header-left-icons">
-        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset">
-            <mat-icon aria-label="Side nav toggle icon" class="header-icons">menu</mat-icon>
-        </button>
-        <mat-icon aria-hidden="false" class="header-icons" (click)="redirectToPage('main')" aria-label="home"
-            >home_outlined</mat-icon
-        >
-        <mat-icon aria-hidden="false" class="header-icons" aria-label="person outlined">person_outlined</mat-icon>
-    </div>
-    <div class="header-content">
+<mat-sidenav-container class="sidenav-container">
+    <mat-toolbar class="header-container">
+        <div class="header-content">
+            <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+                <a
+                    mat-tab-link
+                    routerLinkActive="active-link"
+                    *ngFor="let link of menuItems"
+                    #rla="routerLinkActive"
+                    [active]="rla.isActive"
+                    [routerLink]="link.route"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                >
+                    <mat-icon aria-hidden="false" class="header-icons"> {{ link.icon }} </mat-icon>
+                    <span>{{ link.name }}</span>
+                </a>
+            </nav>
+        </div>
+        <div class="header-right-icons">
+            <app-notifications>
+                <mat-icon aria-hidden="false" class="header-icons notifications" aria-label="notifications">
+                    notifications
+                </mat-icon>
+            </app-notifications>
+
+            <app-user-profile class="header-right-icons">
+                <mat-icon aria-hidden="false" class="header-icons profile-menu" aria-label="account_circle">
+                    account_circle
+                </mat-icon>
+            </app-user-profile>
+        </div>
+    </mat-toolbar>
+    <mat-tab-nav-panel #tabPanel>
         <ng-content></ng-content>
-    </div>
-    <div class="header-right-icons">
-        <mat-icon aria-hidden="false" class="header-icons" aria-label="home">today_outlined</mat-icon>
-        <mat-icon aria-hidden="false" class="header-icons" aria-label="note alt outlined">note_alt_outlined</mat-icon>
-        <mat-icon aria-hidden="false" class="header-icons" aria-label="email outlined">mail_outlined</mat-icon>
-        <mat-icon aria-hidden="false" class="header-icons" aria-label="configure outlined">settings_outlined</mat-icon>
-        <mat-icon aria-hidden="false" class="header-icons" aria-label="configure outlined">tune_outlined</mat-icon>
-
-        <app-notifications>
-            <mat-icon aria-hidden="false" class="header-icons notifications" aria-label="notifications">
-                notifications
-            </mat-icon>
-        </app-notifications>
-
-        <app-user-profile class="header-right-icons">
-            <mat-icon aria-hidden="false" class="header-icons profile-menu" aria-label="account_circle">
-                account_circle
-            </mat-icon>
-        </app-user-profile>
-    </div>
-</mat-toolbar>
+    </mat-tab-nav-panel>
+</mat-sidenav-container>
