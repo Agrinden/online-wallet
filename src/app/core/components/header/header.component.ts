@@ -9,4 +9,8 @@ import { MatSidenav } from '@angular/material/sidenav';
 export class HeaderComponent {
     @Input() drawer!: MatSidenav;
     @Input() isHandset!: boolean | null;
+
+    redirectToPage(page: string) {
+        window.location.href = window.location.origin + '/' + page;
+    }
 }

@@ -2,10 +2,22 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { LayoutModule } from '@angular/cdk/layout';
 import { SharedModule } from '@app/shared';
-import { HeaderComponent, NotificationsComponent, SidenavComponent, UserProfileComponent } from '@core/components';
+import {
+    DeleteAccountToasterComponent,
+    HeaderComponent,
+    NotificationsComponent,
+    SidenavComponent,
+    UserProfileComponent,
+} from '@core/components';
 
 @NgModule({
-    declarations: [HeaderComponent, SidenavComponent, UserProfileComponent, NotificationsComponent],
+    declarations: [
+        HeaderComponent,
+        SidenavComponent,
+        UserProfileComponent,
+        NotificationsComponent,
+        DeleteAccountToasterComponent,
+    ],
     imports: [CommonModule, SharedModule, LayoutModule],
     exports: [HeaderComponent, SidenavComponent],
 })
