@@ -1,13 +1,13 @@
 import { IncomeModule } from './../shared/income/income.module';
+import { LayoutModule } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { LayoutModule } from '@angular/cdk/layout';
 import { SharedModule } from '@app/shared';
-import { HeaderComponent, NotificationsComponent, SidenavComponent, UserProfileComponent } from '@core/components';
+import { DeleteAccountToasterComponent, HeaderComponent, NotificationsComponent, UserProfileComponent } from '@core';
 
 @NgModule({
-    declarations: [HeaderComponent, SidenavComponent, UserProfileComponent, NotificationsComponent],
     imports: [CommonModule, SharedModule, LayoutModule, IncomeModule],
-    exports: [HeaderComponent, SidenavComponent],
+    exports: [HeaderComponent],
+    declarations: [HeaderComponent, UserProfileComponent, NotificationsComponent, DeleteAccountToasterComponent],
 })
 export class CoreModule {}

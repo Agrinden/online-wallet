@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
+import { Component } from '@angular/core';
+import { menuTabs } from '@core/constants';
 
 @Component({
     selector: 'app-header',
@@ -7,6 +7,6 @@ import { MatSidenav } from '@angular/material/sidenav';
     styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-    @Input() drawer!: MatSidenav;
-    @Input() isHandset!: boolean | null;
+    public menuItems = menuTabs;
+    public activeLink = menuTabs[0];
 }
