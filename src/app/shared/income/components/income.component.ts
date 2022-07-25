@@ -14,7 +14,7 @@ import * as moment from 'moment';
 })
 export class IncomeComponent implements OnInit {
     public incomeForm!: FormGroup;
-    public currentDate!: any;
+    public currentDate!: moment.Moment;
 
     //TODO: load wallets from BE
     public wallets = WALLETS;
