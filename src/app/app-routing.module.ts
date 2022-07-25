@@ -44,17 +44,11 @@ const routes: Routes = [
     },
 
     {
-        path: '',
+        path: RouteUrls.login,
         component: LoginLayoutComponent,
         children: [
             {
                 path: '',
-                redirectTo: RouteUrls.login,
-                pathMatch: 'full',
-            },
-
-            {
-                path: RouteUrls.login,
                 loadChildren: () => import('./core/login/login.module').then((m) => m.LoginModule),
             },
         ],

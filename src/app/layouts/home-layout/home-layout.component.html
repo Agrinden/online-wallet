@@ -1,3 +1,21 @@
-<app-sidenav>
-    <router-outlet></router-outlet>
-</app-sidenav>
+<mat-sidenav-container class="sidenav-container">
+    <app-header>
+        <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+            <a
+                mat-tab-link
+                routerLinkActive="active-link"
+                *ngFor="let link of menuItems"
+                #rla="routerLinkActive"
+                [active]="rla.isActive"
+                [routerLink]="link.route"
+                [routerLinkActiveOptions]="{ exact: true }"
+            >
+                <mat-icon aria-hidden="false" class="header-icons"> {{ link.icon }} </mat-icon>
+                <span>{{ link.name }}</span>
+            </a>
+        </nav>
+    </app-header>
+    <mat-tab-nav-panel #tabPanel>
+        <router-outlet></router-outlet>
+    </mat-tab-nav-panel>
+</mat-sidenav-container>
