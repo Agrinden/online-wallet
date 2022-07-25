@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { settingsMenu, userProfileMenu } from '@core/constants';
-import { UserService } from '@core/services';
+import { UserService, UserDeleteService } from '@core/services';
 
 import { mockUser } from '@core';
 
@@ -10,7 +10,8 @@ import { mockUser } from '@core';
     styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent {
-    constructor(private userService: UserService) {}
+    constructor(private userService: UserService, private userDeleteService: UserDeleteService) {}
+
     public userProfileItems = userProfileMenu;
 
     public settingsMenuItems = settingsMenu;
@@ -19,5 +20,9 @@ export class UserProfileComponent {
 
     public logout(): void {
         this.userService.signOut();
+    }
+
+    public openDialog(): void {
+        this.userDeleteService.handleOpenDialog();
     }
 }

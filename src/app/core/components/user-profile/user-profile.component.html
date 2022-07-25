@@ -19,11 +19,9 @@
                 </button>
             </ng-container>
             <ng-container *ngSwitchCase="'Delete account'">
-                <button mat-menu-item>
-                    <del-acc-toaster>
-                        <mat-icon> {{ item.icon }} </mat-icon>
-                        <span> {{ item.name }} </span>
-                    </del-acc-toaster>
+                <button mat-menu-item (click)="openDialog()">
+                    <mat-icon> {{ item.icon }} </mat-icon>
+                    <span> {{ item.name }} </span>
                 </button>
             </ng-container>
             <ng-container *ngSwitchDefault>

@@ -1,32 +1,27 @@
-import { Component, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogContentComponent } from '@app/shared';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DialogContentInputValues } from '@shared/interfaces/dialog.interface';
 import { ConfirmationDialogChoise } from '@shared/enums/dialog-enums';
 
 @Component({
-    selector: 'dialog-template',
-    templateUrl: 'dialog.component.html',
+    selector: 'dialog-content',
+    styleUrls: ['./dialog.component.scss'],
+    templateUrl: './dialog.component.html',
 })
 export class DialogComponent {
-    @Input() public handleClose!: (value: ConfirmationDialogChoise) => void;
-    @Input() public dialogHeading!: string;
-    @Input() public dialogContent!: string;
+    public dialogHeading = '';
+    public dialogContent = '';
+    public dialogEnum = ConfirmationDialogChoise;
 
-    constructor(public dialog: MatDialog) {}
+    constructor(
+        @Inject(MAT_DIALOG_DATA) private data: DialogContentInputValues,
+        public dialogRef: MatDialogRef<DialogComponent>
+    ) {
+        this.dialogHeading = data.dialogHeading;
+        this.dialogContent = data.dialogContent;
+    }
 
-    public openDialog(): void {
-        const dialogRef = this.dialog.open(DialogContentComponent, {
-            data: {
-                dialogHeading: this.dialogHeading,
-                dialogContent: this.dialogContent,
-            },
-            width: '400px',
-            height: 'fit-content',
-            panelClass: 'dialog-container',
-        });
-
-        dialogRef.afterClosed().subscribe((value: ConfirmationDialogChoise) => {
-            this.handleClose(value);
-        });
+    public handleClose(res: ConfirmationDialogChoise) {
+        this.dialogRef.close(res);
     }
 }

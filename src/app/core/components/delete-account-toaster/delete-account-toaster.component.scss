@@ -2,10 +2,34 @@
     .cdk-global-overlay-wrapper {
         .cdk-overlay-pane {
             padding: 20% 0;
+        }
+    }
+}
 
-            .toaster-container {
-                align-items: center;
-            }
+.toaster-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+
+    .toaster-icons {
+        flex-direction: column;
+        display: flex;
+        width: 100%;
+        align-items: center;
+
+        .toaster-check-circle {
+            color: green;
+            font-size: 90px;
+            width: 90px;
+            height: fit-content;
+        }
+
+        .toaster-close-btn {
+            cursor: pointer;
+            height: 24px;
+            width: 100%;
+            text-align: end;
         }
     }
 }

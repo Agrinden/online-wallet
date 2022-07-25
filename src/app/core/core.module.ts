@@ -4,7 +4,6 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { SharedModule } from '@app/shared';
 import {
     DeleteAccountToasterComponent,
-    DeleteAccountToasterContentComponent,
     HeaderComponent,
     NotificationsComponent,
     SidenavComponent,
@@ -17,7 +16,6 @@ import {
         SidenavComponent,
         UserProfileComponent,
         NotificationsComponent,
-        DeleteAccountToasterContentComponent,
         DeleteAccountToasterComponent,
     ],
     imports: [CommonModule, SharedModule, LayoutModule],
