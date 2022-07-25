@@ -22,10 +22,7 @@ export class LoginComponent implements OnInit {
     public ngOnInit(): void {
         this.loginForm = this.getInitializedForm();
 
-        this.oidcSecurityService
-            .checkAuth()
-            .pipe(take(1))
-            .subscribe(() => {});
+        this.startAuthenticationFlow();
     }
 
     public login(): void {
@@ -46,6 +43,13 @@ export class LoginComponent implements OnInit {
 
     public toggleVisibility(): void {
         this.isPassVisible = !this.isPassVisible;
+    }
+
+    private startAuthenticationFlow(): void {
+        this.oidcSecurityService
+            .checkAuth()
+            .pipe(take(1))
+            .subscribe(() => {});
     }
 
     /**@description method for creating formGroup */
