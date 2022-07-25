@@ -1,28 +1,37 @@
 :host {
-    .header-container {
-        width: 100%;
-        align-items: flex-end;
-        display: flex;
+    .sidenav-container {
+        height: 100%;
 
-        .header-icons {
-            cursor: pointer;
-            font-size: 30px;
-            width: 30px;
-            height: 30px;
-        }
-
-        .header-content {
-            flex-grow: 2;
+        .header-container {
+            width: 100%;
+            align-items: flex-end;
             display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
 
-        .header-right-icons {
-            display: flex;
-            gap: 20px;
-            font-size: 14px;
-            justify-content: flex-end;
+            .header-icons {
+                cursor: pointer;
+                font-size: 30px;
+                width: 30px;
+                height: 30px;
+                margin: 0 10px;
+            }
+
+            .active-link {
+                background: var(--active-link);
+            }
+
+            .header-content {
+                flex-grow: 2;
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+            }
+
+            .header-right-icons {
+                display: flex;
+                gap: 20px;
+                font-size: 14px;
+                justify-content: flex-end;
+            }
         }
     }
 }
