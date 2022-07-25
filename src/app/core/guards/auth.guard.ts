@@ -8,16 +8,17 @@ import {
     RouterStateSnapshot,
     UrlSegment,
 } from '@angular/router';
-import { RouteUrls } from '@app/core/constants/routes';
-import { first, map, Observable, of } from 'rxjs';
+import { RouteUrls } from '@core';
+
+import { first, map, Observable } from 'rxjs';
+import { UserService } from '@core';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthGuard implements CanActivate, CanLoad {
-    private isAuth$: Observable<boolean> = of(true);
+    constructor(private router: Router, private userService: UserService) {}
 
-    constructor(private router: Router) {}
     canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
         return this.getIsAuth$();
     }
@@ -26,11 +27,11 @@ export class AuthGuard implements CanActivate, CanLoad {
     }
 
     private getIsAuth$(): Observable<boolean> {
-        return this.isAuth$.pipe(
+        return this.userService.isLoggedIn$.pipe(
             first(),
-            map((isAuth) => {
-                if (!isAuth) this.router.navigate([RouteUrls.login]);
-                return isAuth;
+            map((isLoggedIn) => {
+                if (!isLoggedIn) this.router.navigate([RouteUrls.login]);
+                return isLoggedIn;
             })
         );
     }
