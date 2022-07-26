@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -9,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
     declarations: [],
@@ -23,6 +25,9 @@ import { MatDialogModule } from '@angular/material/dialog';
         MatFormFieldModule,
         MatMenuModule,
         MatDialogModule,
+        MatTabsModule,
+        MatDialogModule,
+        MatSnackBarModule,
     ],
 })
 export class MaterialModule {}
