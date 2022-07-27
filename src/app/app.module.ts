@@ -15,12 +15,12 @@ import { secrets } from '@secrets/secrets';
     declarations: [AppComponent, LoginLayoutComponent, HomeLayoutComponent],
     imports: [
         BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         CoreModule,
         SharedModule,
-        ReactiveFormsModule,
-        FormsModule,
         HttpClientModule,
 
         AuthModule.forRoot({

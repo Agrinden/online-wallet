@@ -10,7 +10,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 @NgModule({
     declarations: [],
@@ -24,6 +27,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         MatInputModule,
         MatFormFieldModule,
         MatMenuModule,
+        MatSlideToggleModule,
+        MatSelectModule,
         MatTabsModule,
         MatDialogModule,
         MatSnackBarModule,
