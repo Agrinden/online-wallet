@@ -7,6 +7,7 @@
             "@env/*": ["environments/*"],
             "@app/*": ["app/*"],
             "@shared/*": ["app/shared/*"],
+            "@core/*": ["app/core/*"],
             "@core": ["app/core/index.ts"],
             "@modules/*": ["app/modules/*"],
             "@modules-main-page/*": ["app/modules/main-page/components/*"],

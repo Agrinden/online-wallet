@@ -1,8 +1,8 @@
 export enum RouteUrls {
-    login = '',
+    login = 'login',
     main = 'main',
     categories = 'categories',
-    incomes_expenses = 'expenses',
+    expenses = 'expenses',
     incomes = 'incomes',
     statistics = 'statistics',
 }

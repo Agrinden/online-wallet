@@ -1,28 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RouteUrls } from '@app/core/constants/routes';
-import { AuthGuard } from '@app/core/guards/auth.guard';
-import { NotFoundComponent } from '@app/modules/not-found/not-found.component';
-import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
-import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
+import { RouteUrls } from '@core/constants';
+import { AuthGuard, HomeLayoutComponent, LoginLayoutComponent } from '@core';
+import { NotFoundComponent } from './modules/not-found/not-found.component';
 
 const routes: Routes = [
-    {
-        path: 'login',
-        component: LoginLayoutComponent,
-        children: [
-            {
-                path: '',
-                loadChildren: () => import('./core/login/login.module').then((m) => m.LoginModule),
-            },
-        ],
-    },
-
     {
         path: '',
         component: HomeLayoutComponent,
         canActivate: [AuthGuard],
         children: [
+            {
+                path: '',
+                redirectTo: RouteUrls.main,
+                pathMatch: 'full',
+            },
+
             {
                 path: RouteUrls.main,
                 loadChildren: () => import('./modules/main-page/main-page.module').then((m) => m.MainPageModule),
@@ -34,9 +27,8 @@ const routes: Routes = [
             },
 
             {
-                path: RouteUrls.incomes_expenses,
-                loadChildren: () =>
-                    import('./modules/incomes-expenses/incomes-expenses.module').then((m) => m.IncomesExpensesModule),
+                path: RouteUrls.expenses,
+                loadChildren: () => import('./modules/expenses/expenses.module').then((m) => m.ExpensesModule),
             },
 
             {
@@ -47,6 +39,17 @@ const routes: Routes = [
             {
                 path: RouteUrls.statistics,
                 loadChildren: () => import('./modules/statistics/statistics.module').then((m) => m.StatisticsModule),
+            },
+        ],
+    },
+
+    {
+        path: RouteUrls.login,
+        component: LoginLayoutComponent,
+        children: [
+            {
+                path: '',
+                loadChildren: () => import('./core/login/login.module').then((m) => m.LoginModule),
             },
         ],
     },
