@@ -25,6 +25,7 @@
     </div>
 
     <button mat-button color="primary" [disabled]="loginForm.invalid" (click)="login()" class="login-btn">Login</button>
+    <button mat-button color="primary" (click)="signInGoogleHandler()" class="login-btn">Continue with Google</button>
     <a href="" class="forgot-password">Forgot password?</a>
   </form>
   <span class="welcome">Budget planning app welcomes you!</span>
