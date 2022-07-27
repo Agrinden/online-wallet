@@ -1,3 +1,5 @@
+import { CurrencyInterface } from '@app/shared/interfaces/currency.interface';
+
 export const mockNotifications = [
     {
         name: 'User1',
@@ -13,3 +15,5 @@ export const mockUser = {
     surname: 'Surr',
     role: 'admin',
 };
+
+export const CURRENCIES: CurrencyInterface[] = [{ name: 'EUR' }, { name: 'GEL' }, { name: 'PLN' }, { name: 'USD' }];

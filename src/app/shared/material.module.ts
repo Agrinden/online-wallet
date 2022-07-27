@@ -16,6 +16,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
@@ -36,6 +37,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         MatDatepickerModule,
         MatNativeDateModule,
         MomentDateModule,
+        MatSlideToggleModule,
+        MatSelectModule,
         MatTabsModule,
         MatDialogModule,
         MatSnackBarModule,

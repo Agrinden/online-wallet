@@ -5,11 +5,16 @@
         "baseUrl": "./src",
         "paths": {
             "@env/*": ["environments/*"],
+            "@secrets/*": ["secrets/*"],
             "@app/*": ["app/*"],
             "@shared/*": ["app/shared/*"],
             "@core/*": ["app/core/*"],
             "@core": ["app/core/index.ts"],
-            "@modules/*": ["app/modules/*"]
+            "@modules/*": ["app/modules/*"],
+            "@modules-main-page": ["app/modules/main-page/index.ts"],
+            "@modules-categories/*": ["app/modules/categories/components/*"],
+            "@modules-statistics/*": ["app/modules/statistics/components/*"],
+            "@modules-incomes-expenses/*": ["app/modules/incomes-expenses/components/*"]
         },
         "outDir": "./dist/out-tsc",
         "forceConsistentCasingInFileNames": true,
