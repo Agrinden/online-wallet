@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { DialogContentInputValues } from '@shared/interfaces/dialog.interface';
+import { DialogContentInputValuesInterface } from '@shared/interfaces/dialog.interface';
 import { ConfirmationDialogChoise } from '@shared/enums/dialog-enums';
 
 @Component({
@@ -14,7 +14,7 @@ export class DialogComponent {
     public dialogEnum = ConfirmationDialogChoise;
 
     constructor(
-        @Inject(MAT_DIALOG_DATA) private data: DialogContentInputValues,
+        @Inject(MAT_DIALOG_DATA) private data: DialogContentInputValuesInterface,
         public dialogRef: MatDialogRef<DialogComponent>
     ) {
         this.dialogHeading = data.dialogHeading;

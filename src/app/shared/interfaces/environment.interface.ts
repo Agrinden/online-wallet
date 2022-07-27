@@ -1,3 +1,3 @@
-export interface IEnvironment<T> {
-  data: T;
+export interface EnvironmentInterface<T> {
+    data: T;
 }
