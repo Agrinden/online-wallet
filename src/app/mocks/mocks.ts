@@ -1,4 +1,4 @@
-import { ICurrency } from '@app/shared/interfaces/create-wallet.interface';
+import { CurrencyInterface } from '@app/shared/interfaces/currency.interface';
 
 export const mockNotifications = [
     {
@@ -16,4 +16,4 @@ export const mockUser = {
     role: 'admin',
 };
 
-export const CURRENCIES: ICurrency[] = [{ name: 'EUR' }, { name: 'GEL' }, { name: 'PLN' }, { name: 'USD' }];
+export const CURRENCIES: CurrencyInterface[] = [{ name: 'EUR' }, { name: 'GEL' }, { name: 'PLN' }, { name: 'USD' }];

@@ -1,8 +1,7 @@
-export interface ICreateWallet {
+import { CurrencyInterface } from './currency.interface';
+
+export interface CreateWalletInterface {
     name: string;
-    currency: ICurrency;
+    currency: CurrencyInterface;
     isDefault: boolean;
-}
-export interface ICurrency {
-    name: string;
 }

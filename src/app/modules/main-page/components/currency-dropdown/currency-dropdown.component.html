@@ -3,7 +3,6 @@
     <mat-select
         [formControl]="currencyCtrl"
         placeholder="Currency"
-        #currencySelect
         appearance="fill"
         (selectionChange)="onChange($event.value)"
     >
@@ -15,7 +14,10 @@
             ></ngx-mat-select-search>
         </mat-option>
 
-        <mat-option *ngFor="let currency of filteredCurrencies | async" [value]="currency">
+        <mat-option
+            *ngFor="let currency of filteredCurrencies | filterCurrencyPipe: currencyFilterCtrl.value"
+            [value]="currency"
+        >
             {{ currency.name }}
         </mat-option>
     </mat-select>
