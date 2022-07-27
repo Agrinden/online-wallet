@@ -20,7 +20,7 @@ input[type='number'] {
 .income-dialog {
     width: 500px;
     padding: 10px 20px;
-    $form-background-color: #424242;
+    background-color: $form-background-color;
     .header-module {
         @include generalWidth(flex, end);
         .title {
