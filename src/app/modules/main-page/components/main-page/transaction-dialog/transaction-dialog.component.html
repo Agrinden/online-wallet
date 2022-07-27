@@ -1,0 +1,10 @@
+<div class="data-dialog">
+    <div class="header-module">
+        <h2 mat-dialog-title class="title" *ngIf="!data.isEditForm">Add {{ data.itemType }}</h2>
+
+        <h2 mat-dialog-title class="title" *ngIf="data.isEditForm">Edit {{ data.itemType }}</h2>
+
+        <mat-icon class="delete" title="Close" mat-dialog-close="false">close</mat-icon>
+    </div>
+    <app-add-edit-transaction-form #transactionForm [data]="data"></app-add-edit-transaction-form>
+</div>

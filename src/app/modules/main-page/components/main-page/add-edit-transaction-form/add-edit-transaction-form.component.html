@@ -1,0 +1,91 @@
+<form class="form" [formGroup]="dataForm">
+    <mat-dialog-content class="mat-typography">
+        <div class="field">
+            <span class="field-title">Choose your wallet *</span>
+            <mat-form-field class="data-field" appearance="fill">
+                <mat-label>Choose your wallet</mat-label>
+                <mat-select formControlName="wallet">
+                    <mat-option *ngFor="let item of wallets" [value]="item.value">
+                        {{ item.viewValue }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="field">
+            <span class="field-title">Amount *</span>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label aria-required="true">Amount</mat-label>
+                <input formControlName="amount" matInput type="number" />
+            </mat-form-field>
+            <div class="errors" *ngIf="dataForm.controls['amount'].errors">
+                <span class="error-message" *ngIf="dataForm.controls['amount'].errors['pattern']"
+                    >Input only numbers</span
+                >
+            </div>
+        </div>
+        <div class="field">
+            <span class="field-title">Category *</span>
+            <mat-form-field class="data-field" appearance="fill">
+                <mat-label>Please choose the category</mat-label>
+                <mat-select formControlName="category">
+                    <mat-option *ngFor="let item of categories" [value]="item.value">
+                        {{ item.viewValue }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="field">
+            <span class="field-title">Date *</span>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <input matInput [matDatepicker]="picker" formControlName="date" />
+                <mat-hint class="date-format">DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="field note-field">
+            <span class="field-title">Note</span>
+            <mat-form-field class="data-field" appearance="fill">
+                <textarea
+                    matInput
+                    formControlName="note"
+                    cdkTextareaAutosize
+                    #autosize="cdkTextareaAutosize"
+                    cdkAutosizeMinRows="3"
+                    cdkAutosizeMaxRows="5"
+                ></textarea>
+            </mat-form-field>
+            <div class="note-error" *ngIf="dataForm.controls['note'].errors">
+                <span class="error-message" *ngIf="dataForm.get('note')?.errors?.['maxlength']"
+                    >Max 200 characters.</span
+                >
+            </div>
+        </div>
+    </mat-dialog-content>
+
+    <div
+        class="form-error"
+        *ngIf="
+            dataForm.controls['wallet'].touched &&
+            dataForm.controls['amount'].touched &&
+            dataForm.controls['category'].touched &&
+            dataForm.controls['date'].touched &&
+            dataForm.invalid
+        "
+    >
+        <span class="error-message">Please fill in all required fields</span>
+    </div>
+
+    <mat-dialog-actions class="down-button">
+        <button
+            mat-button
+            [mat-dialog-close]="dataForm.value"
+            cdkFocusInitial
+            [disabled]="dataForm.invalid"
+            (click)="onFormSubmit()"
+        >
+            Submit
+        </button>
+        <button mat-button mat-dialog-close>Cancel</button>
+    </mat-dialog-actions>
+</form>
