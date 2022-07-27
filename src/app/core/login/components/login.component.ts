@@ -37,15 +37,7 @@ export class LoginComponent implements OnInit {
                     Validators.maxLength(254),
                 ],
             ],
-            password: [
-                '',
-                [
-                    Validators.required,
-                    Validators.minLength(8),
-                    Validators.maxLength(100),
-                    Validators.pattern(/^[a-zA-Z0-9!@#\$%\^\&*\)\(/+=._-]{8,100}$/),
-                ],
-            ],
+            password: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9!@#\$%\^\&*\)\(/+=._-]{8,100}$/)]],
         });
         return form;
     }
