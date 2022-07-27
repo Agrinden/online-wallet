@@ -1,6 +1,6 @@
-import { Wallet } from '../shared/interfaces/income.interface';
+import { WalletInterface } from './../shared/interfaces/income-wallet.interface';
 
-export const WALLETS: Wallet[] = [
+export const WALLETS: WalletInterface[] = [
     {
         value: '1',
         viewValue: 'Wallet 1',

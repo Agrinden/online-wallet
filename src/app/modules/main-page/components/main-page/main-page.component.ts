@@ -1,5 +1,5 @@
 import { filter } from 'rxjs/operators';
-import { IncomeComponent } from './../../../../shared/income/components/income.component';
+import { IncomeFormComponent } from './../../../../shared/income/components/income.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component } from '@angular/core';
 
@@ -13,7 +13,7 @@ export class MainPageComponent {
 
     public openIncomeForm(): void {
         this.dialog
-            .open(IncomeComponent)
+            .open(IncomeFormComponent)
             .beforeClosed()
             .pipe(filter((data) => !!data))
             .subscribe();

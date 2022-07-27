@@ -1,6 +1,6 @@
-import { Category } from '../shared/interfaces/income.interface';
+import { CategoryInterface } from './../shared/interfaces/income-category.interface';
 
-export const CATEGORIES: Category[] = [
+export const CATEGORIES: CategoryInterface[] = [
     {
         value: '1',
         viewValue: 'Salary',

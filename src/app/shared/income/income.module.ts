@@ -4,11 +4,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { MaterialModule } from '@app/shared/material.module';
 
-import { IncomeComponent } from './components/income.component';
+import { IncomeFormComponent } from './components/income.component';
 
 @NgModule({
-    declarations: [IncomeComponent],
+    declarations: [IncomeFormComponent],
     imports: [MaterialModule, ReactiveFormsModule, CommonModule],
-    exports: [IncomeComponent],
+    exports: [IncomeFormComponent],
 })
 export class IncomeModule {}
