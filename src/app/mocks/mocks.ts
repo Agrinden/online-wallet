@@ -16,11 +16,4 @@ export const mockUser = {
     role: 'admin',
 };
 
-export const CURRENCIES: ICurrency[] = [
-    { name: 'USD' },
-    { name: 'EUR' },
-    { name: 'GBP' },
-    { name: 'RUB' },
-    { name: 'UAH' },
-    { name: 'PLN' },
-];
+export const CURRENCIES: ICurrency[] = [{ name: 'EUR' }, { name: 'GEL' }, { name: 'PLN' }, { name: 'USD' }];

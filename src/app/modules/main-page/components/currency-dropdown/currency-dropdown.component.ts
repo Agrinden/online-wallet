@@ -23,14 +23,14 @@ export class CurrencyDropdownComponent implements OnInit {
 
     @ViewChild('currencySelect', { static: true }) currencySelect!: MatSelect;
 
-    protected _onDestroy = new Subject<void>();
+    protected onDestroy = new Subject<void>();
 
     constructor() {}
 
     ngOnInit() {
         this.filteredCurrencies.next(this.currencies.slice());
 
-        this.currencyFilterCtrl.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+        this.currencyFilterCtrl.valueChanges.pipe(takeUntil(this.onDestroy)).subscribe(() => {
             this.filterCurrencies();
         });
     }
@@ -40,12 +40,12 @@ export class CurrencyDropdownComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        this._onDestroy.next();
-        this._onDestroy.complete();
+        this.onDestroy.next();
+        this.onDestroy.complete();
     }
 
     protected setInitialValue() {
-        this.filteredCurrencies.pipe(take(1), takeUntil(this._onDestroy)).subscribe(() => {
+        this.filteredCurrencies.pipe(take(1), takeUntil(this.onDestroy)).subscribe(() => {
             this.currencySelect.compareWith = (a: ICurrency, b: ICurrency) => a && b && a.name === b.name;
         });
     }

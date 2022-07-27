@@ -1,5 +1,5 @@
 export interface IDialogData {
-    title: string;
+    title?: string;
     content: any;
     cancelText?: string;
     confirmText?: string;

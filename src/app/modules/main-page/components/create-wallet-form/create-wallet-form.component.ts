@@ -1,6 +1,7 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ICurrency } from '@app/shared/interfaces/create-wallet.interface';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
     selector: 'app-create-wallet-form',
@@ -8,6 +9,8 @@ import { ICurrency } from '@app/shared/interfaces/create-wallet.interface';
     styleUrls: ['./create-wallet-form.component.scss'],
 })
 export class CreateWalletFormComponent implements OnInit {
+    @Output() formSubmit = new EventEmitter<any>();
+
     form: FormGroup = new FormGroup({});
 
     constructor(private formBuilder: FormBuilder) {}
@@ -20,18 +23,22 @@ export class CreateWalletFormComponent implements OnInit {
         });
     }
 
-    currencyChange(event: ICurrency) {
+    currencyChange(event: ICurrency): void {
         this.form.get('currency')?.setValue(event.name);
     }
 
-    onSubmit() {
+    onSubmit(): void {
         if (this.form.invalid) {
             return;
         }
-        console.log(this.form.value);
+        this.formSubmit.emit(this.form.value);
     }
 
-    onCancel() {
+    onCancel(): void {
         this.form.reset();
+    }
+
+    onSlideToggle(event: MatSlideToggleChange) {
+        this.form.get('isDefault')?.setValue(event.checked);
     }
 }

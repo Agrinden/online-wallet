@@ -1,7 +1,6 @@
 export interface ICreateWallet {
     name: string;
-    amount: number;
-    currency: ICurrency[];
+    currency: ICurrency;
     isDefault: boolean;
 }
 export interface ICurrency {

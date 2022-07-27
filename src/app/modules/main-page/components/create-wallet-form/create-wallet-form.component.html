@@ -9,7 +9,9 @@
 
             <app-currency-dropdown (currencyChange)="currencyChange($event)"></app-currency-dropdown>
 
-            <mat-slide-toggle color="warn" formControlName="isDefault">Set as default</mat-slide-toggle>
+            <mat-slide-toggle color="warn" formControlName="isDefault" (change)="onSlideToggle($event)"
+                >Set as default</mat-slide-toggle
+            >
 
             <div class="form-buttons">
                 <button

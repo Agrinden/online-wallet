@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
-import { CreateWalletFormComponent } from '@app/modules/wallet/components/create-wallet-form/create-wallet-form.component';
+import { CreateWalletFormComponent } from '@app/modules/main-page/components/create-wallet-form/create-wallet-form.component';
 import { IDialogData } from '@app/shared/interfaces/dialog-data.interface';
 
 @Component({
