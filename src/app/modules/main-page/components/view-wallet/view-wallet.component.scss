@@ -1,0 +1,29 @@
+:host {
+    display: block;
+    padding: 30px;
+
+    .recent-transactions {
+        display: flex;
+        flex-direction: column;
+        max-width: 600px;
+        margin-top: 30px;
+
+        table {
+            width: 100%;
+
+            .mat-column-noAvailableData{
+                text-align: center;
+            }
+            .mat-footer-row.hidden {
+                display: none;
+            }
+        }
+
+        .show-more-button {
+            margin-top: 20px;
+            align-self: flex-end;
+        }
+    }
+
+}
+

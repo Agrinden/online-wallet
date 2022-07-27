@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { CoreModule } from '@core/core.module';
 import { SharedModule } from '@shared/shared.module';
-import { MainPageComponent, MainPageRoutingModule } from '@modules/main-page';
+import { MainPageRoutingModule, MainPageComponent, ViewWalletComponent } from '@modules/main-page';
 
 @NgModule({
-    declarations: [MainPageComponent],
+    declarations: [MainPageComponent, ViewWalletComponent],
     imports: [CommonModule, MainPageRoutingModule, SharedModule, CoreModule],
+    providers: [DatePipe],
 })
 export class MainPageModule {}
