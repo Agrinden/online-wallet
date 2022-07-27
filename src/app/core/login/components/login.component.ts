@@ -46,10 +46,7 @@ export class LoginComponent implements OnInit {
     }
 
     private startAuthenticationFlow(): void {
-        this.oidcSecurityService
-            .checkAuth()
-            .pipe(take(1))
-            .subscribe(() => {});
+        this.oidcSecurityService.checkAuth().pipe(take(1)).subscribe();
     }
 
     /**@description method for creating formGroup */
