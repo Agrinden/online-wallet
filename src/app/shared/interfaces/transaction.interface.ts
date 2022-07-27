@@ -1,4 +1,4 @@
-export interface IExpense {
+export interface ITransaction {
     walletId: string;
     amount: number;
     categoryId: string;
@@ -7,3 +7,7 @@ export interface IExpense {
     date: string;
     message: string;
 }
+
+export interface IExpense extends ITransaction {}
+
+export interface IIncome extends ITransaction {}
