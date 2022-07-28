@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { IncomeFormInterface } from '@app/shared/interfaces/income-form.interface';
+import { TransactionFormInterface } from '@app/shared';
 import { TransactionService } from '@modules/main-page';
 import * as moment from 'moment';
 
@@ -10,7 +10,7 @@ import * as moment from 'moment';
     styleUrls: ['./add-edit-transaction-form.component.scss'],
 })
 export class AddEditTransactionFormComponent implements OnInit {
-    @Input() dataForm!: FormGroup<IncomeFormInterface>;
+    @Input() dataForm!: FormGroup<TransactionFormInterface>;
     @Input() data!: any;
 
     public currentDate!: moment.Moment;
@@ -24,11 +24,11 @@ export class AddEditTransactionFormComponent implements OnInit {
         this.currentDate = moment();
     }
 
-    public isValidField(controlName: keyof IncomeFormInterface): boolean {
+    public isValidField(controlName: keyof TransactionFormInterface): boolean {
         return !this.dataForm.controls[controlName].hasError('pattern');
     }
 
-    public isControlTouched(controlName: keyof IncomeFormInterface): boolean {
+    public isControlTouched(controlName: keyof TransactionFormInterface): boolean {
         return this.dataForm.controls[controlName].touched;
     }
 
@@ -36,8 +36,8 @@ export class AddEditTransactionFormComponent implements OnInit {
         return this.dataForm.touched && this.dataForm.invalid;
     }
 
-    private getInitializedForm(): FormGroup<IncomeFormInterface> {
-        const form = this.formBuilder.group<IncomeFormInterface>({
+    private getInitializedForm(): FormGroup<TransactionFormInterface> {
+        const form = this.formBuilder.group<TransactionFormInterface>({
             wallet: new FormControl<string>('', Validators.required),
             amount: new FormControl<number>(0.01, [
                 Validators.required,
