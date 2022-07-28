@@ -23,6 +23,7 @@ export interface UpdateTransactionInterface extends CreateTransactionInterface {
 }
 
 export interface TransactionFormInterface {
+    id: AbstractControl<string | null>;
     wallet: AbstractControl<string | null>;
     amount: AbstractControl<number | null>;
     category: AbstractControl<string | null>;

@@ -38,6 +38,7 @@ export class AddEditTransactionFormComponent implements OnInit {
 
     private getInitializedForm(): FormGroup<TransactionFormInterface> {
         const form = this.formBuilder.group<TransactionFormInterface>({
+            id: new FormControl<string | null>(''),
             wallet: new FormControl<string>('', Validators.required),
             amount: new FormControl<number>(0.01, [
                 Validators.required,
@@ -53,9 +54,12 @@ export class AddEditTransactionFormComponent implements OnInit {
 
     public onFormSubmit(): void {
         if (this.dataForm) {
+            const formControls = this.dataForm.getRawValue();
+            const model = { ...formControls, id: this.data.itemId, itemType: this.data.itemType };
+
             this.data.isEditForm
-                ? this.transactionService.editTransaction(this.dataForm.controls)
-                : this.transactionService.createTransaction(this.dataForm.controls);
+                ? this.transactionService.editTransaction(model)
+                : this.transactionService.createTransaction(model);
         }
     }
 }

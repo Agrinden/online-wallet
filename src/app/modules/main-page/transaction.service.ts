@@ -10,13 +10,6 @@ import { MainPageModule } from '.';
     providedIn: CoreModule,
 })
 export class TransactionService {
-    updateTransaction(value: any) {
-        throw new Error('Method not implemented.');
-    }
-    public currentTransactionSubject$ = new Subject();
-
-    public currentTransaction$ = this.currentTransactionSubject$.asObservable();
-
     public categories$ = CATEGORIES;
     public wallets$ = WALLETS;
 

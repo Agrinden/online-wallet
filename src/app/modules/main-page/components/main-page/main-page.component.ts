@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateWalletFormComponent } from '@app/modules/main-page/components/create-wallet-form/create-wallet-form.component';
-import { TransactionFormInterface } from '@app/shared';
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
 import { IDialogData } from '@app/shared/interfaces/dialog-data.interface';
 import { WalletService } from '@core';
-import { TransactionDialogComponent, TransactionService } from '@modules/main-page';
-import { take } from 'rxjs';
+import { TransactionDialogComponent } from '@modules/main-page';
 
 @Component({
     selector: 'app-main-page',
@@ -17,30 +15,19 @@ export class MainPageComponent {
     constructor(
         private dialog: MatDialog,
         private dialogService: DialogService,
-        private walletService: WalletService,
-        private transactionService: TransactionService
+        private walletService: WalletService
     ) {}
 
     public onAddTransactionClick(itemType: string): void {
-        this.dialog
-            .open(TransactionDialogComponent, {
-                data: { isEditForm: false, itemType: itemType },
-            })
-            .afterClosed()
-            .pipe(take(1))
-            .subscribe((formData: TransactionFormInterface) => {
-                this.transactionService.createTransaction(formData);
-            });
+        this.dialog.open(TransactionDialogComponent, {
+            data: { isEditForm: false, itemType },
+        });
     }
 
     public onEditTransactionClick(itemType: string, itemId: string): void {
-        this.dialog
-            .open(TransactionDialogComponent, { data: { isEditForm: true, itemType: itemType, itemId: itemId } })
-            .afterClosed()
-            .pipe(take(1))
-            .subscribe((value) => {
-                this.transactionService.editTransaction(value);
-            });
+        this.dialog.open(TransactionDialogComponent, {
+            data: { isEditForm: true, itemType, itemId },
+        });
     }
 
     openCreateWalletModal() {
