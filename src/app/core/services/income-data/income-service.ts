@@ -8,7 +8,7 @@ import { CATEGORIES } from './../../../mocks/categories';
 import { WALLETS } from './../../../mocks/wallets';
 
 @Injectable({ providedIn: 'root' })
-export class IncomeDataServie {
+export class IncomeDataService {
     public getWalletList(): Observable<WalletInterface[]> {
         return of(WALLETS);
     }

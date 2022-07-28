@@ -1,0 +1,11 @@
+@import 'mixins';
+
+.mat-typography {
+    @include generalWidth(flex, start);
+}
+
+.field {
+    @include generalWidth(flex, start);
+    height: 50px;
+    margin: 10px;
+}

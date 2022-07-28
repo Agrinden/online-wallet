@@ -1,5 +1,5 @@
 import { IncomeFormInterface } from '../../interfaces/income-form.interface';
-import { IncomeDataServie } from '../../../core/services/income-data/income-service';
+import { IncomeDataService } from '../../../core/services/income-data/income-service';
 import { WalletInterface } from '../../interfaces/income-wallet.interface';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
@@ -23,7 +23,7 @@ export class IncomeFormComponent implements OnInit {
     public wallets$!: Observable<WalletInterface[]>;
     public categories$!: Observable<CategoryInterface[]>;
 
-    constructor(private formBuilder: FormBuilder, private incomeDataService: IncomeDataServie) {}
+    constructor(private formBuilder: FormBuilder, private incomeDataService: IncomeDataService) {}
 
     ngOnInit(): void {
         this.currentDate = moment();
