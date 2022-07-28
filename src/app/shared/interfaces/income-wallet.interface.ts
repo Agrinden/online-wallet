@@ -1,4 +1,4 @@
-export interface WalletInterface {
+export interface IncomeWalletInterface {
     value: string;
     viewValue: string;
 }

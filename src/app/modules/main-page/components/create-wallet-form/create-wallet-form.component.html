@@ -1,5 +1,5 @@
 <div class="wrapper" #createWalletForm>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form [formGroup]="form">
         <div class="container">
             <mat-form-field appearance="fill">
                 <mat-label>Wallet name</mat-label>
@@ -17,7 +17,7 @@
                 <button
                     mat-flat-button
                     color="primary"
-                    [mat-dialog-close]="true"
+                    [mat-dialog-close]="form.value"
                     [disabled]="!form.valid"
                     type="submit"
                 >
