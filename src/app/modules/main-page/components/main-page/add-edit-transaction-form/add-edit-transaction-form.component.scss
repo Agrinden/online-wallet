@@ -60,6 +60,7 @@ input[type='number'] {
             }
         }
         .form-error {
+            position: absolute;
             color: red;
             margin-bottom: 10px;
             padding-left: 160px;
