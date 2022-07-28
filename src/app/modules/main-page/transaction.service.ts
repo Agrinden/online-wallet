@@ -22,15 +22,4 @@ export class TransactionService {
     public editTransaction(formData: any): Observable<TransactionInterface> {
         return this.httpService.updateTransaction(formData);
     }
-
-    public getTransactionList(): Observable<TransactionInterface[]> {
-        return of();
-    }
-
-    public getCategoryList(): Observable<CategoryInterface[]> {
-        return of();
-    }
-    public getWalletList(): Observable<WalletInterface[]> {
-        return of();
-    }
 }
