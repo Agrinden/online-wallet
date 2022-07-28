@@ -1,12 +1,27 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
-import { CoreModule } from '@core/core.module';
-import { SharedModule } from '@shared/shared.module';
-import { MainPageRoutingModule, MainPageComponent, ViewWalletComponent } from '@modules/main-page';
+import { CommonModule } from '@angular/common';
+import { CoreModule } from '@app/core/core.module';
+import { SharedModule } from '@app/shared/shared.module';
+import {
+    MainPageComponent,
+    MainPageRoutingModule,
+    CreateWalletFormComponent,
+    CurrencyDropdownComponent,
+} from '@modules-main-page';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FilterCurrencyPipe } from './pipes/filter-currency.pipe';
 
 @NgModule({
-    declarations: [MainPageComponent, ViewWalletComponent],
-    imports: [CommonModule, MainPageRoutingModule, SharedModule, CoreModule],
+    declarations: [MainPageComponent, CreateWalletFormComponent, CurrencyDropdownComponent, FilterCurrencyPipe, ViewWalletComponent],
+    imports: [
+        CommonModule,
+        MainPageRoutingModule,
+        SharedModule,
+        CoreModule,
+        NgxMatSelectSearchModule,
+        ReactiveFormsModule,
+    ],
     providers: [DatePipe],
 })
 export class MainPageModule {}

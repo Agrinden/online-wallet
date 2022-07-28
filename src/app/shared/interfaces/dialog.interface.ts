@@ -1,4 +1,4 @@
-export interface DialogContentInputValues {
+export interface DialogContentInputValuesInterface {
     dialogHeading: string;
     dialogContent: string;
 }

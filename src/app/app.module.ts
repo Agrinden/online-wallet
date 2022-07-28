@@ -8,18 +8,33 @@ import { AppComponent } from '@app/app.component';
 import { HomeLayoutComponent, LoginLayoutComponent } from '@core';
 import { CoreModule } from '@core/core.module';
 import { SharedModule } from '@shared/shared.module';
+import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
+import { secrets } from '@secrets/secrets';
 
 @NgModule({
     declarations: [AppComponent, LoginLayoutComponent, HomeLayoutComponent],
     imports: [
         BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         CoreModule,
         SharedModule,
-        ReactiveFormsModule,
-        FormsModule,
         HttpClientModule,
+
+        AuthModule.forRoot({
+            config: {
+                authority: 'https://accounts.google.com',
+                redirectUrl: window.location.origin,
+                clientId: secrets.googleClientId,
+                scope: 'openid profile email',
+                responseType: 'id_token token',
+                silentRenew: true,
+                useRefreshToken: true,
+                logLevel: LogLevel.Error,
+            },
+        }),
     ],
     providers: [],
     bootstrap: [AppComponent],
