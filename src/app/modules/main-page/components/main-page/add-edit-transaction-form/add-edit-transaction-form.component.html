@@ -5,7 +5,7 @@
             <mat-form-field class="data-field" appearance="fill">
                 <mat-label>Choose your wallet</mat-label>
                 <mat-select formControlName="wallet">
-                    <mat-option *ngFor="let item of wallets" [value]="item.value">
+                    <mat-option *ngFor="let item of wallets$ | async" [value]="item.value">
                         {{ item.viewValue }}
                     </mat-option>
                 </mat-select>
@@ -17,10 +17,8 @@
                 <mat-label aria-required="true">Amount</mat-label>
                 <input formControlName="amount" matInput type="number" />
             </mat-form-field>
-            <div class="errors" *ngIf="dataForm.controls['amount'].errors">
-                <span class="error-message" *ngIf="dataForm.controls['amount'].errors['pattern']"
-                    >Input only numbers</span
-                >
+            <div class="errors" *ngIf="dataForm.controls.amount.errors">
+                <span class="error-message" *ngIf="isValidField('amount')">Input only numbers</span>
             </div>
         </div>
         <div class="field">
@@ -28,7 +26,7 @@
             <mat-form-field class="data-field" appearance="fill">
                 <mat-label>Please choose the category</mat-label>
                 <mat-select formControlName="category">
-                    <mat-option *ngFor="let item of categories" [value]="item.value">
+                    <mat-option *ngFor="let item of categories$ | async" [value]="item.value">
                         {{ item.viewValue }}
                     </mat-option>
                 </mat-select>
@@ -55,7 +53,7 @@
                     cdkAutosizeMaxRows="5"
                 ></textarea>
             </mat-form-field>
-            <div class="note-error" *ngIf="dataForm.controls['note'].errors">
+            <div class="note-error" *ngIf="dataForm.controls.note.errors">
                 <span class="error-message" *ngIf="dataForm.get('note')?.errors?.['maxlength']"
                     >Max 200 characters.</span
                 >
@@ -63,16 +61,7 @@
         </div>
     </mat-dialog-content>
 
-    <div
-        class="form-error"
-        *ngIf="
-            dataForm.controls['wallet'].touched &&
-            dataForm.controls['amount'].touched &&
-            dataForm.controls['category'].touched &&
-            dataForm.controls['date'].touched &&
-            dataForm.invalid
-        "
-    >
+    <div class="form-error" *ngIf="isFormErrorInvalid()">
         <span class="error-message">Please fill in all required fields</span>
     </div>
 

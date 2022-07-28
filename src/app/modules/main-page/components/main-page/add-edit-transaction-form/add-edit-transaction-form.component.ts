@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { IncomeFormInterface } from '@app/shared/interfaces/income-form.interface';
 import { TransactionService } from '@modules/main-page';
 import * as moment from 'moment';
 
@@ -9,12 +10,12 @@ import * as moment from 'moment';
     styleUrls: ['./add-edit-transaction-form.component.scss'],
 })
 export class AddEditTransactionFormComponent implements OnInit {
-    @Input() dataForm!: FormGroup;
+    @Input() dataForm!: FormGroup<IncomeFormInterface>;
     @Input() data!: any;
 
     public currentDate!: moment.Moment;
-    public categories = this.transactionService.categories$;
-    public wallets = this.transactionService.wallets$;
+    public categories$ = this.transactionService.categories$;
+    public wallets$ = this.transactionService.wallets$;
 
     constructor(private formBuilder: FormBuilder, private transactionService: TransactionService) {}
 
@@ -23,13 +24,29 @@ export class AddEditTransactionFormComponent implements OnInit {
         this.currentDate = moment();
     }
 
-    private getInitializedForm(): FormGroup {
-        const form = this.formBuilder.group({
-            wallet: ['', Validators.required],
-            amount: [0.01, [Validators.required, Validators.pattern(/^[0-9]*[.]?[0-9]+$/), Validators.min(0.01)]],
-            category: ['', Validators.required],
-            date: [this.currentDate, Validators.required],
-            note: ['', Validators.maxLength(200)],
+    public isValidField(controlName: keyof IncomeFormInterface): boolean {
+        return !this.dataForm.controls[controlName].hasError('pattern');
+    }
+
+    public isControlTouched(controlName: keyof IncomeFormInterface): boolean {
+        return this.dataForm.controls[controlName].touched;
+    }
+
+    public isFormErrorInvalid(): boolean {
+        return this.dataForm.touched && this.dataForm.invalid;
+    }
+
+    private getInitializedForm(): FormGroup<IncomeFormInterface> {
+        const form = this.formBuilder.group<IncomeFormInterface>({
+            wallet: new FormControl<string>('', Validators.required),
+            amount: new FormControl<number>(0.01, [
+                Validators.required,
+                Validators.pattern(/^[0-9]*[.]?[0-9]+$/),
+                Validators.min(0.01),
+            ]),
+            category: new FormControl<string>('', Validators.required),
+            date: new FormControl<moment.Moment>(this.currentDate, Validators.required),
+            note: new FormControl<string>('', Validators.maxLength(200)),
         });
         return form;
     }
@@ -38,9 +55,9 @@ export class AddEditTransactionFormComponent implements OnInit {
         if (this.data) {
             if (this.data.itemType === 'expense') {
                 this.data.isEditForm
-                    ? this.transactionService.updateTransaction(this.data)
+                    ? this.transactionService.editTransaction(this.data)
                     : this.transactionService.createTransaction(this.data);
             }
-        } else console.log('no data');
+        }
     }
 }

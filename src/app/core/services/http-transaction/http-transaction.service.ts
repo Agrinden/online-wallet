@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ITransactionInterface } from '@app/shared';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -9,6 +10,10 @@ export class HttpTransactionService {
     constructor(private http: HttpClient) {}
 
     public postTransaction({ itemType }: any): Observable<any> {
+        return of();
+    }
+
+    public updateTransaction({ itemType }: any): Observable<ITransactionInterface> {
         return of();
     }
 }

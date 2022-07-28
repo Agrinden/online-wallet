@@ -1,4 +1,4 @@
-export interface ICategory {
+export interface CategoryInterface {
     value: string;
     viewValue: string;
 }
