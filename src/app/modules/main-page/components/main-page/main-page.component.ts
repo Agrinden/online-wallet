@@ -1,27 +1,24 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateWalletFormComponent } from '@app/modules/main-page/components/create-wallet-form/create-wallet-form.component';
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
 import { IDialogData } from '@app/shared/interfaces/dialog-data.interface';
 import { WalletService } from '@core';
-import { TransactionDialogComponent } from '@modules/main-page';
-import { Subject, takeUntil } from 'rxjs';
+import { TransactionDialogComponent, TransactionService } from '@modules/main-page';
+import { take } from 'rxjs';
 
 @Component({
     selector: 'app-main-page',
     templateUrl: './main-page.component.html',
     styleUrls: ['./main-page.component.scss'],
 })
-export class MainPageComponent implements OnInit, OnDestroy {
-    private destroy$ = new Subject();
-
+export class MainPageComponent {
     constructor(
         private dialog: MatDialog,
         private dialogService: DialogService,
-        private walletService: WalletService
+        private walletService: WalletService,
+        private transactionService: TransactionService
     ) {}
-
-    ngOnInit(): void {}
 
     public onAddTransactionClick(itemType: string): void {
         this.dialog
@@ -29,21 +26,20 @@ export class MainPageComponent implements OnInit, OnDestroy {
                 data: { isEditForm: false, itemType: itemType },
             })
             .afterClosed()
-            .pipe(takeUntil(this.destroy$))
-            .subscribe();
+            .pipe(take(1))
+            .subscribe((value) => {
+                this.transactionService.createTransaction(value);
+            });
     }
 
     public onEditTransactionClick(itemType: string, itemId: string): void {
         this.dialog
             .open(TransactionDialogComponent, { data: { isEditForm: true, itemType: itemType, itemId: itemId } })
             .afterClosed()
-            .pipe(takeUntil(this.destroy$))
-            .subscribe();
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next(true);
-        this.destroy$.complete();
+            .pipe(take(1))
+            .subscribe((value) => {
+                this.transactionService.editTransaction(value);
+            });
     }
 
     openCreateWalletModal() {

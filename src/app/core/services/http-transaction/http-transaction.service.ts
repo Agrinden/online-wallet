@@ -1,19 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ITransactionInterface } from '@app/shared';
+import { CoreModule } from '@app/core/core.module';
+import { CreateTransactionInterface, TransactionInterface, UpdateTransactionInterface } from '@app/shared';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: CoreModule,
 })
 export class HttpTransactionService {
     constructor(private http: HttpClient) {}
 
-    public postTransaction({ itemType }: any): Observable<any> {
-        return of();
+    public postTransaction(body: CreateTransactionInterface): Observable<any> {
+        return of(body);
     }
 
-    public updateTransaction({ itemType }: any): Observable<ITransactionInterface> {
-        return of();
+    public updateTransaction(body: UpdateTransactionInterface): Observable<any> {
+        return of(body);
     }
 }

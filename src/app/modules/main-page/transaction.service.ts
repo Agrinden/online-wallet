@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
+import { CoreModule } from '@app/core';
 import { HttpTransactionService } from '@app/core/services/http-transaction/http-transaction.service';
 import { CATEGORIES, WALLETS } from '@app/mocks';
-import { CategoryInterface, ITransactionInterface, WalletInterface } from '@app/shared';
+import { CategoryInterface, TransactionInterface, WalletInterface } from '@app/shared';
 import { Observable, of, Subject, Subscription } from 'rxjs';
+import { MainPageModule } from '.';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: CoreModule,
 })
 export class TransactionService {
+    updateTransaction(value: any) {
+        throw new Error('Method not implemented.');
+    }
     public currentTransactionSubject$ = new Subject();
 
     public currentTransaction$ = this.currentTransactionSubject$.asObservable();
@@ -17,19 +22,15 @@ export class TransactionService {
 
     constructor(private httpService: HttpTransactionService) {}
 
-    public createTransaction({ itemType }: any): Subscription {
-        return this.httpService
-            .postTransaction({ itemType })
-            .subscribe((value) => this.currentTransactionSubject$.next(value));
+    public createTransaction(formData: any): Observable<TransactionInterface> {
+        return this.httpService.postTransaction(formData);
     }
 
-    public editTransaction({ itemType, itemId }: any): Subscription {
-        return this.httpService
-            .updateTransaction({ itemType, itemId })
-            .subscribe((value) => this.currentTransactionSubject$.next(value));
+    public editTransaction(formData: any): Observable<TransactionInterface> {
+        return this.httpService.updateTransaction(formData);
     }
 
-    public getTransactionList(type: string): Observable<ITransactionInterface[]> {
+    public getTransactionList(): Observable<TransactionInterface[]> {
         return of();
     }
 

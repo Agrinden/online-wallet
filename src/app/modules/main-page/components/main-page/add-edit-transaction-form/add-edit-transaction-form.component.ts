@@ -52,12 +52,10 @@ export class AddEditTransactionFormComponent implements OnInit {
     }
 
     public onFormSubmit(): void {
-        if (this.data) {
-            if (this.data.itemType === 'expense') {
-                this.data.isEditForm
-                    ? this.transactionService.editTransaction(this.data)
-                    : this.transactionService.createTransaction(this.data);
-            }
+        if (this.dataForm) {
+            this.data.isEditForm
+                ? this.transactionService.editTransaction(this.dataForm.controls)
+                : this.transactionService.createTransaction(this.dataForm.controls);
         }
     }
 }
