@@ -1,5 +1,6 @@
 import { ICategory } from '@app/shared/interfaces/category.interface';
 import { IWallet } from '@app/shared/interfaces/wallet.interface';
+import { CurrencyInterface } from '@app/shared/interfaces/currency.interface';
 
 export const mockNotifications = [
     {
@@ -46,3 +47,4 @@ export const CATEGORIES: ICategory[] = [
         viewValue: 'Found',
     },
 ];
+export const CURRENCIES: CurrencyInterface[] = [{ name: 'EUR' }, { name: 'GEL' }, { name: 'PLN' }, { name: 'USD' }];
