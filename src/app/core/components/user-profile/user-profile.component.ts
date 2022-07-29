@@ -3,6 +3,8 @@ import { settingsMenu, userProfileMenu } from '@core/constants';
 import { UserService, UserDeleteService } from '@core/services';
 
 import { mockUser } from '@core';
+import { WarningDialogService } from '@app/core/services/warn-dialog/warning-dialog.service';
+import { logoutContent } from '@app/core/services/user-delete/user-delete-constants';
 
 @Component({
     selector: 'app-user-profile',
@@ -10,7 +12,11 @@ import { mockUser } from '@core';
     styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent {
-    constructor(private userService: UserService, private userDeleteService: UserDeleteService) {}
+    constructor(
+        private userService: UserService,
+        private userDeleteService: UserDeleteService,
+        private warnDialogService: WarningDialogService
+    ) {}
 
     public userProfileItems = userProfileMenu;
 
@@ -19,7 +25,7 @@ export class UserProfileComponent {
     public user = mockUser;
 
     public logout(): void {
-        this.userService.signOut();
+        this.warnDialogService.invokeWarnDialog(logoutContent).subscribe(() => this.userService.signOut());
     }
 
     public openDialog(): void {

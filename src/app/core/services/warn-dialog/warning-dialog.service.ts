@@ -10,8 +10,8 @@ import { filter, take } from 'rxjs';
 export class WarningDialogService {
     constructor(private dialog: MatDialog) {}
 
-    invokeWarnDialog(dialogContent: any, snackbar?: any) {
-        this.dialog
+    invokeWarnDialog(dialogContent: any) {
+        return this.dialog
             .open(DialogComponent, {
                 data: {
                     dialogHeading: dialogContent.dialogHeading,
@@ -25,7 +25,6 @@ export class WarningDialogService {
             .pipe(
                 filter((value) => value === ConfirmationDialogChoise.confirm),
                 take(1)
-            )
-            .subscribe(() => this.dialog.closeAll());
+            );
     }
 }

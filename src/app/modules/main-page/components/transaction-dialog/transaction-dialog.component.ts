@@ -1,6 +1,6 @@
 import { Component, Inject, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { closeWarning } from '@app/core/services/user-delete/user-delete-constants';
 import { WarningDialogService } from '@app/core/services/warn-dialog/warning-dialog.service';
 import { AddEditTransactionFormComponent } from '@modules/main-page';
@@ -15,9 +15,13 @@ export class TransactionDialogComponent {
 
     @ViewChild('transactionForm') transactionForm!: AddEditTransactionFormComponent;
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private warnService: WarningDialogService) {}
+    constructor(
+        @Inject(MAT_DIALOG_DATA) public data: any,
+        private warnService: WarningDialogService,
+        private dialog: MatDialog
+    ) {}
 
     public onCloseDialog() {
-        this.warnService.invokeWarnDialog(closeWarning);
+        this.warnService.invokeWarnDialog(closeWarning).subscribe(() => this.dialog.closeAll());
     }
 }

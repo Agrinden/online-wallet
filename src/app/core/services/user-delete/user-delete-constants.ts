@@ -7,3 +7,8 @@ export const closeWarning = {
     dialogHeading: 'Close warning',
     dialogContent: 'Do you really want to cancel the adding transaction process? All your entered data will be lost',
 };
+
+export const logoutContent = {
+    dialogHeading: 'Logout',
+    dialogContent: 'Are you sure that you really want to log out from the system?',
+};
