@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CoreModule } from '@app/core';
-import { categories$, WALLETS } from '@app/mocks';
+import { categories$, payers$, WALLETS } from '@app/mocks';
 import { IncomeWalletInterface, TransactionInterface } from '@app/shared';
 import { HttpTransactionService } from '@core/services';
 import { Observable } from 'rxjs';
@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 export class TransactionService {
     public categories$ = categories$;
     public wallets$ = WALLETS;
+    public payers$ = payers$;
 
     constructor(private httpService: HttpTransactionService) {}
 

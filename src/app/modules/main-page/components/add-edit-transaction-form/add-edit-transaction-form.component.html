@@ -37,14 +37,14 @@
 
         <div class="new-category">
             <span class="no-category">Can't find the right category?</span>
-            <a class="add-new-category" (click)="openAddCategoryForm()">+ Add new category </a>
+            <a class="add-new-category" (click)="openAddInstanseForm()">+ Add new category </a>
         </div>
 
-        <div class="field">
+        <div class="field" *ngIf="data.itemType === 'EXPENSE'">
             <span class="field-title">Subcategory *</span>
             <mat-form-field class="data-field" appearance="fill">
                 <mat-label>Please choose the subcategory</mat-label>
-                <mat-select formControlName="category">
+                <mat-select formControlName="subcategory">
                     <ng-container *ngFor="let category of categories$ | async">
                         <mat-option *ngFor="let subcat of category.subcategories" [value]="subcat">
                             {{ subcat }}
@@ -54,9 +54,26 @@
             </mat-form-field>
         </div>
 
-        <div class="new-category">
+        <div class="new-category" *ngIf="data.itemType === 'EXPENSE'">
             <span class="no-category">Can't find the right category?</span>
-            <a class="add-new-category" (click)="openAddCategoryForm()">+ Add new category </a>
+            <a class="add-new-category" (click)="openAddInstanseForm()">+ Add new category </a>
+        </div>
+
+        <div class="field" *ngIf="data.itemType === 'EXPENSE'">
+            <span class="field-title">Payer *</span>
+            <mat-form-field class="data-field" appearance="fill">
+                <mat-label>Please choose payer</mat-label>
+                <mat-select formControlName="payer">
+                    <mat-option *ngFor="let payer of payers$ | async" [value]="payer">
+                        {{ payer.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="new-category" *ngIf="data.itemType === 'EXPENSE'">
+            <span class="no-category">Can't find the right person?</span>
+            <a class="add-new-category" (click)="openAddInstanseForm()">+ Add new payer </a>
         </div>
 
         <div class="field">

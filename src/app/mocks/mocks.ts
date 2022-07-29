@@ -14,11 +14,20 @@ export const mockNotifications = [
     },
 ];
 
-export const mockUser = {
+export const mockUser = of({
     name: 'mockUser',
     surname: 'Surr',
     role: 'admin',
-};
+});
+
+export const payers$ = of([
+    {
+        name: 'payer1',
+    },
+    {
+        name: 'payer2',
+    },
+]);
 
 export const WALLETS: Observable<IncomeWalletInterface[]> = of([
     {

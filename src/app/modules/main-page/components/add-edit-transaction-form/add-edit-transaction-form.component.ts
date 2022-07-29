@@ -21,6 +21,7 @@ export class AddEditTransactionFormComponent implements OnInit {
     public currentDate!: moment.Moment;
     public categories$ = this.transactionService.categories$;
     public wallets$ = this.transactionService.wallets$;
+    public payers$ = this.transactionService.payers$;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -57,9 +58,11 @@ export class AddEditTransactionFormComponent implements OnInit {
                 Validators.pattern(/^[0-9]*[.]?[0-9]+$/),
                 Validators.min(0.01),
             ]),
-            category: new FormControl<string>('', Validators.required),
-            date: new FormControl<moment.Moment>(this.currentDate, Validators.required),
-            note: new FormControl<string>('', Validators.maxLength(200)),
+            category: new FormControl<string>('', Validators.maxLength(100)),
+            subcategory: new FormControl<string>('', Validators.maxLength(100)),
+            payer: new FormControl<string>('', Validators.maxLength(64)),
+            date: new FormControl<moment.Moment>(this.currentDate, Validators.maxLength(10)),
+            note: new FormControl<string>('', Validators.maxLength(400)),
         });
         return form;
     }
@@ -86,7 +89,7 @@ export class AddEditTransactionFormComponent implements OnInit {
         }
     }
 
-    public openAddCategoryForm(): void {
+    public openAddInstanseForm(): void {
         this.dialog
             .open(AddCategoryComponent)
             .beforeClosed()

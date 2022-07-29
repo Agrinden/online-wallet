@@ -20,6 +20,7 @@ export class WarningDialogService {
                 width: '400px',
                 height: 'fit-content',
                 panelClass: 'dialog-container',
+                disableClose: true,
             })
             .afterClosed()
             .pipe(

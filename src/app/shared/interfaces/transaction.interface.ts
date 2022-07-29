@@ -4,11 +4,11 @@ import { Moment } from 'moment';
 export interface TransactionInterface {
     id: string;
     type: string;
-    walletId: string;
+    wallet: string;
     amount: number;
-    categoryId: string;
-    subcategoryId?: string;
-    payerId: string;
+    category: string;
+    subcategory: string;
+    payer: string;
     date: string;
     message: string;
 }
@@ -27,6 +27,8 @@ export interface TransactionFormInterface {
     wallet: AbstractControl<string | null>;
     amount: AbstractControl<number | null>;
     category: AbstractControl<string | null>;
+    subcategory: AbstractControl<string | null>;
+    payer: AbstractControl<string | null>;
     date: AbstractControl<Moment | null>;
     note: AbstractControl<string | null>;
 }

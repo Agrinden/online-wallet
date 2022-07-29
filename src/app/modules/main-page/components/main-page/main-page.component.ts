@@ -24,12 +24,14 @@ export class MainPageComponent implements OnInit, OnDestroy {
     public onAddTransactionClick(itemType: string): void {
         this.dialog.open(TransactionDialogComponent, {
             data: { isEditForm: false, itemType },
+            disableClose: true,
         });
     }
 
     public onEditTransactionClick(itemType: string, itemId: string): void {
         this.dialog.open(TransactionDialogComponent, {
             data: { isEditForm: true, itemType, itemId },
+            disableClose: true,
         });
     }
 
