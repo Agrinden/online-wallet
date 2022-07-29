@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CoreModule } from '@app/core';
-import { HttpTransactionService } from '@app/core/services/http-transaction/http-transaction.service';
+import { HttpTransactionService } from '@core/services';
 import { categories$, WALLETS } from '@app/mocks';
-import { TransactionInterface } from '@app/shared';
+import { IncomeWalletInterface, TransactionInterface } from '@app/shared';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -24,5 +24,13 @@ export class TransactionService {
 
     public editTransaction(formData: any): Observable<TransactionInterface> {
         return this.httpService.updateTransaction(formData);
+    }
+
+    public getWalletList(): Observable<IncomeWalletInterface[]> {
+        return WALLETS;
+    }
+
+    public getIncomeCategories(): Observable<any> {
+        return categories$;
     }
 }

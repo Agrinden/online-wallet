@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { TransactionFormInterface } from '@app/shared';
+import { AddCategoryComponent } from '@app/shared/add-category/components/add-category.component';
 import { TransactionService } from '@modules/main-page';
 import * as moment from 'moment';
-import { take } from 'rxjs';
+import { filter, take } from 'rxjs';
 
 @Component({
     selector: 'app-add-edit-transaction-form',
@@ -18,12 +20,18 @@ export class AddEditTransactionFormComponent implements OnInit {
     public categories$ = this.transactionService.categories$;
     public wallets$ = this.transactionService.wallets$;
 
-    constructor(private formBuilder: FormBuilder, private transactionService: TransactionService) {}
+    constructor(
+        private formBuilder: FormBuilder,
+        private transactionService: TransactionService,
+        private dialog: MatDialog
+    ) {}
 
     ngOnInit(): void {
-        this.dataForm = this.getInitializedForm();
         this.currentDate = moment();
+        this.dataForm = this.getInitializedForm();
         this.setFormData();
+        this.wallets$ = this.transactionService.getWalletList();
+        this.categories$ = this.transactionService.getIncomeCategories();
     }
 
     public isValidField(controlName: keyof TransactionFormInterface): boolean {
@@ -74,5 +82,16 @@ export class AddEditTransactionFormComponent implements OnInit {
                 ? this.transactionService.editTransaction(model)
                 : this.transactionService.createTransaction(model);
         }
+    }
+
+    public openAddCategoryForm(): void {
+        this.dialog
+            .open(AddCategoryComponent)
+            .beforeClosed()
+            .pipe(
+                filter((data) => !!data),
+                take(1)
+            )
+            .subscribe();
     }
 }
