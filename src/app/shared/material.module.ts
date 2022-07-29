@@ -18,6 +18,7 @@ import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [],
@@ -42,6 +43,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         MatTabsModule,
         MatDialogModule,
         MatSnackBarModule,
+        MatProgressSpinnerModule,
     ],
     providers: [
         {
