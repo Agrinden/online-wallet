@@ -1,8 +1,5 @@
 import { CoreModule } from '@core/core.module';
 import { Injectable } from '@angular/core';
-import { mockWallets, mockWalletTransactions } from '@core';
-import { Observable, of } from 'rxjs';
-import { TransactionInterface, WalletInterface } from '@app/shared';
 
 @Injectable({
     providedIn: CoreModule,
@@ -10,7 +7,9 @@ import { TransactionInterface, WalletInterface } from '@app/shared';
 export class WalletService {
     constructor() {}
 
-    public createWallet() {}
+    public createWallet(wallet: CreateWalletInterface): Observable<any> {
+        return of(wallet);
+    }
 
     public getWallet(id: string): Observable<WalletInterface> {
         return of(mockWallets[0]);

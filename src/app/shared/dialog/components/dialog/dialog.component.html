@@ -6,7 +6,7 @@
         <ng-container *ngComponentOutlet="data.content"></ng-container>
     </div>
     <div mat-dialog-actions align="end" *ngIf="data.confirmText || data.cancelText">
-        <button mat-flat-button color="primary" (click)="confirm()">{{ data.confirmText }}</button>
-        <button mat-flat-button color="warn" (click)="cancel()">{{ data.cancelText }}</button>
+        <button mat-flat-button color="primary" [mat-dialog-close]="true">{{ data.confirmText }}</button>
+        <button mat-flat-button color="warn" [mat-dialog-close]="false">{{ data.cancelText }}</button>
     </div>
 </div>

@@ -11,7 +11,7 @@
         "watch": "npm run config && ng build --watch --configuration development",
         "test": "ng test",
         "lint": "ng lint",
-        "config": "ts-node  src/secrets/setSecrets.ts"
+        "config": "npx ts-node  src/secrets/setSecrets.ts"
     },
     "private": true,
     "dependencies": {

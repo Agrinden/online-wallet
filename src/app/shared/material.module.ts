@@ -19,6 +19,7 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [],
@@ -44,6 +45,7 @@ import { MatTableModule } from '@angular/material/table';
         MatDialogModule,
         MatSnackBarModule,
         MatTableModule,
+        MatProgressSpinnerModule,
     ],
     providers: [
         {

@@ -4,3 +4,4 @@ export * from './interfaces/transaction.interface';
 export * from './material.module';
 export * from './shared.module';
 export * from './dialog/dialog.component';
+export * from './loader/components/loader.component';
