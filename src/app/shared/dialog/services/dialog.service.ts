@@ -3,7 +3,7 @@ import { map, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../components/dialog/dialog.component';
-import { IDialogData } from '@app/shared/interfaces/dialog-data.interface';
+import { DialogDataInterface } from '@app/shared/interfaces/dialog-data.interface';
 
 @Injectable()
 export class DialogService {
@@ -11,7 +11,7 @@ export class DialogService {
 
     dialogRef!: MatDialogRef<DialogComponent>;
 
-    public open(options: IDialogData) {
+    public open(options: DialogDataInterface) {
         this.dialogRef = this.dialog.open(DialogComponent, {
             data: {
                 title: options.title,

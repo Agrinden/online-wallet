@@ -3,7 +3,7 @@ import { AddCategoryComponent } from './../../add-category/components/add-catego
 import { MatDialog } from '@angular/material/dialog';
 import { IncomeFormInterface } from '../../interfaces/income-form.interface';
 import { IncomeDataServie } from '../../../core/services/income-data/income-service';
-import { WalletInterface } from '../../interfaces/income-wallet.interface';
+import { IncomeWalletInterface } from '../../interfaces/income-wallet.interface';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
@@ -23,7 +23,7 @@ export class IncomeFormComponent implements OnInit {
     public currentDate!: moment.Moment;
 
     //TODO: load wallets from BE
-    public wallets$!: Observable<WalletInterface[]>;
+    public wallets$!: Observable<IncomeWalletInterface[]>;
     public categories$!: Observable<CategoryInterface[]>;
 
     constructor(
