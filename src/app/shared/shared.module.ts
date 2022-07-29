@@ -8,17 +8,18 @@ import { DialogModule } from './dialog/dialog.module';
 
 import { DialogComponent } from '@shared/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoaderComponent } from './loader/components/loader.component';
 
 @NgModule({
-    declarations: [DialogComponent, OpenIncomeFormComponent, AddCategoryComponent],
+    declarations: [DialogComponent, OpenIncomeFormComponent, AddCategoryComponent, LoaderComponent],
     imports: [CommonModule, MaterialModule, RouterModule, DialogModule, ReactiveFormsModule],
     exports: [
         MaterialModule,
         RouterModule,
         DialogComponent,
-        DialogComponent,
         OpenIncomeFormComponent,
         AddCategoryComponent,
+        LoaderComponent,
     ],
 })
 export class SharedModule {}
