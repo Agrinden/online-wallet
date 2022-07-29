@@ -1,6 +1,6 @@
-import { CategoryInterface } from '@app/shared/interfaces/category.interface';
-import { WalletInterface } from '@app/shared/interfaces/wallet.interface';
 import { CurrencyInterface } from '@app/shared/interfaces/currency.interface';
+import { CategoryInterface } from '@app/shared/interfaces/income-category.interface';
+import { WalletInterface } from '@app/shared/interfaces/income-wallet.interface';
 import { Observable, of } from 'rxjs';
 
 export const mockNotifications = [
