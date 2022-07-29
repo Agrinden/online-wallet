@@ -10,7 +10,7 @@ import { filter, take } from 'rxjs';
 export class WarningDialogService {
     constructor(private dialog: MatDialog) {}
 
-    invokeWarnDialog(dialogContent: any) {
+    callWarnDialog(dialogContent: any) {
         return this.dialog
             .open(DialogComponent, {
                 data: {

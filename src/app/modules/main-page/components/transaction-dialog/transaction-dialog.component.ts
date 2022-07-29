@@ -22,6 +22,6 @@ export class TransactionDialogComponent {
     ) {}
 
     public onCloseDialog() {
-        this.warnService.invokeWarnDialog(closeWarning).subscribe(() => this.dialog.closeAll());
+        this.warnService.callWarnDialog(closeWarning).subscribe(() => this.dialog.closeAll());
     }
 }

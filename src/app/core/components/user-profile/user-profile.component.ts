@@ -25,7 +25,7 @@ export class UserProfileComponent {
     public user = mockUser;
 
     public logout(): void {
-        this.warnDialogService.invokeWarnDialog(logoutContent).subscribe(() => this.userService.signOut());
+        this.warnDialogService.callWarnDialog(logoutContent).subscribe(() => this.userService.signOut());
     }
 
     public openDialog(): void {
