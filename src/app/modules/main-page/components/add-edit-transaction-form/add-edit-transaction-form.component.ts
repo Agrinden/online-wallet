@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TransactionFormInterface } from '@app/shared';
@@ -15,6 +15,8 @@ import { filter, take } from 'rxjs';
 export class AddEditTransactionFormComponent implements OnInit {
     @Input() dataForm!: FormGroup<TransactionFormInterface>;
     @Input() data!: any;
+
+    @Output() closeForm = new EventEmitter();
 
     public currentDate!: moment.Moment;
     public categories$ = this.transactionService.categories$;
@@ -93,5 +95,9 @@ export class AddEditTransactionFormComponent implements OnInit {
                 take(1)
             )
             .subscribe();
+    }
+
+    public onFormClose() {
+        this.closeForm.emit();
     }
 }

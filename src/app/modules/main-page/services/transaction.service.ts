@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CoreModule } from '@app/core';
-import { HttpTransactionService } from '@core/services';
 import { categories$, WALLETS } from '@app/mocks';
 import { IncomeWalletInterface, TransactionInterface } from '@app/shared';
+import { HttpTransactionService } from '@core/services';
 import { Observable } from 'rxjs';
 
 @Injectable({

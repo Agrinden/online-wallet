@@ -5,4 +5,4 @@ export * from './main-page.module';
 export * from './main-page-routing.module';
 export * from './components/add-edit-transaction-form/add-edit-transaction-form.component';
 export * from './components/transaction-dialog/transaction-dialog.component';
-export * from './transaction.service';
+export * from './services/transaction.service';

@@ -4,7 +4,11 @@
 
         <h2 mat-dialog-title class="header-title" *ngIf="data.isEditForm">Edit {{ data.itemType }}</h2>
 
-        <mat-icon class="delete-icon" title="Close" mat-dialog-close="false">close</mat-icon>
+        <mat-icon class="delete-icon" title="Close" (click)="onCloseDialog()">close</mat-icon>
     </div>
-    <app-add-edit-transaction-form #transactionForm [data]="data"></app-add-edit-transaction-form>
+    <app-add-edit-transaction-form
+        #transactionForm
+        [data]="data"
+        (closeForm)="onCloseDialog()"
+    ></app-add-edit-transaction-form>
 </div>
