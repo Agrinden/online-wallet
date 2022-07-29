@@ -62,6 +62,7 @@ input[type='number'] {
                 @include generalWidth;
                 font-size: small;
                 margin: 0 0 15px 160px;
+                white-space: nowrap;
                 .add-new-category {
                     color: rgb(88, 181, 227);
                     text-decoration: underline;

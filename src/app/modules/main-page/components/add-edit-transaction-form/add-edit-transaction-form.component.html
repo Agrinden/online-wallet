@@ -11,6 +11,7 @@
                 </mat-select>
             </mat-form-field>
         </div>
+
         <div class="field">
             <span class="field-title">Amount *</span>
             <mat-form-field class="example-full-width" appearance="fill">
@@ -21,6 +22,7 @@
                 <span class="error-message" *ngIf="isValidField('amount')">Input only numbers</span>
             </div>
         </div>
+
         <div class="field">
             <span class="field-title">Category *</span>
             <mat-form-field class="data-field" appearance="fill">
@@ -32,10 +34,31 @@
                 </mat-select>
             </mat-form-field>
         </div>
+
         <div class="new-category">
             <span class="no-category">Can't find the right category?</span>
             <a class="add-new-category" (click)="openAddCategoryForm()">+ Add new category </a>
         </div>
+
+        <div class="field">
+            <span class="field-title">Subcategory *</span>
+            <mat-form-field class="data-field" appearance="fill">
+                <mat-label>Please choose the subcategory</mat-label>
+                <mat-select formControlName="category">
+                    <ng-container *ngFor="let category of categories$ | async">
+                        <mat-option *ngFor="let subcat of category.subcategories" [value]="subcat">
+                            {{ subcat }}
+                        </mat-option>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="new-category">
+            <span class="no-category">Can't find the right category?</span>
+            <a class="add-new-category" (click)="openAddCategoryForm()">+ Add new category </a>
+        </div>
+
         <div class="field">
             <span class="field-title">Date *</span>
             <mat-form-field class="example-full-width" appearance="fill">
@@ -45,6 +68,7 @@
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
         </div>
+
         <div class="field note-field">
             <span class="field-title">Note</span>
             <mat-form-field class="data-field" appearance="fill">
@@ -57,6 +81,7 @@
                     cdkAutosizeMaxRows="5"
                 ></textarea>
             </mat-form-field>
+
             <div class="note-error" *ngIf="dataForm.controls.note.errors">
                 <span class="error-message" *ngIf="dataForm.get('note')?.errors?.['maxlength']"
                     >Max 200 characters.</span
