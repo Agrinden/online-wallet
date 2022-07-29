@@ -74,6 +74,17 @@ input[type='number'] {
                 display: none;
             }
         }
+        .new-category {
+            @include generalWidth;
+            font-size: small;
+            margin: 0 0 15px 160px;
+            .add-new-category {
+                color: rgb(88, 181, 227);
+                text-decoration: underline;
+                padding-left: 19px;
+                cursor: pointer;
+            }
+        }
     }
     .form-error {
         color: red;

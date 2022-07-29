@@ -1,6 +1,7 @@
+import { IncomeWalletInterface } from '@app/shared';
 import { CurrencyInterface } from '@app/shared/interfaces/currency.interface';
 import { CategoryInterface } from '@app/shared/interfaces/income-category.interface';
-import { WalletInterface } from '@app/shared/interfaces/income-wallet.interface';
+
 import { Observable, of } from 'rxjs';
 
 export const mockNotifications = [
@@ -19,7 +20,7 @@ export const mockUser = {
     role: 'admin',
 };
 
-export const WALLETS: Observable<WalletInterface[]> = of([
+export const WALLETS: Observable<IncomeWalletInterface[]> = of([
     {
         value: '1',
         viewValue: 'Wallet 1',
