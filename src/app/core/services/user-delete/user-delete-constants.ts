@@ -5,5 +5,5 @@ export const dialogContent = {
 
 export const closingWarn = {
     dialogHeading: 'Closing dialog',
-    dialogContent: 'Do you really want to cancel the adding expense process? All you entered data will be lost',
+    dialogContent: 'Do you really want to cancel the adding transaction process? All you entered data will be lost',
 };
