@@ -51,7 +51,7 @@ export const CATEGORIES: Observable<CategoryInterface[]> = of([
 ]);
 export const CURRENCIES: CurrencyInterface[] = [{ name: 'EUR' }, { name: 'GEL' }, { name: 'PLN' }, { name: 'USD' }];
 
-export const categories = [
+export const categories$ = of([
     {
         name: 'Home & utilities',
         subcategories: ['Mortgage', 'Rent', 'Utilities', 'Internet', 'Mobile'],
@@ -93,4 +93,4 @@ export const categories = [
         name: 'Pets',
         subcategories: [],
     },
-];
+]);
