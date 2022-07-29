@@ -10,6 +10,10 @@ import { Observable, of } from 'rxjs';
 export class HttpTransactionService {
     constructor(private http: HttpClient) {}
 
+    public getTransaction(body: CreateTransactionInterface): Observable<any> {
+        return of(body);
+    }
+
     public postTransaction(body: CreateTransactionInterface): Observable<any> {
         return of(body);
     }

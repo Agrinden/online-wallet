@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { TransactionFormInterface } from '@app/shared';
 import { TransactionService } from '@modules/main-page';
 import * as moment from 'moment';
+import { take } from 'rxjs';
 
 @Component({
     selector: 'app-add-edit-transaction-form',
@@ -22,6 +23,7 @@ export class AddEditTransactionFormComponent implements OnInit {
     ngOnInit(): void {
         this.dataForm = this.getInitializedForm();
         this.currentDate = moment();
+        this.setFormData();
     }
 
     public isValidField(controlName: keyof TransactionFormInterface): boolean {
@@ -52,10 +54,21 @@ export class AddEditTransactionFormComponent implements OnInit {
         return form;
     }
 
+    private setFormData(): void {
+        if (this.data.isEditForm) {
+            this.transactionService
+                .getTransaction(this.data.itemId)
+                .pipe(take(1))
+                .subscribe((item: any) => {
+                    return this.dataForm.patchValue(item);
+                });
+        }
+    }
+
     public onFormSubmit(): void {
         if (this.dataForm) {
             const formControls = this.dataForm.getRawValue();
-            const model = { ...formControls, id: this.data.itemId, itemType: this.data.itemType };
+            const model = { ...formControls, itemType: this.data.itemType };
 
             this.data.isEditForm
                 ? this.transactionService.editTransaction(model)

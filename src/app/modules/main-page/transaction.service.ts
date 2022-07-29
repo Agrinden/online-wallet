@@ -15,6 +15,10 @@ export class TransactionService {
 
     constructor(private httpService: HttpTransactionService) {}
 
+    public getTransaction(formData: any): Observable<TransactionInterface> {
+        return this.httpService.getTransaction(formData.id);
+    }
+
     public createTransaction(formData: any): Observable<TransactionInterface> {
         return this.httpService.postTransaction(formData);
     }
