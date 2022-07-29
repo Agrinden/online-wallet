@@ -1,3 +1,6 @@
+import { filter } from 'rxjs/operators';
+import { AddCategoryComponent } from './../../add-category/components/add-category.component';
+import { MatDialog } from '@angular/material/dialog';
 import { IncomeFormInterface } from '../../interfaces/income-form.interface';
 import { IncomeDataServie } from '../../../core/services/income-data/income-service';
 import { WalletInterface } from '../../interfaces/income-wallet.interface';
@@ -23,7 +26,11 @@ export class IncomeFormComponent implements OnInit {
     public wallets$!: Observable<WalletInterface[]>;
     public categories$!: Observable<CategoryInterface[]>;
 
-    constructor(private formBuilder: FormBuilder, private incomeDataService: IncomeDataServie) {}
+    constructor(
+        private formBuilder: FormBuilder,
+        private incomeDataService: IncomeDataServie,
+        private dialog: MatDialog
+    ) {}
 
     ngOnInit(): void {
         this.currentDate = moment();
@@ -57,5 +64,13 @@ export class IncomeFormComponent implements OnInit {
             note: new FormControl<string>('', Validators.maxLength(200)),
         });
         return form;
+    }
+
+    public openForm(): void {
+        this.dialog
+            .open(AddCategoryComponent)
+            .beforeClosed()
+            .pipe(filter((data) => !!data))
+            .subscribe();
     }
 }
