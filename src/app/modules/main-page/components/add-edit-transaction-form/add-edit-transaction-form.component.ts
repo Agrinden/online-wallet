@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TransactionFormInterface } from '@app/shared';
 import { AddCategoryComponent } from '@app/shared/add-category/components/add-category.component';
 import { TransactionService } from '@modules/main-page';
 import * as moment from 'moment';
-import { filter, take } from 'rxjs';
+import { filter, Subject, take } from 'rxjs';
 
 @Component({
     selector: 'app-add-edit-transaction-form',
@@ -17,6 +17,8 @@ export class AddEditTransactionFormComponent implements OnInit {
     @Input() data!: any;
 
     @Output() closeForm = new EventEmitter();
+
+    @ViewChild('selectedCategory') selectedCategory!: string;
 
     public currentDate!: moment.Moment;
     public categories$ = this.transactionService.categories$;
