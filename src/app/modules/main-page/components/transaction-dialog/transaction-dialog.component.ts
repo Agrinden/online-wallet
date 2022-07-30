@@ -22,7 +22,6 @@ export class TransactionDialogComponent {
         const ref = this.warnService.callWarnDialog(closeWarning);
 
         if (this.transactionForm.dataForm.dirty || this.transactionForm.dataForm.touched) {
-            console.log('dirty');
             ref.subscribe(() => this.dialog.closeAll());
         } else this.dialog.closeAll();
     }
