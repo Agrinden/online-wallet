@@ -62,7 +62,7 @@ export class AddEditTransactionFormComponent implements OnInit {
             ]),
             category: new FormControl<string>('', Validators.maxLength(100)),
             subcategory: new FormControl<string>('', Validators.maxLength(100)),
-            payer: new FormControl<string>('Me', Validators.maxLength(64)),
+            payer: new FormControl<string>('', Validators.maxLength(64)),
             date: new FormControl<moment.Moment>(this.currentDate, Validators.maxLength(10)),
             note: new FormControl<string>('', Validators.maxLength(400)),
         });
