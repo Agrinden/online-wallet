@@ -1,5 +1,4 @@
 import { Component, Inject, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { closeWarning } from '@app/core/services/user-delete/user-delete-constants';
 import { WarningDialogService } from '@app/core/services/warn-dialog/warning-dialog.service';
@@ -11,8 +10,6 @@ import { AddEditTransactionFormComponent } from '@modules/main-page';
     styleUrls: ['./transaction-dialog.component.scss'],
 })
 export class TransactionDialogComponent {
-    public dataForm!: FormGroup;
-
     @ViewChild('transactionForm') transactionForm!: AddEditTransactionFormComponent;
 
     constructor(
@@ -22,6 +19,11 @@ export class TransactionDialogComponent {
     ) {}
 
     public onCloseDialog() {
-        this.warnService.callWarnDialog(closeWarning).subscribe(() => this.dialog.closeAll());
+        const ref = this.warnService.callWarnDialog(closeWarning);
+
+        if (this.transactionForm.dataForm.dirty || this.transactionForm.dataForm.touched) {
+            console.log('dirty');
+            ref.subscribe(() => this.dialog.closeAll());
+        } else this.dialog.closeAll();
     }
 }

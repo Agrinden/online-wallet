@@ -25,7 +25,7 @@ input[type='number'] {
     .header-module {
         @include generalWidth(flex, space-between);
         .header-title {
-            margin-right: 140px;
+            margin-left: 160px;
         }
         .delete-icon {
             margin-top: 5px;

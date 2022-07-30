@@ -1,8 +1,6 @@
 <div class="data-dialog">
     <div class="header-module">
-        <h2 mat-dialog-title class="header-title" *ngIf="!data.isEditForm">Add {{ data.itemType }}</h2>
-
-        <h2 mat-dialog-title class="header-title" *ngIf="data.isEditForm">Edit {{ data.itemType }}</h2>
+        <h2 mat-dialog-title class="header-title">Fill in the form</h2>
 
         <mat-icon class="delete-icon" title="Close" (click)="onCloseDialog()">close</mat-icon>
     </div>
