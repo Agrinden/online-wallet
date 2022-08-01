@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { TransactionFormInterface } from '@app/shared';
+import { ICategoryInterface, IncomeWalletInterface, TransactionFormInterface } from '@app/shared';
 import { AddCategoryComponent } from '@app/shared/add-category/components/add-category.component';
 import { TransactionService } from '@modules/main-page';
 import * as moment from 'moment';
-import { filter, Subject, take } from 'rxjs';
+import { filter, Observable, take } from 'rxjs';
 
 @Component({
     selector: 'app-add-edit-transaction-form',
@@ -21,9 +21,9 @@ export class AddEditTransactionFormComponent implements OnInit {
     @ViewChild('selectedCategory') selectedCategory!: string;
 
     public currentDate!: moment.Moment;
-    public categories$ = this.transactionService.categories$;
-    public wallets$ = this.transactionService.wallets$;
-    public payers$ = this.transactionService.payers$;
+    public categories$: Observable<ICategoryInterface[]> = this.transactionService.categories$;
+    public wallets$: Observable<any> = this.transactionService.wallets$;
+    public payers$: Observable<any> = this.transactionService.payers$;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -49,6 +49,32 @@ export class AddEditTransactionFormComponent implements OnInit {
 
     public isFormErrorInvalid(): boolean {
         return this.dataForm.touched && this.dataForm.invalid;
+    }
+
+    public onFormSubmit(): void {
+        if (this.dataForm) {
+            const formControls = this.dataForm.getRawValue();
+            const model = { ...formControls, itemType: this.data.itemType };
+
+            this.data.isEditForm
+                ? this.transactionService.editTransaction(model)
+                : this.transactionService.createTransaction(model);
+        }
+    }
+
+    public openAddInstanseForm(): void {
+        this.dialog
+            .open(AddCategoryComponent)
+            .beforeClosed()
+            .pipe(
+                filter((data) => !!data),
+                take(1)
+            )
+            .subscribe();
+    }
+
+    public onFormClose() {
+        this.closeForm.emit();
     }
 
     private getInitializedForm(): FormGroup<TransactionFormInterface> {
@@ -78,31 +104,5 @@ export class AddEditTransactionFormComponent implements OnInit {
                     return this.dataForm.patchValue(item);
                 });
         }
-    }
-
-    public onFormSubmit(): void {
-        if (this.dataForm) {
-            const formControls = this.dataForm.getRawValue();
-            const model = { ...formControls, itemType: this.data.itemType };
-
-            this.data.isEditForm
-                ? this.transactionService.editTransaction(model)
-                : this.transactionService.createTransaction(model);
-        }
-    }
-
-    public openAddInstanseForm(): void {
-        this.dialog
-            .open(AddCategoryComponent)
-            .beforeClosed()
-            .pipe(
-                filter((data) => !!data),
-                take(1)
-            )
-            .subscribe();
-    }
-
-    public onFormClose() {
-        this.closeForm.emit();
     }
 }

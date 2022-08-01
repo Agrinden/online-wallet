@@ -1,4 +1,4 @@
-export interface CategoryInterface {
+export interface ICategoryInterface {
     name: string;
-    subcategories: [];
+    subcategories?: string[];
 }

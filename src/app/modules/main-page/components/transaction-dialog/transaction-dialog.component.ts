@@ -18,7 +18,7 @@ export class TransactionDialogComponent {
         private dialog: MatDialog
     ) {}
 
-    public onCloseDialog() {
+    public onCloseDialog(): void {
         const ref = this.warnService.callWarnDialog(closeWarning);
 
         if (this.transactionForm.dataForm.dirty || this.transactionForm.dataForm.touched) {

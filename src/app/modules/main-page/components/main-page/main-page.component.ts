@@ -13,7 +13,7 @@ import { Subject, takeUntil } from 'rxjs';
     styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent implements OnInit, OnDestroy {
-    destroy$: Subject<boolean> = new Subject<boolean>();
+    private destroy$: Subject<boolean> = new Subject<boolean>();
     constructor(
         private dialogService: DialogService,
         private walletService: WalletService,
@@ -35,7 +35,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
         });
     }
 
-    openCreateWalletModal() {
+    public openCreateWalletModal() {
         const options: DialogDataInterface = {
             title: 'Add wallet',
             content: CreateWalletFormComponent,
