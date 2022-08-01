@@ -1,6 +1,7 @@
+import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatTabNavPanel, MatTabsModule } from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -18,6 +19,7 @@ import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
     declarations: [],
@@ -42,6 +44,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         MatTabsModule,
         MatDialogModule,
         MatSnackBarModule,
+        MatTableModule,
+        MatSortModule,
     ],
     providers: [
         {
