@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ICategoryInterface, IncomeWalletInterface, TransactionFormInterface } from '@app/shared';
+import { ICategoryInterface, TransactionFormInterface } from '@app/shared';
 import { AddCategoryComponent } from '@app/shared/add-category/components/add-category.component';
 import { TransactionService } from '@modules/main-page';
 import * as moment from 'moment';

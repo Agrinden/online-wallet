@@ -4,7 +4,7 @@ import { Moment } from 'moment';
 export interface TransactionInterface {
     id: string;
     type: string;
-    wallet: string;
+    walletId: string;
     amount: number;
     category: string;
     subcategory: string;
