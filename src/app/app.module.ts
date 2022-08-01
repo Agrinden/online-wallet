@@ -10,6 +10,8 @@ import { CoreModule } from '@core/core.module';
 import { SharedModule } from '@shared/shared.module';
 import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
 import { secrets } from '@secrets/secrets';
+import { LoaderInterceptor } from './shared/loader/interceptors/loader.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
     declarations: [AppComponent, LoginLayoutComponent, HomeLayoutComponent],
@@ -36,7 +38,13 @@ import { secrets } from '@secrets/secrets';
             },
         }),
     ],
-    providers: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: LoaderInterceptor,
+            multi: true,
+        },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

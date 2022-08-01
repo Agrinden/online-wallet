@@ -4,14 +4,14 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { CategoryInterface } from './../../../shared/interfaces/income-category.interface';
-import { WalletInterface } from './../../../shared/interfaces/income-wallet.interface';
+import { IncomeWalletInterface } from './../../../shared/interfaces/income-wallet.interface';
 import { CATEGORIES } from './../../../mocks/categories';
 import { WALLETS } from './../../../mocks/wallets';
 import { IncomeTableInterface } from '@app/shared/interfaces/income-table.interface';
 
 @Injectable({ providedIn: 'root' })
 export class IncomeDataService {
-    public getWalletList(): Observable<WalletInterface[]> {
+    public getWalletList(): Observable<IncomeWalletInterface[]> {
         return of(WALLETS);
     }
 
