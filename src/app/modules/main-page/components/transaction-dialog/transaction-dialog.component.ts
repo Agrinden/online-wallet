@@ -1,8 +1,10 @@
 import { Component, Inject, ViewChild } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { WarningDialogService } from '@app/core';
 import { closeWarning } from '@app/core/services/user-delete/user-delete-constants';
-import { WarningDialogService } from '@app/core/services/warn-dialog/warning-dialog.service';
+import { ConfirmationDialogChoise } from '@app/shared/enums/dialog-enums';
 import { AddEditTransactionFormComponent } from '@modules/main-page';
+import { filter, Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-transaction-dialog',
@@ -10,19 +12,35 @@ import { AddEditTransactionFormComponent } from '@modules/main-page';
     styleUrls: ['./transaction-dialog.component.scss'],
 })
 export class TransactionDialogComponent {
+    private destroy$ = new Subject();
     @ViewChild('transactionForm') transactionForm!: AddEditTransactionFormComponent;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private warnService: WarningDialogService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private warnDialogService: WarningDialogService
     ) {}
 
-    public onCloseDialog(): void {
-        const ref = this.warnService.callWarnDialog(closeWarning);
+    public formIsChanged(form: any): boolean {
+        return form.dataForm.dirty || form.dataForm.touched;
+    }
 
-        if (this.transactionForm.dataForm.dirty || this.transactionForm.dataForm.touched) {
-            ref.subscribe(() => this.dialog.closeAll());
-        } else this.dialog.closeAll();
+    public openConfirmationDialog(): void {
+        if (this.formIsChanged(this.transactionForm)) {
+            this.warnDialogService
+                .open(closeWarning)
+                .pipe(
+                    filter((value) => value === ConfirmationDialogChoise.confirm),
+                    takeUntil(this.destroy$)
+                )
+                .subscribe(() => this.dialog.closeAll());
+        } else {
+            this.dialog.closeAll();
+        }
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 }

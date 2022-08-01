@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@app/shared';
-import { ConfirmationDialogChoise } from '@app/shared/enums/dialog-enums';
-import { filter, Observable, take } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -10,7 +9,7 @@ import { filter, Observable, take } from 'rxjs';
 export class WarningDialogService {
     constructor(private dialog: MatDialog) {}
 
-    public callWarnDialog(dialogContent: any): Observable<any> {
+    public open(dialogContent: any): Observable<any> {
         return this.dialog
             .open(DialogComponent, {
                 data: {
@@ -22,10 +21,6 @@ export class WarningDialogService {
                 panelClass: 'dialog-container',
                 disableClose: true,
             })
-            .afterClosed()
-            .pipe(
-                filter((value) => value === ConfirmationDialogChoise.confirm),
-                take(1)
-            );
+            .afterClosed();
     }
 }

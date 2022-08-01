@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateWalletFormComponent } from '@app/modules/main-page/components/create-wallet-form/create-wallet-form.component';
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
-import { WalletService } from '@core';
-import { TransactionDialogComponent } from '@modules/main-page';
 import { DialogDataInterface } from '@app/shared/interfaces/dialog-data.interface';
+import { TransactionType, WalletService } from '@core';
+import { TransactionDialogComponent } from '@modules/main-page';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -13,6 +13,7 @@ import { Subject, takeUntil } from 'rxjs';
     styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent implements OnInit, OnDestroy {
+    public type = TransactionType;
     private destroy$: Subject<boolean> = new Subject<boolean>();
     constructor(
         private dialogService: DialogService,
@@ -21,14 +22,14 @@ export class MainPageComponent implements OnInit, OnDestroy {
     ) {}
     ngOnInit(): void {}
 
-    public onAddTransactionClick(itemType: string): void {
+    public onAddTransactionClick(itemType: TransactionType): void {
         this.dialog.open(TransactionDialogComponent, {
             data: { isEditForm: false, itemType },
             disableClose: true,
         });
     }
 
-    public onEditTransactionClick(itemType: string, itemId: string): void {
+    public onEditTransactionClick(itemType: TransactionType, itemId: string): void {
         this.dialog.open(TransactionDialogComponent, {
             data: { isEditForm: true, itemType, itemId },
             disableClose: true,

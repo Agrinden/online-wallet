@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { settingsMenu, userProfileMenu } from '@core/constants';
-import { UserService, UserDeleteService } from '@core/services';
-
-import { mockUser } from '@core';
-import { WarningDialogService } from '@app/core/services/warn-dialog/warning-dialog.service';
 import { logoutContent } from '@app/core/services/user-delete/user-delete-constants';
+import { WarningDialogService } from '@app/core/services/warn-dialog/warning-dialog.service';
+import { ConfirmationDialogChoise } from '@app/shared/enums/dialog-enums';
+import { mockUser } from '@core';
+import { settingsMenu, userProfileMenu } from '@core/constants';
+import { UserDeleteService, UserService } from '@core/services';
+import { filter, Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-user-profile',
@@ -12,6 +13,7 @@ import { logoutContent } from '@app/core/services/user-delete/user-delete-consta
     styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent {
+    private destroy$ = new Subject();
     constructor(
         private userService: UserService,
         private userDeleteService: UserDeleteService,
@@ -25,10 +27,21 @@ export class UserProfileComponent {
     public user = mockUser;
 
     public logout(): void {
-        this.warnDialogService.callWarnDialog(logoutContent).subscribe(() => this.userService.signOut());
+        this.warnDialogService
+            .open(logoutContent)
+            .pipe(
+                filter((value) => value === ConfirmationDialogChoise.confirm),
+                takeUntil(this.destroy$)
+            )
+            .subscribe(() => this.userService.signOut());
     }
 
     public openDialog(): void {
         this.userDeleteService.handleOpenDialog();
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 }

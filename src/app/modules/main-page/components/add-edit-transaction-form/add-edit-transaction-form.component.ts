@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ICategoryInterface, TransactionFormInterface } from '@app/shared';
+import { TransactionType } from '@app/core';
+import { TransactionFormInterface } from '@app/shared';
 import { AddCategoryComponent } from '@app/shared/add-category/components/add-category.component';
 import { TransactionService } from '@modules/main-page';
 import * as moment from 'moment';
-import { filter, Observable, take } from 'rxjs';
+import { filter, Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-add-edit-transaction-form',
@@ -13,6 +14,7 @@ import { filter, Observable, take } from 'rxjs';
     styleUrls: ['./add-edit-transaction-form.component.scss'],
 })
 export class AddEditTransactionFormComponent implements OnInit {
+    public type = TransactionType;
     @Input() dataForm!: FormGroup<TransactionFormInterface>;
     @Input() data!: any;
 
@@ -20,10 +22,11 @@ export class AddEditTransactionFormComponent implements OnInit {
 
     @ViewChild('selectedCategory') selectedCategory!: string;
 
+    private destroy$ = new Subject();
     public currentDate!: moment.Moment;
-    public categories$: Observable<ICategoryInterface[]> = this.transactionService.categories$;
-    public wallets$: Observable<any> = this.transactionService.wallets$;
-    public payers$: Observable<any> = this.transactionService.payers$;
+    public categories$: Observable<any> = this.transactionService.categories$;
+    public wallets$!: Observable<any>;
+    public payers$!: Observable<any>;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -35,8 +38,6 @@ export class AddEditTransactionFormComponent implements OnInit {
         this.currentDate = moment();
         this.dataForm = this.getInitializedForm();
         this.setFormData();
-        this.wallets$ = this.transactionService.getWalletList();
-        this.categories$ = this.transactionService.getIncomeCategories();
     }
 
     public isValidField(controlName: keyof TransactionFormInterface): boolean {
@@ -56,9 +57,7 @@ export class AddEditTransactionFormComponent implements OnInit {
             const formControls = this.dataForm.getRawValue();
             const model = { ...formControls, itemType: this.data.itemType };
 
-            this.data.isEditForm
-                ? this.transactionService.editTransaction(model)
-                : this.transactionService.createTransaction(model);
+            this.data.isEditForm ? this.transactionService.edit(model) : this.transactionService.create(model);
         }
     }
 
@@ -68,7 +67,7 @@ export class AddEditTransactionFormComponent implements OnInit {
             .beforeClosed()
             .pipe(
                 filter((data) => !!data),
-                take(1)
+                takeUntil(this.destroy$)
             )
             .subscribe();
     }
@@ -98,11 +97,16 @@ export class AddEditTransactionFormComponent implements OnInit {
     private setFormData(): void {
         if (this.data.isEditForm) {
             this.transactionService
-                .getTransaction(this.data.itemId)
-                .pipe(take(1))
+                .get(this.data.itemId)
+                .pipe(takeUntil(this.destroy$))
                 .subscribe((item: any) => {
                     return this.dataForm.patchValue(item);
                 });
         }
+    }
+
+    ngOnDestroy() {
+        this.destroy$.next(true);
+        this.destroy$.complete();
     }
 }
