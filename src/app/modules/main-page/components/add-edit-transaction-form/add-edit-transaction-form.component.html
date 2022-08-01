@@ -28,7 +28,7 @@
             <mat-form-field class="data-field" appearance="fill">
                 <mat-label>Please choose the category</mat-label>
                 <mat-select formControlName="category" [(value)]="selectedCategory">
-                    <mat-option *ngFor="let item of categories$ | async" (value)="(item.name)" #selectedCategory>
+                    <mat-option *ngFor="let item of categories$ | async" [value]="item.name">
                         {{ item.name }}
                     </mat-option>
                 </mat-select>
@@ -44,7 +44,7 @@
             <span class="field-title">Subcategory</span>
             <mat-form-field class="data-field" appearance="fill">
                 <mat-label>Please choose the subcategory</mat-label>
-                <mat-select formControlName="subcategory" [disabled]="!!selectedCategory">
+                <mat-select formControlName="subcategory" [disabled]="!!!selectedCategory">
                     <ng-container *ngFor="let category of categories$ | async">
                         <mat-option *ngFor="let subcat of category.subcategories" [value]="subcat">
                             {{ subcat }}

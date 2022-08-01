@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { TransactionType } from '@app/core';
+import { payers$, TransactionType, WALLETS } from '@app/core';
 import { TransactionFormInterface } from '@app/shared';
 import { AddCategoryComponent } from '@app/shared/add-category/components/add-category.component';
 import { TransactionService } from '@modules/main-page';
@@ -15,18 +15,20 @@ import { filter, Observable, Subject, takeUntil } from 'rxjs';
 })
 export class AddEditTransactionFormComponent implements OnInit {
     public type = TransactionType;
+
     @Input() dataForm!: FormGroup<TransactionFormInterface>;
+
     @Input() data!: any;
 
     @Output() closeForm = new EventEmitter();
 
-    @ViewChild('selectedCategory') selectedCategory!: string;
+    public selectedCategory!: string;
 
     private destroy$ = new Subject();
     public currentDate!: moment.Moment;
     public categories$: Observable<any> = this.transactionService.categories$;
-    public wallets$!: Observable<any>;
-    public payers$!: Observable<any>;
+    public wallets$: Observable<any> = WALLETS;
+    public payers$: Observable<any> = payers$;
 
     constructor(
         private formBuilder: FormBuilder,

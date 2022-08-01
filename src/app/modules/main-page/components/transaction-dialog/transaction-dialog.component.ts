@@ -1,7 +1,9 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output, ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { WarningDialogService } from '@app/core';
 import { closeWarning } from '@app/core/services/user-delete/user-delete-constants';
+import { TransactionFormInterface } from '@app/shared';
 import { ConfirmationDialogChoise } from '@app/shared/enums/dialog-enums';
 import { AddEditTransactionFormComponent } from '@modules/main-page';
 import { filter, Subject, takeUntil } from 'rxjs';
@@ -13,6 +15,7 @@ import { filter, Subject, takeUntil } from 'rxjs';
 })
 export class TransactionDialogComponent {
     private destroy$ = new Subject();
+
     @ViewChild('transactionForm') transactionForm!: AddEditTransactionFormComponent;
 
     constructor(
