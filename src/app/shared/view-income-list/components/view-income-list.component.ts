@@ -1,5 +1,5 @@
 import { IncomeDataService } from './../../../core/services/income-data/income-service';
-import { CategoryInterface } from '@app/shared/interfaces/income-category.interface';
+import { CategoryInterface } from '@app/shared/interfaces/category.interface';
 import { IncomeWalletInterface } from './../../interfaces/income-wallet.interface';
 import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';

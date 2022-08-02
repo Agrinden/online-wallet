@@ -1,3 +1,7 @@
+import { ConfirmationDialogChoise } from './../../enums/dialog-enums';
+import { closeWarning } from './../../../core/services/user-delete/user-delete-constants';
+import { WarningDialogService } from './../../../core/services/warn-dialog/warning-dialog.service';
+import { AddEditTransactionFormComponent } from './../../../modules/main-page/components/add-edit-transaction-form/add-edit-transaction-form.component';
 import { IncomeDataService } from './../../../core/services/income-data/income-service';
 import { IncomeTableInterface } from '@app/shared/interfaces/income-table.interface';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -6,14 +10,14 @@ import { AddCategoryComponent } from './../../add-category/components/add-catego
 import { MatDialog } from '@angular/material/dialog';
 import { IncomeFormInterface } from '../../interfaces/income-form.interface';
 import { IncomeWalletInterface } from '../../interfaces/income-wallet.interface';
-import { Observable } from 'rxjs';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Observable, takeUntil, Subject } from 'rxjs';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 
 import * as moment from 'moment';
-import { CategoryInterface } from '@app/shared/interfaces/income-category.interface';
+import { CategoryInterface } from '@app/shared/interfaces/category.interface';
 
 @Component({
     selector: 'app-income',
@@ -27,12 +31,14 @@ export class IncomeFormComponent implements OnInit {
     //TODO: load wallets from BE
     public wallets$!: Observable<IncomeWalletInterface[]>;
     public categories$!: Observable<CategoryInterface[]>;
+    private destroy$ = new Subject();
 
     constructor(
         private formBuilder: FormBuilder,
         private incomeDataService: IncomeDataService,
         @Inject(MAT_DIALOG_DATA) public data: IncomeTableInterface,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private warnDialogService: WarningDialogService
     ) {}
 
     ngOnInit(): void {
@@ -75,5 +81,28 @@ export class IncomeFormComponent implements OnInit {
             .beforeClosed()
             .pipe(filter((data) => !!data))
             .subscribe();
+    }
+
+    public formIsChanged(): boolean {
+        return this.incomeForm.dirty || this.incomeForm.touched;
+    }
+
+    public openConfirmationDialog(): void {
+        if (this.formIsChanged()) {
+            this.warnDialogService
+                .open(closeWarning)
+                .pipe(
+                    filter((value) => value === ConfirmationDialogChoise.confirm),
+                    takeUntil(this.destroy$)
+                )
+                .subscribe(() => this.dialog.closeAll());
+        } else {
+            this.dialog.closeAll();
+        }
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 }

@@ -1,11 +1,11 @@
+import { categories } from './../../constants/categories';
 import { TABLE } from './../../../mocks/table';
 import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
 
-import { CategoryInterface } from './../../../shared/interfaces/income-category.interface';
+import { CategoryInterface } from './../../../shared/interfaces/category.interface';
 import { IncomeWalletInterface } from './../../../shared/interfaces/income-wallet.interface';
-import { CATEGORIES } from './../../../mocks/categories';
 import { WALLETS } from './../../../mocks/wallets';
 import { IncomeTableInterface } from '@app/shared/interfaces/income-table.interface';
 
@@ -16,7 +16,7 @@ export class IncomeDataService {
     }
 
     public getIncomeCategories(): Observable<CategoryInterface[]> {
-        return of(CATEGORIES);
+        return of(categories);
     }
 
     public getIncomeTableData(): Observable<IncomeTableInterface[]> {

@@ -1,25 +1,24 @@
 import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatSelectModule } from '@angular/material/select';
 import { TextFieldModule } from '@angular/cdk/text-field';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
+import { MatButtonModule } from '@angular/material/button';
+import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
@@ -35,6 +34,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         MatInputModule,
         MatFormFieldModule,
         MatMenuModule,
+        MatDialogModule,
         MatSelectModule,
         TextFieldModule,
         MatDatepickerModule,
@@ -47,6 +47,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         MatSnackBarModule,
         MatTableModule,
         MatSortModule,
+        MatSelectModule,
+        TextFieldModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MomentDateModule,
         MatProgressSpinnerModule,
     ],
     providers: [

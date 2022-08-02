@@ -1,0 +1,42 @@
+@import 'mixins';
+@import 'variables';
+
+:host::ng-deep {
+    .mat-placeholder-required {
+        display: none !important;
+    }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+.data-dialog {
+    display: flexbox;
+    padding: 10px 20px;
+    background-color: $form-background-color;
+
+    .header-module {
+        @include generalWidth(flex, space-between);
+        .header-title {
+            margin-left: 160px;
+        }
+        .delete-icon {
+            margin-top: 5px;
+            background-size: cover;
+            cursor: pointer;
+            outline: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 100%;
+            border: 0.5px solid gray;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+    }
+}

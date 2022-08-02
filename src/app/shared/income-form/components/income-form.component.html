@@ -1,7 +1,7 @@
 <div class="income-dialog">
   <div class="header-module">
     <h2 mat-dialog-title class="title">Fill in the form</h2>
-    <mat-icon class="delete" title="Close" mat-dialog-close="false">close</mat-icon>
+    <mat-icon class="delete" title="Close" (click)="openConfirmationDialog()">close</mat-icon>
   </div>
   <form class="form" [formGroup]="incomeForm">
     <mat-dialog-content class="mat-typography">
@@ -31,8 +31,8 @@
         <mat-form-field class="income-field" appearance="fill">
           <mat-label>Please choose the category</mat-label>
           <mat-select formControlName="category">
-            <mat-option *ngFor="let item of categories$ | async" [value]="item.value">
-              {{item.viewValue}}
+            <mat-option *ngFor="let item of categories$ | async" [value]="item.name">
+              {{item.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
