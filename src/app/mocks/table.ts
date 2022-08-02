@@ -6,7 +6,7 @@ export const TABLE: IncomeTableInterface[] = [
         date: '28/07/2022',
         category: 'Gift',
         amount: '1500',
-        wallet: 'Wallet 1',
+        walletId: 'Wallet 1',
         note: 'What a nice surprise!',
     },
     {
@@ -14,7 +14,7 @@ export const TABLE: IncomeTableInterface[] = [
         date: '29/07/2022',
         category: 'Credit',
         amount: '2000',
-        wallet: 'Wallet 2',
+        walletId: 'Wallet 2',
         note: 'Found it.',
     },
     {
@@ -22,7 +22,7 @@ export const TABLE: IncomeTableInterface[] = [
         date: '30/07/2022',
         category: 'Salary',
         amount: '4300',
-        wallet: 'Wallet 3',
+        walletId: 'Wallet 3',
         note: 'What a nice surprise!',
     },
 ];

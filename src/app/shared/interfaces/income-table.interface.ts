@@ -3,6 +3,6 @@ export interface IncomeTableInterface {
     date: string;
     category: string;
     amount: string;
-    wallet: string;
+    walletId: string;
     note: string;
 }

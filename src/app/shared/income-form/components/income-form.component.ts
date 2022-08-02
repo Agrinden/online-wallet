@@ -56,11 +56,11 @@ export class IncomeFormComponent implements OnInit {
     private getInitializedForm(formData: IncomeTableInterface): FormGroup<IncomeFormInterface> {
         const date = formData?.date ? moment(formData.date, 'DD/MM/YYYY') : moment();
         const form = this.formBuilder.group<IncomeFormInterface>({
-            wallet: new FormControl<string>(formData?.wallet, Validators.required),
-            amount: new FormControl<number>(+formData?.amount || 0.01, [
+            wallet: new FormControl<string>(formData?.walletId, Validators.required),
+            amount: new FormControl<number>(+formData?.amount || 0.0, [
                 Validators.required,
                 Validators.pattern(/^[0-9]*[.]?[0-9]+$/),
-                Validators.min(0.01),
+                Validators.min(0.0),
             ]),
             category: new FormControl<string>(formData?.category, Validators.required),
             date: new FormControl<moment.Moment>(date, Validators.required),

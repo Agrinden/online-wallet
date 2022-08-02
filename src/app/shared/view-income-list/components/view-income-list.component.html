@@ -17,8 +17,8 @@
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Category</mat-label>
           <mat-select formControlName="category">
-            <mat-option *ngFor="let item of categories$ | async" [value]="item.value">
-              {{item.viewValue}}
+            <mat-option *ngFor="let category of categories$ | async" [value]="category.value">
+              {{category.viewValue}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -27,8 +27,8 @@
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Wallet</mat-label>
           <mat-select formControlName="wallet">
-            <mat-option *ngFor="let item of wallets$ | async" [value]="item.value">
-              {{item.viewValue}}
+            <mat-option *ngFor="let wallet of wallets$ | async" [value]="wallet.value">
+              {{wallet.viewValue}}
             </mat-option>
           </mat-select>
         </mat-form-field>
