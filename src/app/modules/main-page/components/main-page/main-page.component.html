@@ -1,3 +1,6 @@
+<button mat-button class="add-button" (click)="onAddTransactionClick(type.expense)">+ Add expense</button>
+<button mat-button class="add-button" (click)="onAddTransactionClick(type.income)">+ Add income</button>
+
 <open-income-form></open-income-form>
 <app-loader></app-loader>
 <div class="add-button-container">
@@ -6,5 +9,3 @@
     </button>
     <span>Add wallet</span>
 </div>
-
-
