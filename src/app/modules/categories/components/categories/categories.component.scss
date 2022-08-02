@@ -1,0 +1,60 @@
+:host {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    .categories-container {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin-top: 20px;
+
+        .categories-expense,
+        .categories-income {
+            display: flex;
+            flex-direction: column;
+            width: 40%;
+            margin: 0 20px;
+
+            .category-title {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                .category-color {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background-color: #fff;
+                }
+                .category-name {
+                    margin-left: 10px;
+                }
+            }
+
+            .categories-controls {
+                justify-content: flex-end;
+            }
+
+            .subcategories {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            ::ng-deep .mat-expansion-panel-header {
+                color: #c7c7c7;
+            }
+        }
+        .add-button-container {
+            width: 200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+    }
+}

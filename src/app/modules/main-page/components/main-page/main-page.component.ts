@@ -29,16 +29,15 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.dialogService
             .confirmed()
             .pipe(takeUntil(this.destroy$))
-            .subscribe((result) => {
-                if (result) {
-                    console.log(result);
-                    this.walletService.createWallet(result);
+            .subscribe((wallet) => {
+                if (wallet) {
+                    this.walletService.createWallet(wallet);
                 }
             });
     }
 
     ngOnDestroy(): void {
         this.destroy$.next(true);
-        this.destroy$.unsubscribe();
+        this.destroy$.complete();
     }
 }

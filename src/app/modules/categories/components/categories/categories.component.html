@@ -1,1 +1,84 @@
-<p>categories works!</p>
+<div class="categories-container">
+    <div class="categories-expense">
+        <div class="categories-header">
+            <h2>Categories of Expenses</h2>
+            <div class="add-button-container">
+                <button mat-fab color="primary" (click)="createCategory()">
+                    <mat-icon>add</mat-icon>
+                </button>
+                <span>Add expense category</span>
+            </div>
+        </div>
+        <mat-accordion togglePosition="before" multi>
+            <mat-expansion-panel *ngFor="let category of categories" [disabled]="!category.subcategories">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="category-title">
+                        <div class="category-color" [ngStyle]="{ 'background-color': category.color }"></div>
+                        <div class="category-name">
+                            {{ category.name }}
+                        </div>
+                    </mat-panel-title>
+                    <mat-panel-description class="categories-controls">
+                        <div>
+                            <button mat-icon-button>
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button
+                                mat-icon-button
+                                (click)="deleteCategory(category.id)"
+                                (click)="$event.stopPropagation()"
+                            >
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <div *ngFor="let subcategory of category.subcategories" class="subcategories">
+                    <p>{{ subcategory.name }}</p>
+                    <div>
+                        <button mat-icon-button>
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="deleteCategory(subcategory.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+    <div class="categories-income">
+        <div class="categories-header">
+            <h2>Categories of Incomes</h2>
+            <div class="add-button-container">
+                <button mat-fab color="primary" (click)="createCategory()">
+                    <mat-icon>add</mat-icon>
+                </button>
+                <span>Add income category</span>
+            </div>
+        </div>
+        <mat-accordion>
+            <mat-expansion-panel *ngFor="let category of categories" disabled>
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="category-title">
+                        <div class="category-color" [ngStyle]="{ 'background-color': category.color }"></div>
+                        <div class="category-name">
+                            {{ category.name }}
+                        </div>
+                    </mat-panel-title>
+                    <mat-panel-description class="categories-controls">
+                        <div>
+                            <button mat-icon-button>
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button (click)="deleteCategory(category.id)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>
