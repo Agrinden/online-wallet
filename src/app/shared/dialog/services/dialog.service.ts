@@ -26,4 +26,8 @@ export class DialogService {
     public confirmed(): Observable<any> {
         return this.dialogRef.afterClosed().pipe(take(1));
     }
+
+    public close() {
+        this.dialog.closeAll();
+    }
 }

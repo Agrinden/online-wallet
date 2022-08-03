@@ -1,5 +1,24 @@
-@import 'mixins';
-
-.down-button {
-    @include generalWidth;
+:host {
+    .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+    }
+    .form-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 20px;
+        button {
+            margin-left: 20px;
+        }
+    }
+    .form > * {
+        width: 100%;
+    }
 }

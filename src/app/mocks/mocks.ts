@@ -67,7 +67,7 @@ export const CATEGORIES: CategoryInterface[] = [
             {
                 id: '1',
                 name: 'Movies',
-                color: '#ff0000',
+                color: 'purple',
                 categoryId: '3',
             },
             {
