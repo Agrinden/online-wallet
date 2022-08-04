@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="header">
+        <h1 mat-dialog-title>{{ data.title }}</h1>
+    </div>
+    <div mat-dialog-content>
+        <ng-container *ngComponentOutlet="data.content"></ng-container>
+    </div>
+    <div mat-dialog-actions align="end" *ngIf="data.confirmText || data.cancelText">
+        <button mat-flat-button color="primary" [mat-dialog-close]="true">{{ data.confirmText }}</button>
+        <button mat-flat-button color="warn" [mat-dialog-close]="false">{{ data.cancelText }}</button>
+    </div>
+</div>

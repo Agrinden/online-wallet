@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { take } from 'rxjs';
+import { RouteUrls } from '@app/core';
 
 @Component({
     templateUrl: './login.component.html',
@@ -9,10 +13,16 @@ export class LoginComponent implements OnInit {
     public loginForm!: FormGroup;
     public isPassVisible!: boolean;
 
-    constructor(private formBuilder: FormBuilder) {}
+    constructor(
+        private router: Router,
+        private formBuilder: FormBuilder,
+        private oidcSecurityService: OidcSecurityService
+    ) {}
 
     public ngOnInit(): void {
         this.loginForm = this.getInitializedForm();
+
+        this.startAuthenticationFlow();
     }
 
     public login(): void {
@@ -22,8 +32,21 @@ export class LoginComponent implements OnInit {
         }
     }
 
+    public signInGoogleHandler(): void {
+        this.oidcSecurityService
+            .authorizeWithPopUp()
+            .pipe(take(1))
+            .subscribe(() => {
+                this.router.navigate([RouteUrls.main]);
+            });
+    }
+
     public toggleVisibility(): void {
         this.isPassVisible = !this.isPassVisible;
+    }
+
+    private startAuthenticationFlow(): void {
+        this.oidcSecurityService.checkAuth().pipe(take(1)).subscribe();
     }
 
     /**@description method for creating formGroup */
@@ -37,7 +60,7 @@ export class LoginComponent implements OnInit {
                     Validators.maxLength(254),
                 ],
             ],
-            password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
+            password: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9!@#\$%\^\&*\)\(/+=._-]{8,100}$/)]],
         });
         return form;
     }

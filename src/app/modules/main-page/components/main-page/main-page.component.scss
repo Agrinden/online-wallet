@@ -1,0 +1,19 @@
+:host {
+    .add-button {
+        display: inline-block;
+        align-items: center;
+        background-color: gray;
+        width: 300px;
+        height: 40px;
+        font-size: medium;
+        border: 1px solid black;
+        cursor: pointer;
+    }
+    .add-button-container {
+        width: 130px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 20px;
+    }
+}
