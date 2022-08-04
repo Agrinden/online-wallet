@@ -1,4 +1,12 @@
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell [hidden]="true" *matHeaderCellDef>
+      Id
+    </th>
+    <td mat-cell [hidden]="true" *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
   <ng-container matColumnDef="date">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date">
       <span class="date-sort">Sort by Date</span>
@@ -42,3 +50,4 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+<a class="show-more">Show more</a>

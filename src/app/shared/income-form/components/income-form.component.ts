@@ -1,23 +1,23 @@
+import { IncomeDataInterface } from '@app/shared';
+import { WalletService } from '@core';
 import { ConfirmationDialogChoise } from './../../enums/dialog-enums';
 import { closeWarning } from './../../../core/services/user-delete/user-delete-constants';
 import { WarningDialogService } from './../../../core/services/warn-dialog/warning-dialog.service';
-import { AddEditTransactionFormComponent } from './../../../modules/main-page/components/add-edit-transaction-form/add-edit-transaction-form.component';
-import { IncomeDataService } from './../../../core/services/income-data/income-service';
-import { IncomeTableInterface } from '@app/shared/interfaces/income-table.interface';
+import { IncomeDataService } from '@app/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
-import { AddCategoryComponent } from './../../add-category/components/add-category.component';
+import { AddCategoryComponent } from '@app/shared';
 import { MatDialog } from '@angular/material/dialog';
-import { IncomeFormInterface } from '../../interfaces/income-form.interface';
-import { IncomeWalletInterface } from '../../interfaces/income-wallet.interface';
+import { IncomeFormInterface } from '@app/shared';
+import { IncomeWalletInterface } from '@app/shared';
 import { Observable, takeUntil, Subject } from 'rxjs';
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 
 import * as moment from 'moment';
-import { CategoryInterface } from '@app/shared/interfaces/category.interface';
+import { CategoryInterface } from '@app/shared';
 
 @Component({
     selector: 'app-income',
@@ -36,14 +36,15 @@ export class IncomeFormComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private incomeDataService: IncomeDataService,
-        @Inject(MAT_DIALOG_DATA) public data: IncomeTableInterface,
+        private walletService: WalletService,
+        @Inject(MAT_DIALOG_DATA) public data: IncomeDataInterface,
         private dialog: MatDialog,
         private warnDialogService: WarningDialogService
     ) {}
 
     ngOnInit(): void {
         this.incomeForm = this.getInitializedForm(this.data);
-        this.wallets$ = this.incomeDataService.getWalletList();
+        this.wallets$ = this.walletService.getWalletList();
         this.categories$ = this.incomeDataService.getIncomeCategories();
     }
 
@@ -59,7 +60,7 @@ export class IncomeFormComponent implements OnInit {
         return this.incomeForm.touched && this.incomeForm.invalid;
     }
 
-    private getInitializedForm(formData: IncomeTableInterface): FormGroup<IncomeFormInterface> {
+    private getInitializedForm(formData: IncomeDataInterface): FormGroup<IncomeFormInterface> {
         const date = formData?.date ? moment(formData.date, 'DD/MM/YYYY') : moment();
         const form = this.formBuilder.group<IncomeFormInterface>({
             wallet: new FormControl<string>(formData?.walletId, Validators.required),

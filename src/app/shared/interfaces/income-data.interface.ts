@@ -1,4 +1,4 @@
-export interface IncomeTableInterface {
+export interface IncomeDataInterface {
     id: number;
     date: string;
     category: string;
