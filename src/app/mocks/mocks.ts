@@ -2,6 +2,7 @@ import { CategoryInterface, IncomeWalletInterface } from '@app/shared';
 import { CurrencyInterface } from '@app/shared/interfaces/currency.interface';
 
 import { Observable, of } from 'rxjs';
+import { WalletInterface } from '@shared/interfaces/wallet.interface';
 
 export const mockNotifications = [
     {
@@ -58,3 +59,34 @@ export const CATEGORIES: Observable<CategoryInterface[]> = of([
     },
 ]);
 export const CURRENCIES: CurrencyInterface[] = [{ name: 'EUR' }, { name: 'GEL' }, { name: 'PLN' }, { name: 'USD' }];
+
+export const mockWallets: WalletInterface[] = [
+    {
+        id: '1',
+        name: 'My default wallet',
+        balance: 10000,
+        currency: 'USD',
+        isDefault: true,
+    },
+    {
+        id: '2',
+        name: 'My wallet',
+        balance: 10000,
+        currency: 'USD',
+        isDefault: false,
+    },
+    {
+        id: '3',
+        name: 'My wallet 3',
+        balance: 10000,
+        currency: 'USD',
+        isDefault: false,
+    },
+    {
+        id: '4',
+        name: 'My wallet 4',
+        balance: 10000,
+        currency: 'USD',
+        isDefault: false,
+    },
+];

@@ -9,11 +9,22 @@
         border: 1px solid black;
         cursor: pointer;
     }
-    .add-button-container {
-        width: 130px;
+    .wallets-wrapper {
+        margin: 20px 0;
+        padding: 0 20px;
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 20px;
+        justify-content: flex-start;
+
+        .add-button-container {
+            width: 130px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .list-of-wallets {
+            max-width: 600px;
+            margin-left: 20px;
+            width: calc(100% - 130px);
+        }
     }
 }

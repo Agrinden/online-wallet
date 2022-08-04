@@ -1,0 +1,21 @@
+@import "~swiper/scss";
+@import "~swiper/scss/navigation";
+
+.swiper {
+    max-width: 600px;
+    min-width: 125px;
+
+    .swiper-slide {
+        height: auto;
+
+        .carousel-cell {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+    }
+    .swiper-button-disabled {
+        display: none;
+    }
+}
