@@ -20,12 +20,13 @@ export class CategoryService {
         return of(this.categories);
     }
 
-    editCategory(id: string, category: CategoryInterface) {
-        const index = this.categories.findIndex((c) => c.id === id);
+    editCategory(category: CategoryInterface) {
+        const index = this.categories.findIndex((c) => c.id === category.id);
         this.categories[index] = category;
     }
 
     deleteCategory(id: string) {
-        this.categories = this.categories.filter((category) => category.id !== id);
+        const index = this.categories.findIndex((c) => c.id === id);
+        this.categories.splice(index, 1);
     }
 }

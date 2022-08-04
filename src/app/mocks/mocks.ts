@@ -1,3 +1,4 @@
+import { TransactionType } from '@app/shared/enums/transaction.enum';
 import { CategoryInterface } from '@app/shared/interfaces/categories/category.interface';
 import { CurrencyInterface } from '@app/shared/interfaces/currency.interface';
 
@@ -23,7 +24,8 @@ export const CATEGORIES: CategoryInterface[] = [
     {
         id: '1',
         name: 'Food',
-        color: 'yellow',
+        color: '#fffc00',
+        transactionType: TransactionType.EXPENSE,
         subcategories: [
             {
                 id: '1',
@@ -43,7 +45,8 @@ export const CATEGORIES: CategoryInterface[] = [
         id: '2',
 
         name: 'Transport',
-        color: 'blue',
+        color: '#0400ff',
+        transactionType: TransactionType.EXPENSE,
         subcategories: [
             {
                 id: '1',
@@ -62,7 +65,8 @@ export const CATEGORIES: CategoryInterface[] = [
     {
         id: '3',
         name: 'Entertainment',
-        color: 'green',
+        transactionType: TransactionType.EXPENSE,
+        color: '#24bc5e',
         subcategories: [
             {
                 id: '1',
@@ -81,7 +85,8 @@ export const CATEGORIES: CategoryInterface[] = [
     {
         id: '4',
         name: 'Shopping',
-        color: 'red',
+        color: '#c721ca',
+        transactionType: TransactionType.EXPENSE,
         subcategories: [
             {
                 id: '1',
@@ -100,6 +105,7 @@ export const CATEGORIES: CategoryInterface[] = [
     {
         id: '5',
         name: 'Other',
-        color: 'orange',
+        transactionType: TransactionType.INCOME,
+        color: '#eca427',
     },
 ];

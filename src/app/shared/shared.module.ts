@@ -9,15 +9,10 @@ import { DialogModule } from './dialog/dialog.module';
 import { DialogComponent } from '@shared/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoaderComponent } from './loader/components/loader.component';
-import {
-    MAT_COLOR_FORMATS,
-    NgxMatColorPickerModule,
-    NGX_MAT_COLOR_FORMATS,
-} from '@angular-material-components/color-picker';
 
 @NgModule({
     declarations: [DialogComponent, OpenIncomeFormComponent, AddCategoryComponent, LoaderComponent],
-    imports: [CommonModule, MaterialModule, RouterModule, DialogModule, ReactiveFormsModule, NgxMatColorPickerModule],
+    imports: [CommonModule, MaterialModule, RouterModule, DialogModule, ReactiveFormsModule],
     exports: [
         MaterialModule,
         RouterModule,
@@ -26,6 +21,5 @@ import {
         AddCategoryComponent,
         LoaderComponent,
     ],
-    providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],
 })
 export class SharedModule {}

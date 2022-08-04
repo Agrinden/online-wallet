@@ -4,7 +4,13 @@ import { CategoryInterface } from '@app/shared';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { DialogDataInterface } from '@app/shared/interfaces/dialog-data.interface';
 import { AddCategoryComponent } from '@app/shared/add-category/components/add-category.component';
-import { CategoryService } from '@app/core';
+import {
+    CategoryService,
+    deleteCategoryMessage,
+    deleteCategorySuccessMessage,
+    EditCategorySuccessMessage,
+    SnackbarService,
+} from '@app/core';
 
 @Component({
     selector: 'app-categories',
@@ -14,7 +20,11 @@ import { CategoryService } from '@app/core';
 export class CategoriesComponent {
     categories$: Observable<CategoryInterface[]> = this.categoryService.getCategories();
     destroy$: Subject<boolean> = new Subject<boolean>();
-    constructor(private dialogService: DialogService, private categoryService: CategoryService) {}
+    constructor(
+        private dialogService: DialogService,
+        private categoryService: CategoryService,
+        private snackbarService: SnackbarService
+    ) {}
 
     ngOnInit(): void {}
 
@@ -48,15 +58,11 @@ export class CategoriesComponent {
     }
 
     deleteCategory(id: string) {
-        console.log('deleted', id);
-    }
-
-    editCategory(id: string) {
-        const options: DialogDataInterface = {
-            title: 'Edit Category',
-            content: AddCategoryComponent,
-            width: '400px',
-            disableClose: true,
+        const options = {
+            title: deleteCategoryMessage,
+            cancelText: 'NO',
+            confirmText: 'YES',
+            width: '700px',
         };
 
         this.dialogService.open(options);
@@ -64,16 +70,38 @@ export class CategoriesComponent {
         this.dialogService
             .confirmed()
             .pipe(takeUntil(this.destroy$))
-            .subscribe((category) => {
-                if (category) {
-                    console.log(category);
+            .subscribe((result) => {
+                if (result) {
+                    this.categoryService.deleteCategory(id);
+                    this.snackbarService.success(deleteCategorySuccessMessage);
+                }
+            });
+    }
 
-                    this.categoryService.editCategory(id, category);
+    editCategory(category: CategoryInterface) {
+        const options: DialogDataInterface = {
+            title: 'Edit Category',
+            content: AddCategoryComponent,
+            width: '400px',
+            disableClose: true,
+            data: category,
+        };
+
+        this.dialogService.open(options);
+
+        this.dialogService
+            .confirmed()
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((res) => {
+                if (res) {
+                    const editedCategory = { ...category, ...res };
+                    this.categoryService.editCategory(editedCategory);
+                    this.snackbarService.success(EditCategorySuccessMessage);
                 }
             });
     }
 
     private setDefaultColor(type: string) {
-        return type === 'income' ? 'green' : 'red';
+        return type === 'income' ? '#38ff00' : '#ff3100';
     }
 }

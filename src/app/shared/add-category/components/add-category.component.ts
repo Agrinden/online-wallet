@@ -1,8 +1,9 @@
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Optional, Inject } from '@angular/core';
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
 import { cancelCategoryCreation } from '@app/core';
 import { Subject, takeUntil } from 'rxjs';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
     selector: 'add-category',
@@ -13,7 +14,13 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
     destroy$: Subject<boolean> = new Subject<boolean>();
     public categoryForm!: FormGroup;
 
-    constructor(private formBuilder: FormBuilder, private dialogService: DialogService) {}
+    isEdit: boolean = this.dialogData.data;
+
+    constructor(
+        private formBuilder: FormBuilder,
+        private dialogService: DialogService,
+        @Optional() @Inject(MAT_DIALOG_DATA) private dialogData: any
+    ) {}
 
     ngOnInit(): void {
         this.categoryForm = this.getCategoryForm();
@@ -21,13 +28,13 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
 
     private getCategoryForm(): FormGroup {
         const form = this.formBuilder.group({
-            name: new FormControl('', [
+            name: new FormControl(this.isEdit ? this.dialogData.data.name : '', [
                 Validators.required,
                 Validators.minLength(3),
                 Validators.maxLength(100),
                 Validators.pattern(/^[a-zA-Z0-9!@#\$%\^\&*\)\(/+=._ -]{0,100}$/),
             ]),
-            color: new FormControl(''),
+            color: new FormControl(this.isEdit ? this.dialogData.data.color : ''),
         });
         return form;
     }
@@ -50,6 +57,14 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
     }
 
     public onCancel(): void {
+        if (this.categoryForm.pristine) {
+            this.dialogService.close();
+        } else {
+            this.cancelCategoryCreation();
+        }
+    }
+
+    private cancelCategoryCreation() {
         const options = {
             title: cancelCategoryCreation,
             cancelText: 'NO',
@@ -68,6 +83,10 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
                     this.dialogService.close();
                 }
             });
+    }
+
+    public confirmButtonText(): string {
+        return this.isEdit ? 'Edit' : 'Create';
     }
 
     ngOnDestroy(): void {

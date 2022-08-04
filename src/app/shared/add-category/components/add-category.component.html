@@ -6,10 +6,11 @@
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput [ngxMatColorPicker]="picker" formControlName="color" placeholder="Category color" />
-        <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
-        <ngx-mat-color-picker #picker></ngx-mat-color-picker>
-        <mat-hint align="end"> Click the icon to set the color, or the default color will be set ^</mat-hint>
+        <mat-label>Category color</mat-label>
+
+        <input type="color" matInput formControlName="color" class="color" />
+
+        <mat-hint> Click the icon to set the color, or the default color will be set</mat-hint>
     </mat-form-field>
 
     <div class="form-buttons">
@@ -19,7 +20,7 @@
             [mat-dialog-close]="categoryForm.value"
             [disabled]="categoryForm.invalid"
         >
-            Add
+            {{ confirmButtonText() }}
         </button>
         <button mat-flat-button color="warn" (click)="onCancel()">Cancel</button>
     </div>

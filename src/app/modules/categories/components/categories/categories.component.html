@@ -20,11 +20,7 @@
                     </mat-panel-title>
                     <mat-panel-description class="categories-controls">
                         <div>
-                            <button
-                                mat-icon-button
-                                (click)="editCategory(category.id)"
-                                (click)="$event.stopPropagation()"
-                            >
+                            <button mat-icon-button (click)="editCategory(category)" (click)="$event.stopPropagation()">
                                 <mat-icon>edit</mat-icon>
                             </button>
                             <button
@@ -40,14 +36,6 @@
 
                 <div *ngFor="let subcategory of category.subcategories" class="subcategories">
                     <p>{{ subcategory.name }}</p>
-                    <div>
-                        <button mat-icon-button (click)="editCategory(subcategory.id)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                        <button mat-icon-button (click)="deleteCategory(subcategory.id)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </div>
                 </div>
             </mat-expansion-panel>
         </mat-accordion>
@@ -73,7 +61,7 @@
                     </mat-panel-title>
                     <mat-panel-description class="categories-controls">
                         <div>
-                            <button mat-icon-button (click)="editCategory(category.id)">
+                            <button mat-icon-button (click)="editCategory(category)">
                                 <mat-icon>edit</mat-icon>
                             </button>
                             <button mat-icon-button (click)="deleteCategory(category.id)">

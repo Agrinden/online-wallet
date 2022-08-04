@@ -18,6 +18,7 @@ export class DialogService {
                 content: options.content,
                 cancelText: options.cancelText,
                 confirmText: options.confirmText,
+                data: options.data,
             },
             width: options.width,
             disableClose: options.disableClose,
