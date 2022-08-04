@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="title">
+    <h2 class="income-title">Your Incomes</h2>
+    <h3 class="filter-title">Filter by</h3>
+  </div>
+  <form class="form" [formGroup]="filterForm">
+    <mat-dialog-content class="mat-typography">
+      <div class="field">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="field">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category">
+            <mat-option *ngFor="let category of categories$ | async" [value]="category.name">
+              {{category.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="field">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Wallet</mat-label>
+          <mat-select formControlName="wallet">
+            <mat-option *ngFor="let wallet of wallets$ | async" [value]="wallet.value">
+              {{wallet.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-dialog-content>
+  </form>
+</div>

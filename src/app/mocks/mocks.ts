@@ -1,4 +1,4 @@
-import { CategoryInterface, IncomeWalletInterface } from '@app/shared';
+import { IncomeWalletInterface } from '@app/shared';
 import { CurrencyInterface } from '@app/shared/interfaces/currency.interface';
 
 import { Observable, of } from 'rxjs';
@@ -39,22 +39,4 @@ export const WALLETS: Observable<IncomeWalletInterface[]> = of([
     },
 ]);
 
-export const CATEGORIES: Observable<CategoryInterface[]> = of([
-    {
-        value: '1',
-        viewValue: 'Salary',
-    },
-    {
-        value: '2',
-        viewValue: 'Gift',
-    },
-    {
-        value: '3',
-        viewValue: 'Credit',
-    },
-    {
-        value: '4',
-        viewValue: 'Found',
-    },
-]);
 export const CURRENCIES: CurrencyInterface[] = [{ name: 'EUR' }, { name: 'GEL' }, { name: 'PLN' }, { name: 'USD' }];

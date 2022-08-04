@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CoreModule } from '@app/core';
 import { categories } from '@core/constants';
 import { TransactionInterface } from '@app/shared';
-import { CategoryInterface } from '@app/shared/interfaces/category';
+import { CategoryInterface } from '@app/shared';
 import { HttpTransactionService } from '@core/services';
 import { Observable, of } from 'rxjs';
 
