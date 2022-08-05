@@ -1,0 +1,20 @@
+@import 'mixins';
+
+.container {
+    @include generalWidth;
+    flex-direction: column;
+    margin-top: 40px;
+}
+
+.title {
+    @include generalWidth;
+    flex-direction: column;
+}
+
+.mat-typography {
+    @include generalWidth(flex, start);
+    .field {
+        height: 50px;
+        margin: 10px 10px 20px 0;
+    }
+}

@@ -5,3 +5,5 @@ export const cancelCategoryCreation =
 export const deleteCategoryMessage = 'You are about to delete category. Are you sure?';
 export const deleteCategorySuccessMessage = 'You category successfully deleted';
 export const EditCategorySuccessMessage = 'You category successfully updated';
+export const shouldCreateWallet = 'Please, create a wallet and after that you can return to adding your transaction';
+
