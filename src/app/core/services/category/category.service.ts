@@ -8,24 +8,24 @@ import { CATEGORIES } from '@app/mocks';
     providedIn: CoreModule,
 })
 export class CategoryService {
-    categories: CategoryInterface[] = CATEGORIES;
+    private categories: CategoryInterface[] = CATEGORIES;
     constructor() {}
 
-    createCategory(category: CreateCategoryInterface) {
+    public createCategory(category: CreateCategoryInterface) {
         const newCategory = { ...category, id: Math.random().toString() };
         return this.categories.push(newCategory);
     }
 
-    getCategories(): Observable<CategoryInterface[]> {
+    public getCategories(): Observable<CategoryInterface[]> {
         return of(this.categories);
     }
 
-    editCategory(category: CategoryInterface) {
+    public editCategory(category: CategoryInterface) {
         const index = this.categories.findIndex((c) => c.id === category.id);
         this.categories[index] = category;
     }
 
-    deleteCategory(id: string) {
+    public deleteCategory(id: string) {
         const index = this.categories.findIndex((c) => c.id === id);
         this.categories.splice(index, 1);
     }

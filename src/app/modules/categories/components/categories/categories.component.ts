@@ -18,8 +18,8 @@ import {
     styleUrls: ['./categories.component.scss'],
 })
 export class CategoriesComponent {
-    categories$: Observable<CategoryInterface[]> = this.categoryService.getCategories();
-    destroy$: Subject<boolean> = new Subject<boolean>();
+    public categories$: Observable<CategoryInterface[]> = this.categoryService.getCategories();
+    private destroy$: Subject<boolean> = new Subject<boolean>();
     constructor(
         private dialogService: DialogService,
         private categoryService: CategoryService,
@@ -28,7 +28,7 @@ export class CategoriesComponent {
 
     ngOnInit(): void {}
 
-    createCategory(type: string) {
+    public createCategory(type: string) {
         const options: DialogDataInterface = {
             title: 'Add Category',
             content: AddCategoryComponent,
@@ -57,7 +57,7 @@ export class CategoriesComponent {
         this.destroy$.complete();
     }
 
-    deleteCategory(id: string) {
+    public deleteCategory(id: string) {
         const options = {
             title: deleteCategoryMessage,
             cancelText: 'NO',
@@ -78,7 +78,7 @@ export class CategoriesComponent {
             });
     }
 
-    editCategory(category: CategoryInterface) {
+    public editCategory(category: CategoryInterface) {
         const options: DialogDataInterface = {
             title: 'Edit Category',
             content: AddCategoryComponent,

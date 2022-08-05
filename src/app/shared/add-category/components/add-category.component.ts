@@ -11,10 +11,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     styleUrls: ['./add-category.component.scss'],
 })
 export class AddCategoryComponent implements OnInit, OnDestroy {
-    destroy$: Subject<boolean> = new Subject<boolean>();
+    private destroy$: Subject<boolean> = new Subject<boolean>();
     public categoryForm!: FormGroup;
 
-    isEdit: boolean = this.dialogData.data;
+    private isEdit: boolean = this.dialogData.data;
 
     constructor(
         private formBuilder: FormBuilder,
