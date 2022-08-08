@@ -6,6 +6,7 @@ import {
     MainPageComponent,
     MainPageRoutingModule,
     TransactionDialogComponent,
+    ViewWalletComponent,
 } from '@modules/main-page';
 import { SharedModule } from '@shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -22,6 +23,7 @@ import { SwiperModule } from 'swiper/angular';
         FilterCurrencyPipe,
         AddEditTransactionFormComponent,
         TransactionDialogComponent,
+        ViewWalletComponent,
         ListOfWalletsComponent,
     ],
     imports: [

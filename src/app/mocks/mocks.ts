@@ -2,6 +2,7 @@ import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
 import { CategoryInterface } from '@app/shared/interfaces/categories/category.interface';
 import { IncomeWalletInterface } from '@app/shared';
 import { CurrencyInterface } from '@app/shared/interfaces/currency.interface';
+import { TransactionInterface } from '@shared/interfaces/transaction.interface';
 
 import { Observable, of } from 'rxjs';
 import { WalletInterface } from '@shared/interfaces/wallet.interface';
@@ -152,7 +153,7 @@ export const mockWallets: WalletInterface[] = [
     },
     {
         id: '2',
-        name: 'My wallet',
+        name: 'My wallet 2',
         balance: 10000,
         currency: 'USD',
         isDefault: false,
@@ -172,3 +173,19 @@ export const mockWallets: WalletInterface[] = [
         isDefault: false,
     },
 ];
+
+export const mockWalletTransactions: TransactionInterface[] = (() => {
+    return new Array(20).fill(null).map((_, index) => {
+        return {
+            id: String(index),
+            category: 'Salary',
+            amount: Math.round(Math.random() * 1000 - 500),
+            date: `2022-07-${30 - index}T17:26:33.581Z`,
+            walletId: '',
+            type: '',
+            subcategory: '',
+            payer: '',
+            message: '',
+        };
+    });
+})();
