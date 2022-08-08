@@ -1,7 +1,7 @@
 export interface WalletInterface {
     id: string;
     name: string;
-    balance: number;
-    currencyCode: string;
     isDefault: boolean;
+    currency: string;
+    balance: number;
 }

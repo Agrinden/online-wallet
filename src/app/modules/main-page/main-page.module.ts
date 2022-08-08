@@ -29,6 +29,5 @@ import { FilterCurrencyPipe } from './pipes/filter-currency.pipe';
         NgxMatSelectSearchModule,
         ReactiveFormsModule,
     ],
-    providers: [DatePipe],
 })
 export class MainPageModule {}

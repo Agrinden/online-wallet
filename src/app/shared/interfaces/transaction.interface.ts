@@ -1,6 +1,8 @@
 export interface TransactionInterface {
     id: string;
-    categoryName: string;
-    transactionAmount: number;
+    category: string;
+    transactionType: string;
+    amount: number;
     date: string;
+    walletId: string;
 }

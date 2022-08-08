@@ -1,7 +1,7 @@
-<ng-container *ngIf='wallet$ | async as wallet'>
+<ng-container *ngIf='wallet'>
     <h1>{{wallet.name}}</h1>
     <p *ngIf='wallet.isDefault'>default wallet</p>
-    <p>Balance: {{wallet.balance }} {{wallet.currencyCode}}</p>
+    <p>Balance: {{wallet.balance }} {{wallet.currency}}</p>
 </ng-container>
 
 <div class='recent-transactions'>
@@ -31,5 +31,5 @@
         <tr mat-footer-row [class.hidden]='walletTransactionsSource.data.length !== 0' *matFooterRowDef="['noAvailableData']"></tr>
     </table>
 
-    <button mat-button class='show-more-button' color='primary' (click)='addTransactions(10)'>Show more</button>
+    <button mat-button class='show-more-button' color='primary' (click)='showMoreTransactions()'>Show more</button>
 </div>
