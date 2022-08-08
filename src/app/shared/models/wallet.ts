@@ -24,7 +24,7 @@ export class Wallet implements WalletInterface {
         const numberOfTransactionsToSkip = walletTransactions.length;
 
         this.walletTransactionsService
-            .getWalletTransactions(this.id, numberOfTransactionsToSkip, numberOfTransactions)
+            .get(this.id, numberOfTransactionsToSkip, numberOfTransactions)
             .pipe(
                 map((newWalletTransactions) => {
                     return [...walletTransactions, ...newWalletTransactions];
