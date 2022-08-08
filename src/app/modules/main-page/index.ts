@@ -4,3 +4,6 @@ export * from './components/currency-dropdown/currency-dropdown.component';
 export * from './components/view-wallet/view-wallet.component';
 export * from './main-page.module';
 export * from './main-page-routing.module';
+export * from './components/add-edit-transaction-form/add-edit-transaction-form.component';
+export * from './components/transaction-dialog/transaction-dialog.component';
+export * from './services/transaction.service';

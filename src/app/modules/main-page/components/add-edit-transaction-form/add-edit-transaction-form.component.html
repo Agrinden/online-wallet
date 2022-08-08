@@ -1,0 +1,126 @@
+<form class="form" [formGroup]="dataForm">
+    <mat-dialog-content class="mat-typography">
+        <div class="field">
+            <span class="field-title">Choose your wallet *</span>
+            <mat-form-field class="data-field" appearance="fill">
+                <mat-label>Choose your wallet</mat-label>
+                <mat-select formControlName="wallet">
+                    <mat-option *ngFor="let item of wallets$ | async" [value]="item.value">
+                        {{ item.viewValue }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="field">
+            <span class="field-title">Amount *</span>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label aria-required="true">Amount</mat-label>
+                <input formControlName="amount" matInput type="number" />
+            </mat-form-field>
+            <div class="errors" *ngIf="dataForm.controls.amount.errors">
+                <span class="error-message" *ngIf="isValidField('amount')">Input only numbers</span>
+            </div>
+        </div>
+
+        <div class="field">
+            <span class="field-title">Category *</span>
+            <mat-form-field class="data-field" appearance="fill">
+                <mat-label>Please choose the category</mat-label>
+                <mat-select formControlName="category" [(value)]="selectedCategory">
+                    <mat-option *ngFor="let item of categories$ | async" [value]="item.name">
+                        {{ item.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="new-category">
+            <span class="no-category">Can't find the right category?</span>
+            <a class="add-new-category" (click)="openAddInstanseForm()">+ Add new category </a>
+        </div>
+
+        <div class="field" *ngIf="data.itemType === type.expense">
+            <span class="field-title">Subcategory</span>
+            <mat-form-field class="data-field" appearance="fill">
+                <mat-label>Please choose the subcategory</mat-label>
+                <mat-select formControlName="subcategory" [disabled]="!!!selectedCategory">
+                    <ng-container *ngFor="let category of categories$ | async">
+                        <mat-option *ngFor="let subcat of category.subcategories" [value]="subcat">
+                            {{ subcat }}
+                        </mat-option>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="new-category" *ngIf="data.itemType === type.expense">
+            <span class="no-category">Can't find the right category?</span>
+            <a class="add-new-category" (click)="openAddInstanseForm()">+ Add new category </a>
+        </div>
+
+        <div class="field" *ngIf="data.itemType === type.expense">
+            <span class="field-title">Payer *</span>
+            <mat-form-field class="data-field" appearance="fill">
+                <mat-label>Please choose payer</mat-label>
+                <mat-select formControlName="payer">
+                    <mat-option *ngFor="let payer of payers$ | async" [value]="payer">
+                        {{ payer.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="new-category" *ngIf="data.itemType === type.expense">
+            <span class="no-category">Can't find the right person?</span>
+            <a class="add-new-category" (click)="openAddInstanseForm()">+ Add new payer </a>
+        </div>
+
+        <div class="field">
+            <span class="field-title">Date *</span>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <input matInput [matDatepicker]="picker" formControlName="date" />
+                <mat-hint class="date-format">DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="field note-field">
+            <span class="field-title">Note</span>
+            <mat-form-field class="data-field" appearance="fill">
+                <textarea
+                    matInput
+                    formControlName="note"
+                    cdkTextareaAutosize
+                    #autosize="cdkTextareaAutosize"
+                    cdkAutosizeMinRows="3"
+                    cdkAutosizeMaxRows="5"
+                ></textarea>
+            </mat-form-field>
+
+            <div class="note-error" *ngIf="dataForm.controls.note.errors">
+                <span class="error-message" *ngIf="dataForm.get('note')?.errors?.['maxlength']"
+                    >Max 200 characters.</span
+                >
+            </div>
+        </div>
+    </mat-dialog-content>
+
+    <div class="form-error" *ngIf="isFormErrorInvalid()">
+        <span class="error-message">Please fill in all required fields</span>
+    </div>
+
+    <mat-dialog-actions class="down-button">
+        <button
+            mat-button
+            [mat-dialog-close]="dataForm.value"
+            cdkFocusInitial
+            [disabled]="dataForm.invalid"
+            (click)="onFormSubmit()"
+        >
+            Submit
+        </button>
+        <button mat-button (click)="onFormClose()">Cancel</button>
+    </mat-dialog-actions>
+</form>

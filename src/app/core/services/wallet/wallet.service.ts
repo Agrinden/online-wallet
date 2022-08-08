@@ -1,5 +1,9 @@
+import { IncomeWalletInterface } from './../../../shared/interfaces/income-wallet.interface';
+import { Observable, of } from 'rxjs';
+import { CreateWalletInterface } from '@app/shared/interfaces/create-wallet.interface';
 import { CoreModule } from '@core/core.module';
 import { Injectable } from '@angular/core';
+import { WALLETS } from '../../../mocks/wallets';
 import { TransactionInterface, WalletInterface } from '@app/shared';
 import { Observable, of } from 'rxjs';
 import { CreateWalletInterface } from '@shared/interfaces/create-wallet.interface';
@@ -15,6 +19,10 @@ export class WalletService {
 
     public createWallet(wallet: CreateWalletInterface): Observable<any> {
         return of(wallet);
+    }
+
+    public getWalletList(): Observable<IncomeWalletInterface[]> {
+        return of(WALLETS);
     }
 
     public getWallet(walletId: string): Observable<WalletInterface | null> {

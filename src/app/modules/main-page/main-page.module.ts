@@ -1,17 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
-import { CoreModule } from '@app/core/core.module';
-import { SharedModule } from '@app/shared/shared.module';
+import { CoreModule } from '@core/core.module';
 import {
+    AddEditTransactionFormComponent,
     MainPageComponent,
     MainPageRoutingModule,
-    CreateWalletFormComponent,
-    CurrencyDropdownComponent,
+    TransactionDialogComponent,
     ViewWalletComponent,
-} from '@modules-main-page';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+} from '@modules/main-page';
+import { SharedModule } from '@shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CreateWalletFormComponent, CurrencyDropdownComponent } from '@modules-main-page';
 import { FilterCurrencyPipe } from './pipes/filter-currency.pipe';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,8 @@ import { FilterCurrencyPipe } from './pipes/filter-currency.pipe';
         CreateWalletFormComponent,
         CurrencyDropdownComponent,
         FilterCurrencyPipe,
+        AddEditTransactionFormComponent,
+        TransactionDialogComponent,
         ViewWalletComponent,
     ],
     imports: [
