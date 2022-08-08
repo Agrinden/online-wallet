@@ -1,7 +1,7 @@
 import { TransactionInterface, WalletInterface } from '@app/shared';
 import { BehaviorSubject, take } from 'rxjs';
-import { WalletService } from '@core';
 import { map } from 'rxjs/operators';
+import { WalletTransactionsService } from '@core/services/wallet-transactions/wallet-transactions.service';
 
 export class Wallet implements WalletInterface {
     private readonly recentTransactionsSubject$ = new BehaviorSubject<TransactionInterface[]>([]);
@@ -13,14 +13,9 @@ export class Wallet implements WalletInterface {
         public readonly isDefault: boolean,
         public readonly currency: string,
         public readonly balance: number,
-        private readonly walletService: WalletService
+        private readonly walletTransactionsService: WalletTransactionsService
     ) {
         this.loadMoreTransactions();
-    }
-
-    public destroy(): void {
-        this.recentTransactionsSubject$.next([]);
-        this.recentTransactionsSubject$.complete();
     }
 
     public loadMoreTransactions(): void {
@@ -28,7 +23,7 @@ export class Wallet implements WalletInterface {
         const walletTransactions = this.recentTransactionsSubject$.value;
         const numberOfTransactionsToSkip = walletTransactions.length;
 
-        this.walletService
+        this.walletTransactionsService
             .getWalletTransactions(this.id, numberOfTransactionsToSkip, numberOfTransactions)
             .pipe(
                 map((newWalletTransactions) => {

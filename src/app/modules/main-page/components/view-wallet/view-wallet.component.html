@@ -4,11 +4,11 @@
     <p>Balance: {{wallet.balance }} {{wallet.currency}}</p>
 </ng-container>
 
-<div class='recent-transactions'>
+<div class='recent-transactions' *ngIf='wallet.recentTransactions$ | async as recentTransactions'>
     <h2>Recent transactions</h2>
     <table
         mat-table
-        [dataSource]='walletTransactionsSource'
+        [dataSource]='recentTransactions'
         [trackBy]='transactionTrackBy'
     >
         <ng-container *ngFor="let column of columns" matColumnDef="{{column.dataField}}">
@@ -28,7 +28,7 @@
 
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
         <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
-        <tr mat-footer-row [class.hidden]='walletTransactionsSource.data.length !== 0' *matFooterRowDef="['noAvailableData']"></tr>
+        <tr mat-footer-row [class.hidden]='recentTransactions.length !== 0' *matFooterRowDef="['noAvailableData']"></tr>
     </table>
 
     <button mat-button class='show-more-button' color='primary' (click)='showMoreTransactions()'>Show more</button>
