@@ -41,10 +41,10 @@ export class CreateWalletFormComponent implements OnInit, OnDestroy {
             width: '700px',
         };
 
-        this.dialogService.open(options);
+        const dialog = this.dialogService.open(options);
 
         this.dialogService
-            .confirmed()
+            .confirmed(dialog)
             .pipe(takeUntil(this.destroy$))
             .subscribe((result) => {
                 return result

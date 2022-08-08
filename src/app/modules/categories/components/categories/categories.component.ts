@@ -1,7 +1,7 @@
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
 import { Component } from '@angular/core';
 import { CategoryInterface } from '@app/shared';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil, filter } from 'rxjs';
 import { DialogDataInterface } from '@app/shared/interfaces/dialog-data.interface';
 import { AddCategoryComponent } from '@app/shared/add-category/components/add-category.component';
 import {
@@ -11,6 +11,8 @@ import {
     EditCategorySuccessMessage,
     SnackbarService,
 } from '@app/core';
+import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
+import { ColorSchemeEnum } from '@app/shared/enums/color-scheme.enum';
 
 @Component({
     selector: 'app-categories',
@@ -18,17 +20,17 @@ import {
     styleUrls: ['./categories.component.scss'],
 })
 export class CategoriesComponent {
-    public categories$: Observable<CategoryInterface[]> = this.categoryService.getCategories();
     private destroy$: Subject<boolean> = new Subject<boolean>();
+    public categories$: Observable<CategoryInterface[]> = this.categoryService.get();
+    public income = TransactionTypeEnum.INCOME;
+    public expense = TransactionTypeEnum.EXPENSE;
     constructor(
         private dialogService: DialogService,
         private categoryService: CategoryService,
         private snackbarService: SnackbarService
     ) {}
 
-    ngOnInit(): void {}
-
-    public createCategory(type: string) {
+    public createCategory(type: TransactionTypeEnum) {
         const options: DialogDataInterface = {
             title: 'Add Category',
             content: AddCategoryComponent,
@@ -36,28 +38,25 @@ export class CategoriesComponent {
             disableClose: true,
         };
 
-        this.dialogService.open(options);
+        const dialog = this.dialogService.open(options);
 
         this.dialogService
-            .confirmed()
-            .pipe(takeUntil(this.destroy$))
+            .confirmed(dialog)
+            .pipe(
+                takeUntil(this.destroy$),
+                filter((res) => !!res)
+            )
             .subscribe((category) => {
-                if (category) {
-                    if (!category.color) {
-                        category.color = this.setDefaultColor(type);
-                    }
-                    const newCategory = { ...category, transactionType: type };
-                    this.categoryService.createCategory(newCategory);
+                if (!category.colorScheme) {
+                    category.colorScheme = this.setDefaultColor(type);
                 }
+                const newCategory = { ...category, transactionType: type };
+                this.categoryService.create(newCategory);
             });
     }
 
-    ngOnDestroy(): void {
-        this.destroy$.next(true);
-        this.destroy$.complete();
-    }
-
-    public deleteCategory(id: string) {
+    public deleteCategory(id: string, event: Event): void {
+        event.stopPropagation();
         const options = {
             title: deleteCategoryMessage,
             cancelText: 'NO',
@@ -65,20 +64,22 @@ export class CategoriesComponent {
             width: '700px',
         };
 
-        this.dialogService.open(options);
+        const dialog = this.dialogService.open(options);
 
         this.dialogService
-            .confirmed()
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((result) => {
-                if (result) {
-                    this.categoryService.deleteCategory(id);
-                    this.snackbarService.success(deleteCategorySuccessMessage);
-                }
+            .confirmed(dialog)
+            .pipe(
+                takeUntil(this.destroy$),
+                filter((res) => !!res)
+            )
+            .subscribe(() => {
+                this.categoryService.delete(id);
+                this.snackbarService.openSuccess(deleteCategorySuccessMessage);
             });
     }
 
-    public editCategory(category: CategoryInterface) {
+    public editCategory(category: CategoryInterface, event: Event): void {
+        event.stopPropagation();
         const options: DialogDataInterface = {
             title: 'Edit Category',
             content: AddCategoryComponent,
@@ -87,21 +88,27 @@ export class CategoriesComponent {
             data: category,
         };
 
-        this.dialogService.open(options);
+        const dialog = this.dialogService.open(options);
 
         this.dialogService
-            .confirmed()
-            .pipe(takeUntil(this.destroy$))
+            .confirmed(dialog)
+            .pipe(
+                takeUntil(this.destroy$),
+                filter((res) => !!res)
+            )
             .subscribe((res) => {
-                if (res) {
-                    const editedCategory = { ...category, ...res };
-                    this.categoryService.editCategory(editedCategory);
-                    this.snackbarService.success(EditCategorySuccessMessage);
-                }
+                const editedCategory = { ...category, ...res };
+                this.categoryService.edit(editedCategory);
+                this.snackbarService.openSuccess(EditCategorySuccessMessage);
             });
     }
 
-    private setDefaultColor(type: string) {
-        return type === 'income' ? '#38ff00' : '#ff3100';
+    private setDefaultColor(type: string): string {
+        return type === this.income ? ColorSchemeEnum.GREEN : ColorSchemeEnum.RED;
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(true);
+        this.destroy$.complete();
     }
 }

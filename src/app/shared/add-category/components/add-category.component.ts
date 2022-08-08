@@ -2,7 +2,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { Component, OnInit, OnDestroy, Optional, Inject } from '@angular/core';
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
 import { cancelCategoryCreation } from '@app/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, filter } from 'rxjs';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -13,8 +13,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class AddCategoryComponent implements OnInit, OnDestroy {
     private destroy$: Subject<boolean> = new Subject<boolean>();
     public categoryForm!: FormGroup;
-
     private isEdit: boolean = this.dialogData.data;
+    public buttonText: string = this.confirmButtonText();
+    public nameErrorMessage!: string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -24,6 +25,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.categoryForm = this.getCategoryForm();
+        this.nameErrorMessage = this.getErrorMessage();
     }
 
     private getCategoryForm(): FormGroup {
@@ -34,7 +36,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
                 Validators.maxLength(100),
                 Validators.pattern(/^[a-zA-Z0-9!@#\$%\^\&*\)\(/+=._ -]{0,100}$/),
             ]),
-            color: new FormControl(this.isEdit ? this.dialogData.data.color : ''),
+            colorScheme: new FormControl(this.isEdit ? this.dialogData.data.colorScheme : ''),
         });
         return form;
     }
@@ -42,7 +44,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
         return this.categoryForm.get('name');
     }
 
-    public getErrorMessage() {
+    private getErrorMessage(): string {
         if (this.name?.hasError('required')) {
             return 'Please fill in the name of category';
         }
@@ -64,7 +66,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
         }
     }
 
-    private cancelCategoryCreation() {
+    private cancelCategoryCreation(): void {
         const options = {
             title: cancelCategoryCreation,
             cancelText: 'NO',
@@ -72,20 +74,21 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
             width: '700px',
         };
 
-        this.dialogService.open(options);
+        const dialog = this.dialogService.open(options);
 
         this.dialogService
-            .confirmed()
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((result) => {
-                if (result) {
-                    this.categoryForm.reset();
-                    this.dialogService.close();
-                }
+            .confirmed(dialog)
+            .pipe(
+                takeUntil(this.destroy$),
+                filter((result) => !!result)
+            )
+            .subscribe(() => {
+                this.categoryForm.reset();
+                this.dialogService.close();
             });
     }
 
-    public confirmButtonText(): string {
+    private confirmButtonText(): string {
         return this.isEdit ? 'Edit' : 'Create';
     }
 

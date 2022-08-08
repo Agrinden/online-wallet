@@ -1,7 +1,7 @@
-import { CreateCategoryInterface } from './create-category.interface';
-import { SubcategoryInterface } from './subcategory.interface';
+import { CategoryTemplateInterface } from './category-template.interface';
 
-export interface CategoryInterface extends CreateCategoryInterface {
+export interface CategoryInterface extends CategoryTemplateInterface {
     id: string;
-    subcategories?: SubcategoryInterface[];
+    categoryId?: string;
+    subcategories?: CategoryInterface[];
 }

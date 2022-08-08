@@ -1,4 +1,4 @@
-import { TransactionType } from '@app/shared/enums/transaction.enum';
+import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
 import { CategoryInterface } from '@app/shared/interfaces/categories/category.interface';
 import { IncomeWalletInterface } from '@app/shared';
 import { CurrencyInterface } from '@app/shared/interfaces/currency.interface';
@@ -46,20 +46,22 @@ export const CATEGORIES: CategoryInterface[] = [
     {
         id: '1',
         name: 'Food',
-        color: '#fffc00',
-        transactionType: TransactionType.EXPENSE,
+        colorScheme: '#fffc00',
+        transactionType: TransactionTypeEnum.EXPENSE,
         subcategories: [
             {
                 id: '1',
                 name: 'Groceries',
-                color: '#ff0000',
+                colorScheme: '#ff0000',
                 categoryId: '1',
+                transactionType: TransactionTypeEnum.EXPENSE,
             },
             {
                 id: '2',
                 name: 'Restaurants',
-                color: '#ff0000',
+                colorScheme: '#ff0000',
                 categoryId: '1',
+                transactionType: TransactionTypeEnum.EXPENSE,
             },
         ],
     },
@@ -67,67 +69,73 @@ export const CATEGORIES: CategoryInterface[] = [
         id: '2',
 
         name: 'Transport',
-        color: '#0400ff',
-        transactionType: TransactionType.EXPENSE,
+        colorScheme: '#0400ff',
+        transactionType: TransactionTypeEnum.EXPENSE,
         subcategories: [
             {
                 id: '1',
                 name: 'Taxi',
-                color: '#ff0000',
+                colorScheme: '#ff0000',
                 categoryId: '2',
+                transactionType: TransactionTypeEnum.EXPENSE,
             },
             {
                 id: '2',
                 name: 'Bus',
-                color: '#ff0000',
+                colorScheme: '#ff0000',
                 categoryId: '2',
+                transactionType: TransactionTypeEnum.EXPENSE,
             },
         ],
     },
     {
         id: '3',
         name: 'Entertainment',
-        transactionType: TransactionType.EXPENSE,
-        color: '#24bc5e',
+        transactionType: TransactionTypeEnum.EXPENSE,
+        colorScheme: '#24bc5e',
         subcategories: [
             {
                 id: '1',
                 name: 'Movies',
-                color: 'purple',
+                colorScheme: '#ff0000',
                 categoryId: '3',
+                transactionType: TransactionTypeEnum.EXPENSE,
             },
             {
                 id: '2',
                 name: 'TV',
-                color: '#ff0000',
+                colorScheme: '#ff0000',
                 categoryId: '3',
+                transactionType: TransactionTypeEnum.EXPENSE,
             },
         ],
     },
     {
         id: '4',
         name: 'Shopping',
-        color: '#c721ca',
-        transactionType: TransactionType.EXPENSE,
+        colorScheme: '#c721ca',
+        transactionType: TransactionTypeEnum.EXPENSE,
         subcategories: [
             {
                 id: '1',
                 name: 'Clothes',
-                color: '#ff0000',
+                colorScheme: '#ff0000',
                 categoryId: '4',
+                transactionType: TransactionTypeEnum.EXPENSE,
             },
             {
                 id: '2',
                 name: 'Shoes',
-                color: '#ff0000',
+                colorScheme: '#ff0000',
                 categoryId: '4',
+                transactionType: TransactionTypeEnum.EXPENSE,
             },
         ],
     },
     {
         id: '5',
         name: 'Other',
-        transactionType: TransactionType.INCOME,
-        color: '#eca427',
+        transactionType: TransactionTypeEnum.INCOME,
+        colorScheme: '#eca427',
     },
 ];

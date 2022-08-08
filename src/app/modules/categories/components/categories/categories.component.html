@@ -3,7 +3,7 @@
         <div class="categories-header">
             <h2>Categories of Expenses</h2>
             <div class="add-button-container">
-                <button mat-fab color="primary" (click)="createCategory('expense')">
+                <button mat-fab color="primary" (click)="createCategory(expense)">
                     <mat-icon>add</mat-icon>
                 </button>
                 <span>Add expense category</span>
@@ -13,21 +13,17 @@
             <mat-expansion-panel *ngFor="let category of categories$ | async" [disabled]="!category.subcategories">
                 <mat-expansion-panel-header>
                     <mat-panel-title class="category-title">
-                        <div class="category-color" [ngStyle]="{ 'background-color': category.color }"></div>
+                        <div class="category-color" [ngStyle]="{ 'background-color': category.colorScheme }"></div>
                         <div class="category-name">
                             {{ category.name }}
                         </div>
                     </mat-panel-title>
                     <mat-panel-description class="categories-controls">
                         <div>
-                            <button mat-icon-button (click)="editCategory(category)" (click)="$event.stopPropagation()">
+                            <button mat-icon-button (click)="editCategory(category, $event)">
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            <button
-                                mat-icon-button
-                                (click)="deleteCategory(category.id)"
-                                (click)="$event.stopPropagation()"
-                            >
+                            <button mat-icon-button (click)="deleteCategory(category.id, $event)">
                                 <mat-icon>delete</mat-icon>
                             </button>
                         </div>
@@ -44,7 +40,7 @@
         <div class="categories-header">
             <h2>Categories of Incomes</h2>
             <div class="add-button-container">
-                <button mat-fab color="primary" (click)="createCategory('income')">
+                <button mat-fab color="primary" (click)="createCategory(income)">
                     <mat-icon>add</mat-icon>
                 </button>
                 <span>Add income category</span>
@@ -54,17 +50,17 @@
             <mat-expansion-panel *ngFor="let category of categories$ | async" disabled>
                 <mat-expansion-panel-header>
                     <mat-panel-title class="category-title">
-                        <div class="category-color" [ngStyle]="{ 'background-color': category.color }"></div>
+                        <div class="category-color" [ngStyle]="{ 'background-color': category.colorScheme }"></div>
                         <div class="category-name">
                             {{ category.name }}
                         </div>
                     </mat-panel-title>
                     <mat-panel-description class="categories-controls">
                         <div>
-                            <button mat-icon-button (click)="editCategory(category)">
+                            <button mat-icon-button (click)="editCategory(category, $event)">
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            <button mat-icon-button (click)="deleteCategory(category.id)">
+                            <button mat-icon-button (click)="deleteCategory(category.id, $event)">
                                 <mat-icon>delete</mat-icon>
                             </button>
                         </div>

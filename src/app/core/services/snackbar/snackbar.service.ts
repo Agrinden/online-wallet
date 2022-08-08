@@ -14,7 +14,7 @@ export class SnackbarService {
         verticalPosition: 'top',
     };
 
-    public success(message: string) {
+    public openSuccess(message: string): void {
         this.config['panelClass'] = ['notification', 'success'];
         this.snackBar.open(message, 'OK', this.config);
     }

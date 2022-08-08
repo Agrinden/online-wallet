@@ -1,6 +1,6 @@
 import { CoreModule } from '@core/core.module';
 import { Injectable } from '@angular/core';
-import { CategoryInterface, CreateCategoryInterface } from '@app/shared';
+import { CategoryInterface, CategoryTemplateInterface } from '@app/shared';
 import { Observable, of } from 'rxjs';
 import { CATEGORIES } from '@app/mocks';
 
@@ -9,23 +9,22 @@ import { CATEGORIES } from '@app/mocks';
 })
 export class CategoryService {
     private categories: CategoryInterface[] = CATEGORIES;
-    constructor() {}
 
-    public createCategory(category: CreateCategoryInterface) {
+    public create(category: CategoryTemplateInterface) {
         const newCategory = { ...category, id: Math.random().toString() };
         return this.categories.push(newCategory);
     }
 
-    public getCategories(): Observable<CategoryInterface[]> {
+    public get(): Observable<CategoryInterface[]> {
         return of(this.categories);
     }
 
-    public editCategory(category: CategoryInterface) {
+    public edit(category: CategoryInterface) {
         const index = this.categories.findIndex((c) => c.id === category.id);
         this.categories[index] = category;
     }
 
-    public deleteCategory(id: string) {
+    public delete(id: string) {
         const index = this.categories.findIndex((c) => c.id === id);
         this.categories.splice(index, 1);
     }

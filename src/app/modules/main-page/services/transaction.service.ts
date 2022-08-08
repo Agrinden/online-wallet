@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CoreModule } from '@app/core';
+import { CATEGORIES, CoreModule } from '@app/core';
 import { categories } from '@core/constants';
-import { TransactionInterface } from '@app/shared';
-import { CategoryInterface } from '@app/shared';
+import { CategoryInterface, TransactionInterface } from '@app/shared';
+
 import { HttpTransactionService } from '@core/services';
 import { Observable, of } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { Observable, of } from 'rxjs';
     providedIn: CoreModule,
 })
 export class TransactionService {
-    public categories$: Observable<CategoryInterface[]> = of(categories);
+    public categories$: Observable<CategoryInterface[]> = of(CATEGORIES);
 
     constructor(private httpService: HttpTransactionService) {}
 
