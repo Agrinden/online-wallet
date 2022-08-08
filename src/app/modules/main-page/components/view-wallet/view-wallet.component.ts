@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { filter, map, Subject } from 'rxjs';
+import { filter, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { WalletService } from '@core';
@@ -67,8 +67,7 @@ export class ViewWalletComponent implements OnInit, OnDestroy {
         this.walletService
             .getWallet(this.route.snapshot.params['id'])
             .pipe(
-                filter((wallet) => wallet !== null),
-                map((wallet) => wallet as WalletInterface),
+                filter((wallet): wallet is WalletInterface => wallet !== null),
                 take(1)
             )
             .subscribe(({ id, name, isDefault, currency, balance }) => {
