@@ -13,7 +13,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class AddCategoryComponent implements OnInit, OnDestroy {
     private destroy$: Subject<boolean> = new Subject<boolean>();
     public categoryForm!: FormGroup;
-    private isEdit: boolean = this.dialogData.data;
+    private isEdit: boolean = this.dialogData?.data;
     public buttonText: string = this.confirmButtonText();
     public nameErrorMessage!: string;
 
