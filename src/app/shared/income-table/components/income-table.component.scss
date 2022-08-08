@@ -1,0 +1,42 @@
+@import 'mixins';
+@import 'variables';
+
+:host ::ng-deep {
+    .mat-sort-header-container {
+        justify-content: center;
+    }
+}
+
+.income-table {
+    width: 820px;
+    margin-top: 20px;
+    .date-container {
+        margin-left: 50px;
+    }
+    .date-sort,
+    .amount-sort {
+        text-decoration: underline;
+    }
+
+    .category-container,
+    .wallet-container,
+    .note-container {
+        text-align: center;
+    }
+    .edit-button {
+        width: 40px;
+        height: 20px;
+        cursor: pointer;
+        outline: none;
+    }
+}
+
+table {
+    text-align: center;
+}
+
+.show-more {
+    color: rgb(88, 181, 227);
+    text-decoration: underline;
+    cursor: pointer;
+}

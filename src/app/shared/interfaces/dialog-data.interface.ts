@@ -5,4 +5,5 @@ export interface DialogDataInterface {
     confirmText?: string;
     width?: string;
     disableClose?: boolean;
+    data?: any;
 }
