@@ -1,3 +1,4 @@
+import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TextFieldModule } from '@angular/cdk/text-field';
@@ -19,7 +20,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSortModule } from '@angular/material/sort';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
     declarations: [],
@@ -53,6 +54,7 @@ import { MatSortModule } from '@angular/material/sort';
         MatNativeDateModule,
         MomentDateModule,
         MatProgressSpinnerModule,
+        MatExpansionModule,
     ],
     providers: [
         {
