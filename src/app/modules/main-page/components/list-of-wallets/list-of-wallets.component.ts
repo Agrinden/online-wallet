@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
 
 import { WalletService } from '@core';
 import { WalletInterface } from '@shared/interfaces/wallet.interface';
 
-import Swiper, { Navigation, SwiperOptions } from 'swiper';
+import { Navigation, SwiperOptions } from 'swiper';
 import SwiperCore from 'swiper';
 
 SwiperCore.use([Navigation]);
@@ -28,9 +27,9 @@ export class ListOfWalletsComponent implements OnInit {
             550: { slidesPerView: 3, spaceBetween: 15 },
         },
     };
-    public wallets?: WalletInterface[];
+    public wallets!: WalletInterface[];
 
-    constructor(private walletService: WalletService, private router: Router, private activatedRoute: ActivatedRoute) {}
+    constructor(private walletService: WalletService) {}
 
     ngOnInit(): void {
         this.walletService
@@ -39,19 +38,5 @@ export class ListOfWalletsComponent implements OnInit {
             .subscribe((wallets) => {
                 this.wallets = wallets;
             });
-    }
-
-    public onSwiper(swiper: Swiper): void {
-        swiper.on('click', this.onWalletClick.bind(this));
-    }
-
-    private onWalletClick(swiper: Swiper): void {
-        if (!this.wallets) {
-            return;
-        }
-
-        const walletId = this.wallets[swiper.clickedIndex].id;
-
-        this.router.navigate(['view-wallet', walletId], { relativeTo: this.activatedRoute });
     }
 }

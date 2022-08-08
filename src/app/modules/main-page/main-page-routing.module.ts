@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainPageComponent, ViewWalletComponent } from '@modules/main-page';
 
 const routes: Routes = [
-    { path: '', component: MainPageComponent },
+    { path: '', component: MainPageComponent, pathMatch: 'full' },
     { path: 'view-wallet/:id', component: ViewWalletComponent },
 ];
 
