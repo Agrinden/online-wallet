@@ -2,6 +2,9 @@ import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
 import { CategoryInterface } from '@app/shared/interfaces/categories/category.interface';
 import { IncomeWalletInterface } from '@app/shared';
 import { CurrencyInterface } from '@app/shared/interfaces/currency.interface';
+import { TransactionInterface } from '@shared/interfaces/transaction.interface';
+import { WalletInterface } from '@app/shared';
+
 import { Observable, of } from 'rxjs';
 
 export const mockNotifications = [
@@ -139,3 +142,50 @@ export const CATEGORIES: CategoryInterface[] = [
         colorScheme: '#eca427',
     },
 ];
+
+export const mockWallets: WalletInterface[] = [
+    {
+        id: '1',
+        name: 'My default wallet',
+        balance: 10000,
+        currency: 'USD',
+        isDefault: true,
+    },
+    {
+        id: '2',
+        name: 'My wallet 2',
+        balance: 10000,
+        currency: 'USD',
+        isDefault: false,
+    },
+    {
+        id: '3',
+        name: 'My wallet 3',
+        balance: 10000,
+        currency: 'USD',
+        isDefault: false,
+    },
+    {
+        id: '4',
+        name: 'My wallet 4',
+        balance: 10000,
+        currency: 'USD',
+        isDefault: false,
+    },
+];
+
+export const mockWalletTransactions: TransactionInterface[] = (() => {
+    return new Array(20).fill(null).map((_, index) => {
+        return {
+            id: String(index),
+            category: 'Salary',
+            amount: Math.round(Math.random() * 1000 - 500),
+            date: `2022-07-${30 - index}T17:26:33.581Z`,
+            walletId: '',
+            type: '',
+            subcategory: '',
+            payer: '',
+            message: '',
+        };
+    });
+})();

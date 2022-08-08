@@ -6,6 +6,7 @@ import {
     MainPageComponent,
     MainPageRoutingModule,
     TransactionDialogComponent,
+    ViewWalletComponent,
 } from '@modules/main-page';
 import { SharedModule } from '@shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -21,6 +22,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
         FilterCurrencyPipe,
         AddEditTransactionFormComponent,
         TransactionDialogComponent,
+        ViewWalletComponent,
     ],
     imports: [
         CommonModule,
