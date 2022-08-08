@@ -1,16 +1,27 @@
 <form class="form" [formGroup]="categoryForm">
-  <mat-dialog-content>
-    <div class="field">
-      <mat-form-field class="example-full-width" appearance="fill">
+    <mat-form-field>
         <mat-label aria-required="true">Category name</mat-label>
-        <input formControlName="category" matInput>
-      </mat-form-field>
-    </div>
-  </mat-dialog-content>
+        <input formControlName="name" matInput required />
+        <mat-error *ngIf="name?.invalid">{{ nameErrorMessage }}</mat-error>
+    </mat-form-field>
 
-  <mat-dialog-actions class="down-button">
-    <button mat-button [mat-dialog-close]="categoryForm.value" cdkFocusInitial
-      [disabled]="categoryForm.invalid">Add</button>
-    <button mat-button mat-dialog-close>Cancel</button>
-  </mat-dialog-actions>
+    <mat-form-field>
+        <mat-label>Category color</mat-label>
+
+        <input type="color" matInput formControlName="colorScheme" class="color" />
+
+        <mat-hint> Click the icon to set the color, or the default color will be set</mat-hint>
+    </mat-form-field>
+
+    <div class="form-buttons">
+        <button
+            mat-flat-button
+            color="primary"
+            [mat-dialog-close]="categoryForm.value"
+            [disabled]="categoryForm.invalid"
+        >
+            {{ buttonText }}
+        </button>
+        <button mat-flat-button color="warn" (click)="onCancel()">Cancel</button>
+    </div>
 </form>
