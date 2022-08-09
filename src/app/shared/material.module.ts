@@ -21,6 +21,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     declarations: [],
@@ -55,6 +56,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
         MomentDateModule,
         MatProgressSpinnerModule,
         MatExpansionModule,
+        MatCardModule,
     ],
     providers: [
         {
