@@ -1,5 +1,5 @@
 <form class="form" [formGroup]="categoryForm">
-    <mat-form-field>
+    <mat-form-field class="category-name">
         <mat-label aria-required="true">Category name</mat-label>
         <input formControlName="name" matInput required />
         <mat-error *ngIf="name?.invalid">{{ nameErrorMessage }}</mat-error>

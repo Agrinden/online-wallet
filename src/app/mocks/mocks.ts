@@ -153,7 +153,7 @@ export const mockWallets: WalletInterface[] = [
     },
     {
         id: '2',
-        name: 'My wallet 2',
+        name: 'test',
         balance: 10000,
         currency: 'USD',
         isDefault: false,
