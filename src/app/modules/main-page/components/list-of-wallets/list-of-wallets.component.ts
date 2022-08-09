@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { take } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 
 import { WalletService } from '@core';
 import { WalletInterface } from '@shared/interfaces/wallet.interface';
@@ -16,7 +16,8 @@ SwiperCore.use([Navigation]);
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class ListOfWalletsComponent implements OnInit {
+export class ListOfWalletsComponent implements OnInit, OnDestroy {
+    private readonly destroy$: Subject<null> = new Subject();
     public readonly config: SwiperOptions = {
         slidesPerView: 1,
         navigation: true,
@@ -34,9 +35,14 @@ export class ListOfWalletsComponent implements OnInit {
     ngOnInit(): void {
         this.walletService
             .getWallets()
-            .pipe(take(1))
+            .pipe(takeUntil(this.destroy$))
             .subscribe((wallets) => {
                 this.wallets = wallets;
             });
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(null);
+        this.destroy$.complete();
     }
 }

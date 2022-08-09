@@ -9,8 +9,6 @@ import { WalletInterface, IncomeWalletInterface, CreateWalletInterface } from '@
     providedIn: CoreModule,
 })
 export class WalletService {
-    constructor() {}
-
     public createWallet(wallet: CreateWalletInterface): Observable<any> {
         return of(wallet);
     }
