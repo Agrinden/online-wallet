@@ -1,4 +1,4 @@
-import { IncomeWalletInterface } from '@app/shared';
+import { IncomeWalletInterface } from '@app/shared/interfaces/income-wallet.interface';
 import { CurrencyInterface } from '@app/shared/interfaces/currency.interface';
 
 import { Observable, of } from 'rxjs';

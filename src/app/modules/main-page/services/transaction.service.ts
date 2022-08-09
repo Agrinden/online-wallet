@@ -1,3 +1,4 @@
+import { EXPENSE_DATA } from './../../../mocks/expense-table';
 import { Injectable } from '@angular/core';
 import { CoreModule } from '@app/core';
 import { categories } from '@core/constants';
@@ -7,7 +8,7 @@ import { HttpTransactionService } from '@core/services';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
-    providedIn: CoreModule,
+    providedIn: 'root',
 })
 export class TransactionService {
     public categories$: Observable<CategoryInterface[]> = of(categories);
@@ -15,7 +16,8 @@ export class TransactionService {
     constructor(private httpService: HttpTransactionService) {}
 
     public get(formData: any): Observable<TransactionInterface> {
-        return this.httpService.getTransaction(formData.id);
+        // return this.httpService.getTransaction(formData.id);
+        return of(EXPENSE_DATA.filter((data) => data.id === formData)[0]);
     }
 
     public create(formData: any): Observable<TransactionInterface> {

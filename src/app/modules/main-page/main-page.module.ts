@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { CoreModule } from '@core/core.module';
 import {
-    AddEditTransactionFormComponent,
     MainPageComponent,
     MainPageRoutingModule,
     TransactionDialogComponent,
+    AddEditTransactionFormComponent,
 } from '@modules/main-page';
 import { SharedModule } from '@shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -19,8 +19,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
         CreateWalletFormComponent,
         CurrencyDropdownComponent,
         FilterCurrencyPipe,
-        AddEditTransactionFormComponent,
         TransactionDialogComponent,
+        AddEditTransactionFormComponent,
     ],
     imports: [
         CommonModule,
@@ -30,5 +30,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
         NgxMatSelectSearchModule,
         ReactiveFormsModule,
     ],
+    exports: [AddEditTransactionFormComponent, TransactionDialogComponent],
 })
 export class MainPageModule {}

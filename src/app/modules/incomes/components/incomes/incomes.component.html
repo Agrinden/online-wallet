@@ -1,3 +1,8 @@
-<app-view-income></app-view-income>
-<open-income-form></open-income-form>
-<income-table></income-table>
+<div class="incomes-container">
+  <h2 class="income-title">Your Incomes</h2>
+  <open-income-form></open-income-form>
+  <div class="table-container">
+    <app-view-income></app-view-income>
+    <income-table [tableData]="incomes" [tableType]="tableTypes.income"></income-table>
+  </div>
+</div>
