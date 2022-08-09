@@ -6,13 +6,13 @@ import { categories } from '@app/core';
 import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
-
 import { CategoryInterface } from '@app/shared';
+import { CATEGORIES } from '@app/mocks';
 
 @Injectable({ providedIn: 'root' })
 export class IncomeDataService {
     public getIncomeCategories(): Observable<CategoryInterface[]> {
-        return of(categories);
+        return of(CATEGORIES);
     }
 
     public getIncomeData(): Observable<IncomeDataInterface[]> {

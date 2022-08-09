@@ -1,5 +1,5 @@
 import { IncomeDataInterface } from '@app/shared';
-import { WalletService } from '@core';
+import { CategoryService, WalletService } from '@core';
 import { ConfirmationDialogChoise } from './../../enums/dialog-enums';
 import { closeWarning } from './../../../core/services/user-delete/user-delete-constants';
 import { WarningDialogService } from './../../../core/services/warn-dialog/warning-dialog.service';
@@ -18,6 +18,10 @@ import { FormGroup } from '@angular/forms';
 
 import * as moment from 'moment';
 import { CategoryInterface } from '@app/shared';
+import { DialogService } from '@app/shared/dialog/services/dialog.service';
+import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
+import { DialogDataInterface } from '@app/shared/interfaces/dialog-data.interface';
+import { ColorSchemeEnum } from '@app/shared/enums/color-scheme.enum';
 
 @Component({
     selector: 'app-income',
@@ -27,6 +31,8 @@ import { CategoryInterface } from '@app/shared';
 export class IncomeFormComponent implements OnInit {
     public incomeForm!: FormGroup<IncomeFormInterface>;
     public currentDate!: moment.Moment;
+    public income = TransactionTypeEnum.INCOME;
+    private defaultColor = ColorSchemeEnum.GREEN;
 
     //TODO: load wallets from BE
     public wallets$!: Observable<IncomeWalletInterface[]>;
@@ -39,7 +45,9 @@ export class IncomeFormComponent implements OnInit {
         private walletService: WalletService,
         @Inject(MAT_DIALOG_DATA) public data: IncomeDataInterface,
         private dialog: MatDialog,
-        private warnDialogService: WarningDialogService
+        private warnDialogService: WarningDialogService,
+        private dialogService: DialogService,
+        private categoryService: CategoryService
     ) {}
 
     ngOnInit(): void {
@@ -76,14 +84,6 @@ export class IncomeFormComponent implements OnInit {
         return form;
     }
 
-    public openForm(): void {
-        this.dialog
-            .open(AddCategoryComponent)
-            .beforeClosed()
-            .pipe(filter((data) => !!data))
-            .subscribe();
-    }
-
     public formIsChanged(): boolean {
         return this.incomeForm.dirty || this.incomeForm.touched;
     }
@@ -100,6 +100,31 @@ export class IncomeFormComponent implements OnInit {
         } else {
             this.dialog.closeAll();
         }
+    }
+
+    public createCategory(type: TransactionTypeEnum) {
+        const options: DialogDataInterface = {
+            title: 'Add Category',
+            content: AddCategoryComponent,
+            width: '400px',
+            disableClose: true,
+        };
+
+        const dialog = this.dialogService.open(options);
+
+        this.dialogService
+            .confirmed(dialog)
+            .pipe(
+                takeUntil(this.destroy$),
+                filter((res) => !!res)
+            )
+            .subscribe((category) => {
+                if (!category.colorScheme) {
+                    category.colorScheme = this.defaultColor;
+                }
+                const newCategory = { ...category, transactionType: type };
+                this.categoryService.create(newCategory);
+            });
     }
 
     ngOnDestroy(): void {
