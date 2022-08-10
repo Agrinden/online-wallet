@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogContentInputValuesInterface } from '@shared/interfaces/dialog.interface';
-import { ConfirmationDialogChoise } from '@shared/enums/dialog-enums';
+import { btnFocus, ConfirmationDialogChoise } from '@shared/enums/dialog-enums';
 
 @Component({
     selector: 'dialog-content',
@@ -11,12 +11,15 @@ import { ConfirmationDialogChoise } from '@shared/enums/dialog-enums';
 export class DialogComponent {
     public dialogHeading = '';
     public dialogContent = '';
+    public btnFocus = btnFocus;
+    public btnFocused;
     public dialogEnum = ConfirmationDialogChoise;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) private data: DialogContentInputValuesInterface,
         public dialogRef: MatDialogRef<DialogComponent>
     ) {
+        this.btnFocused = data.btnFocus;
         this.dialogHeading = data.dialogHeading;
         this.dialogContent = data.dialogContent;
     }
