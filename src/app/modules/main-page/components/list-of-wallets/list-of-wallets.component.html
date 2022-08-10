@@ -1,0 +1,13 @@
+<swiper class='swiper' [config]="config" >
+    <ng-template swiperSlide *ngFor='let wallet of wallets'>
+        <mat-card class="carousel-cell" [routerLink]="wallet | walletLink">
+            <mat-card-title-group>
+                <mat-card-title>{{wallet.name}}</mat-card-title>
+                <mat-card-subtitle *ngIf='wallet.isDefault'>Default</mat-card-subtitle>
+            </mat-card-title-group>
+            <mat-card-content>
+                {{wallet.balance}} {{wallet.currency}}
+            </mat-card-content>
+        </mat-card>
+    </ng-template>
+</swiper>
