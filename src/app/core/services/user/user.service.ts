@@ -5,6 +5,7 @@ import { CoreModule } from '@core/core.module';
 import { AccessTokenService } from '@core/services';
 import { BehaviorSubject, combineLatest, map, Observable, of } from 'rxjs';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { CookieService } from '../cookie/cookie.service';
 
 @Injectable({
     providedIn: CoreModule,
@@ -16,7 +17,8 @@ export class UserService {
     constructor(
         private accessTokenService: AccessTokenService,
         private router: Router,
-        private oidcSecurityService: OidcSecurityService
+        private oidcSecurityService: OidcSecurityService,
+        private cookieService: CookieService
     ) {}
 
     get user(): any | null {
@@ -28,7 +30,9 @@ export class UserService {
     }
 
     signIn(): void {
-        const data = ''; //request to server
+        const data =
+            'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YWRlbC5jb20iLCJyb2xlcyI6W3siaWQiOjEsIm5hbWUiOiJVU0VSIn1dLCJleHAiOjE2NTk3MzE4MjJ9.kN46guxXMJJzcvYd5Lb9Zi6FZVbHvGx1YeYsx5fLtoY'; // request to server
+        this.cookieService.set(data);
     }
 
     signOut(): void {
