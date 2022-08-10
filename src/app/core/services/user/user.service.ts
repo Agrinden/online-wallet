@@ -27,6 +27,10 @@ export class UserService {
         this.userSubject$.next(user);
     }
 
+    signIn(): void {
+        const data = ''; //request to server
+    }
+
     signOut(): void {
         this.user = null;
         this.accessTokenService.clear();
