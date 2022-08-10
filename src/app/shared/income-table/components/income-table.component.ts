@@ -1,5 +1,5 @@
+import { TransactionTypeEnum } from './../../enums/transaction-type.enum';
 import { TransactionDialogComponent } from './../../../modules/main-page/components/transaction-dialog/transaction-dialog.component';
-import { TransactionType } from '@app/core';
 import { Subject, takeUntil } from 'rxjs';
 import { IncomeFormComponent, TransactionInterface } from '@app/shared';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,7 +15,7 @@ import { MatSort } from '@angular/material/sort';
     styleUrls: ['income-table.component.scss'],
 })
 export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
-    @Input() tableType = TransactionType.income;
+    @Input() tableType = TransactionTypeEnum.INCOME;
     @Input() tableData: IncomeDataInterface[] | TransactionInterface[] = [];
     @ViewChild(MatSort) sort!: MatSort;
 
@@ -28,7 +28,7 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
 
     ngOnInit() {
         this.initializeTable(this.tableData);
-        this.isExpenses = this.tableType === TransactionType.expense;
+        this.isExpenses = this.tableType === TransactionTypeEnum.EXPENSE;
     }
 
     ngAfterViewInit() {
@@ -38,7 +38,7 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
     private initializeTable(tableData: IncomeDataInterface[] | TransactionInterface[]): void {
         this.dataSource = new MatTableDataSource(tableData);
         this.displayedColumns = ['date', 'category', 'amount', 'walletId', 'note', 'actions'];
-        if (this.tableType === TransactionType.expense) {
+        if (this.tableType === TransactionTypeEnum.EXPENSE) {
             this.displayedColumns = [
                 'date',
                 'category',
@@ -55,7 +55,7 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
     public editData(rowData: IncomeDataInterface | TransactionInterface): void {
         if ('payer' in rowData) {
             const dialogRef = this.dialog.open(TransactionDialogComponent, {
-                data: { ...rowData, isEditForm: true, itemId: rowData.id, itemType: TransactionType.expense },
+                data: { ...rowData, isEditForm: true, itemId: rowData.id, itemType: TransactionTypeEnum.EXPENSE },
             });
             dialogRef.afterClosed().pipe(takeUntil(this.destroy)).subscribe();
         } else {

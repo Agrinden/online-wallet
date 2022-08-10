@@ -1,7 +1,6 @@
+import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
 import { TransactionDialogComponent } from '@modules/main-page';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { TransactionType } from '@core';
-import { INCOME_DATA } from './../../../../mocks/table';
+import { MatDialog } from '@angular/material/dialog';
 import { EXPENSE_DATA } from './../../../../mocks/expense-table';
 import { Component, Inject } from '@angular/core';
 
@@ -11,14 +10,14 @@ import { Component, Inject } from '@angular/core';
     styleUrls: ['./expenses.component.scss'],
 })
 export class ExpensesComponent {
-    public tableTypes = TransactionType;
+    public tableTypes = TransactionTypeEnum;
     public expenses = EXPENSE_DATA;
 
     constructor(private dialog: MatDialog) {}
 
     public onAddTransactionClick(): void {
         this.dialog.open(TransactionDialogComponent, {
-            data: { isEditForm: false, itemType: TransactionType.expense },
+            data: { isEditForm: false, itemType: TransactionTypeEnum.EXPENSE },
             disableClose: true,
         });
     }

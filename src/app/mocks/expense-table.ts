@@ -1,9 +1,10 @@
+import { TransactionTypeEnum } from './../shared/enums/transaction-type.enum';
 import { TransactionInterface } from '@app/shared';
 
 export const EXPENSE_DATA: TransactionInterface[] = [
     {
         id: 1,
-        type: 'EXPENSE',
+        type: TransactionTypeEnum.EXPENSE,
         date: '28/07/2022',
         category: 'Transport & auto',
         subcategory: 'Petrol',
@@ -14,7 +15,7 @@ export const EXPENSE_DATA: TransactionInterface[] = [
     },
     {
         id: 2,
-        type: 'EXPENSE',
+        type: TransactionTypeEnum.EXPENSE,
         date: '20/07/2022',
         category: 'Home & utilities',
         subcategory: 'Rent',
@@ -25,7 +26,7 @@ export const EXPENSE_DATA: TransactionInterface[] = [
     },
     {
         id: 3,
-        type: 'EXPENSE',
+        type: TransactionTypeEnum.EXPENSE,
         date: '05/08/2022',
         category: 'Entertainment',
         subcategory: 'Celebrations & gifts',
