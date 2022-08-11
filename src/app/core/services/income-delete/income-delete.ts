@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { DialogComponent } from '@app/shared';
+import { DialogComponent, IncomeDataInterface, TransactionInterface } from '@app/shared';
 import { MatDialog } from '@angular/material/dialog';
 import { btnFocus, ConfirmationDialogChoise } from '@shared/enums/dialog-enums';
 import { dialogContent } from './income-delete-constants';
-import { IncomeTableInterface } from '@app/shared/interfaces/income-table.interface';
 
 @Injectable({ providedIn: 'root' })
 export class IncomeDeleteService {
@@ -11,7 +10,7 @@ export class IncomeDeleteService {
 
     constructor(public dialog: MatDialog) {}
 
-    handleOpenDialog(incomeData: IncomeTableInterface) {
+    handleOpenDialog(incomeData: IncomeDataInterface | TransactionInterface) {
         const dialogRef = this.dialog.open(DialogComponent, {
             data: {
                 dialogHeading: this.dialogContent.dialogHeading,
@@ -22,6 +21,7 @@ export class IncomeDeleteService {
             height: 'fit-content',
             panelClass: 'dialog-container',
         });
+
         dialogRef.afterClosed().subscribe((value: ConfirmationDialogChoise) => {
             if (value === ConfirmationDialogChoise.confirm) console.log(value, incomeData);
         });

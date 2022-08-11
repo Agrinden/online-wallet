@@ -22,7 +22,7 @@ input[type='number'] {
     padding: 10px 20px;
     background-color: $form-background-color;
     .header-module {
-        @include generalWidth(flex, end);
+        @include generalWidth(flex, flex-end);
         .title {
             margin-right: 140px;
         }
@@ -92,6 +92,6 @@ input[type='number'] {
         padding-left: 160px;
     }
     .down-button {
-        @include generalWidth(flex, end);
+        @include generalWidth(flex, flex-end);
     }
 }

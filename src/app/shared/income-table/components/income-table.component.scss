@@ -5,44 +5,67 @@
     .mat-sort-header-container {
         justify-content: center;
     }
-}
+    .table-container {
+        .income-table {
+            width: 1220px;
+            margin-top: 20px;
+            overflow: hidden;
+            .date-container {
+                margin-left: 50px;
+            }
+            .date-sort,
+            .amount-sort {
+                text-decoration: underline;
+                font-size: 15px;
+            }
+            .subcat {
+                margin: 0;
+                color: rgb(200, 197, 197);
+                font-size: 0.9em;
+            }
 
-.income-table {
-    width: 820px;
-    margin-top: 20px;
-    .date-container {
-        margin-left: 50px;
-    }
-    .date-sort,
-    .amount-sort {
-        text-decoration: underline;
-    }
+            .category-container,
+            .wallet-container,
+            .payer-container,
+            .note-container {
+                text-align: center;
+                font-size: 15px;
+            }
+            .mat-header-row {
+                .mat-header-cell {
+                    text-align: center;
+                }
+            }
 
-    .category-container,
-    .wallet-container,
-    .note-container {
-        text-align: center;
-    }
-    .edit-button {
-        width: 40px;
-        height: 20px;
-        cursor: pointer;
-        outline: none;
-    }
-    .delete-button {
-        width: 56px;
-        height: 20px;
-        cursor: pointer;
-        outline: none;
+            .edit-button {
+                cursor: pointer;
+                height: 25px;
+                background-color: rgb(105, 101, 97);
+                box-shadow: 1px 0 1px 0px rgba(195, 177, 177, 0.8);
+            }
+
+            .delete-button {
+                margin-left: 5px;
+                cursor: pointer;
+                height: 25px;
+                background-color: rgb(105, 101, 97);
+                box-shadow: 1px 0 1px 0px rgba(195, 177, 177, 0.8);
+            }
+        }
+
+        .show-more {
+            margin-top: 5px;
+            color: rgb(88, 181, 227);
+            text-decoration: underline;
+            cursor: pointer;
+            @include generalWidth(flex, flex-end);
+        }
     }
 }
 
 table {
     text-align: center;
-}
-
-.show-more {
-    color: rgb(88, 181, 227);
-    text-decoration: underline;
-    cursor: pointer;
+    .mat-button {
+        line-height: 0px;
+    }
 }

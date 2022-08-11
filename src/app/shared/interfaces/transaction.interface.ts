@@ -2,7 +2,7 @@ import { AbstractControl } from '@angular/forms';
 import { Moment } from 'moment';
 
 export interface TransactionInterface {
-    id: string;
+    id: number;
     type: string;
     walletId: string;
     amount: number;
@@ -10,7 +10,7 @@ export interface TransactionInterface {
     subcategory: string;
     payer: string;
     date: string;
-    message: string;
+    note: string;
 }
 
 export interface CreateTransactionInterface {
