@@ -1,5 +1,5 @@
 import { Subject, takeUntil } from 'rxjs';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { CurrencyInterface } from '@app/shared/interfaces/currency.interface';
@@ -37,12 +37,12 @@ export class CreateWalletFormComponent implements OnInit, OnDestroy, AfterViewIn
         );
     }
 
-    public get name() {
+    public get name(): AbstractControl | null {
         return this.form.get('name');
     }
 
     ngAfterViewInit(): void {
-        this.name?.valueChanges.subscribe(() => {
+        this.name?.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.nameErrorMessage = this.getErrorMessage();
         });
     }

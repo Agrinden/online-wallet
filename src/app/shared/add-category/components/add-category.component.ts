@@ -1,10 +1,10 @@
-import { CategoryNameExistsValidator } from './../../helpers/category-name.validator';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Component, OnInit, OnDestroy, Optional, Inject, AfterViewInit } from '@angular/core';
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
-import { cancelCategoryCreation } from '@app/core';
+import { cancelCategoryCreation, cancelCategoryEditing, CategoryService } from '@core';
 import { Subject, takeUntil, filter } from 'rxjs';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CategoryNameValidator } from '@app/shared/helpers/category-name.validator';
 
 @Component({
     selector: 'add-category',
@@ -22,7 +22,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy, AfterViewInit {
         private formBuilder: FormBuilder,
         private dialogService: DialogService,
         @Optional() @Inject(MAT_DIALOG_DATA) private dialogData: any,
-        private nameValidator: CategoryNameExistsValidator
+        private categoryService: CategoryService
     ) {}
 
     ngOnInit(): void {
@@ -38,7 +38,9 @@ export class AddCategoryComponent implements OnInit, OnDestroy, AfterViewInit {
                     Validators.minLength(3),
                     Validators.maxLength(100),
                 ],
-                asyncValidators: [this.nameValidator.validate.bind(this.nameValidator)],
+                asyncValidators: [
+                    CategoryNameValidator.createValidator(this.categoryService, this.dialogData?.data?.name),
+                ],
                 updateOn: 'blur',
             }),
             colorScheme: new FormControl(this.isEdit ? this.dialogData.data.colorScheme : ''),
@@ -46,7 +48,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy, AfterViewInit {
         return form;
     }
 
-    public get name() {
+    public get name(): AbstractControl | null {
         return this.categoryForm.get('name');
     }
 
@@ -83,7 +85,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy, AfterViewInit {
 
     private cancelCategoryCreation(): void {
         const options = {
-            title: cancelCategoryCreation,
+            title: this.isEdit ? cancelCategoryEditing : cancelCategoryCreation,
             cancelText: 'NO',
             confirmText: 'YES',
             width: '700px',
@@ -104,7 +106,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     private confirmButtonText(): string {
-        return this.isEdit ? 'Edit' : 'Create';
+        return this.isEdit ? 'Update' : 'Create';
     }
 
     ngOnDestroy(): void {

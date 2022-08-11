@@ -31,8 +31,4 @@ export class DialogService {
     public closeAll() {
         this.dialog.closeAll();
     }
-
-    public close(dialogRef: MatDialogRef<DialogComponent>) {
-        dialogRef.close();
-    }
 }

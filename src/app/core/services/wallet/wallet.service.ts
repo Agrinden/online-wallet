@@ -25,7 +25,7 @@ export class WalletService {
         return of(mockWallets.find(({ id }) => id === walletId) ?? null);
     }
 
-    public isWalletUnique(name: string, currency: string): Observable<boolean> {
-        return of(!mockWallets.every((c) => c.name !== name || c.currency !== currency));
+    public isUnique(name: string, currency: string): Observable<boolean> {
+        return of(mockWallets.every((c) => c.name !== name || c.currency !== currency));
     }
 }

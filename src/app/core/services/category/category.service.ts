@@ -30,6 +30,6 @@ export class CategoryService {
     }
 
     public isNameUnique(name: string): Observable<boolean> {
-        return of(!this.categories.every((c) => c.name !== name));
+        return of(this.categories.every((c) => c.name !== name));
     }
 }
