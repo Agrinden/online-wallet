@@ -28,9 +28,14 @@
 
             .header-right-icons {
                 display: flex;
-                gap: 20px;
                 font-size: 14px;
                 justify-content: flex-end;
+                position: absolute;
+                right: 0;
+                .header-right-user-icons {
+                    display: flex;
+                    padding-right: 16px;
+                }
             }
         }
     }

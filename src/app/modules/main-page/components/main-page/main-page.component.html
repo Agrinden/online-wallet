@@ -1,15 +1,20 @@
-<button mat-button class="add-button" (click)="onAddTransactionClick(type.EXPENSE)">+ Add expense</button>
+<div class="main-container">
+  <div class="amount-container">
+    <button mat-button class="add-button" (click)="onAddTransactionClick(type.EXPENSE)">+ Add expense</button>
 
-<open-income-form></open-income-form>
-<app-loader></app-loader>
+    <open-income-form></open-income-form>
+  </div>
+  <app-loader></app-loader>
+  <span class="choose-wallet">Choose your wallet</span>
 
-<div class='wallets-wrapper'>
+  <div class='wallets-wrapper'>
     <div class="add-button-container">
-        <button mat-fab color="primary" (click)="openCreateWalletModal()">
-            <mat-icon>add</mat-icon>
-        </button>
-        <span>Add wallet</span>
+      <button mat-fab color="primary" (click)="openCreateWalletModal()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <span>Add wallet</span>
     </div>
-
     <app-list-of-wallets class='list-of-wallets'></app-list-of-wallets>
+    <app-savings class="pig"></app-savings>
+  </div>
 </div>
