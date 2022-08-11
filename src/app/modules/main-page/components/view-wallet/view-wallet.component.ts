@@ -58,7 +58,7 @@ export class ViewWalletComponent implements OnInit, OnDestroy {
         this.destroy$.complete();
     }
 
-    public transactionTrackBy(index: number, transaction: TransactionInterface): string {
+    public transactionTrackBy(index: number, transaction: TransactionInterface): number {
         return transaction.id;
     }
 

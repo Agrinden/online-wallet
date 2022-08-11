@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { CoreModule } from '@core/core.module';
 import {
-    AddEditTransactionFormComponent,
     MainPageComponent,
     MainPageRoutingModule,
     TransactionDialogComponent,
     ViewWalletComponent,
+    AddEditTransactionFormComponent,
 } from '@modules/main-page';
 import { SharedModule } from '@shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -22,8 +22,8 @@ import { WalletLinkPipe } from '@modules/main-page/pipes/wallet-link.pipe';
         CreateWalletFormComponent,
         CurrencyDropdownComponent,
         FilterCurrencyPipe,
-        AddEditTransactionFormComponent,
         TransactionDialogComponent,
+        AddEditTransactionFormComponent,
         ViewWalletComponent,
         ListOfWalletsComponent,
         WalletLinkPipe,
@@ -37,5 +37,6 @@ import { WalletLinkPipe } from '@modules/main-page/pipes/wallet-link.pipe';
         ReactiveFormsModule,
         SwiperModule,
     ],
+    exports: [AddEditTransactionFormComponent, TransactionDialogComponent],
 })
 export class MainPageModule {}

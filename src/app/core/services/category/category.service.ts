@@ -28,4 +28,8 @@ export class CategoryService {
         const index = this.categories.findIndex((c) => c.id === id);
         this.categories.splice(index, 1);
     }
+
+    public isNameUnique(name: string): Observable<boolean> {
+        return of(this.categories.every((c) => c.name !== name));
+    }
 }

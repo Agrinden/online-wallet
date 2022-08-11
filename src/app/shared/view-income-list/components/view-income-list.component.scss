@@ -1,18 +1,28 @@
 @import 'mixins';
 
+:host::ng-deep {
+    .mat-placeholder-required {
+        display: none !important;
+    }
+}
+
 .container {
     @include generalWidth;
     flex-direction: column;
-    margin-top: 40px;
+    margin-top: 25px;
+    overflow: hidden;
 }
 
 .title {
     @include generalWidth;
     flex-direction: column;
+    .filter-title {
+        font-size: 20px;
+    }
 }
 
 .mat-typography {
-    @include generalWidth(flex, start);
+    @include generalWidth(flex, flex-start);
     .field {
         height: 50px;
         margin: 10px 10px 20px 0;

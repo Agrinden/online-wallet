@@ -1,7 +1,8 @@
+import { TransactionTypeEnum } from './../../../../shared/enums/transaction-type.enum';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { payers$, TransactionType, WALLETS } from '@app/core';
+import { payers$, WALLETS } from '@app/core';
 import { TransactionFormInterface } from '@app/shared';
 import { AddCategoryComponent } from '@app/shared/add-category/components/add-category.component';
 import { TransactionService } from '@modules/main-page';
@@ -14,7 +15,7 @@ import { filter, Observable, Subject, takeUntil } from 'rxjs';
     styleUrls: ['./add-edit-transaction-form.component.scss'],
 })
 export class AddEditTransactionFormComponent implements OnInit {
-    public type = TransactionType;
+    public type = TransactionTypeEnum;
 
     @Input() dataForm!: FormGroup<TransactionFormInterface>;
 
