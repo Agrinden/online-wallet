@@ -12,7 +12,7 @@ export class DialogComponent {
     public dialogHeading = '';
     public dialogContent = '';
     public btnFocus = btnFocus;
-    public btnFocused;
+    public btnFocused: btnFocus;
     public dialogEnum = ConfirmationDialogChoise;
 
     constructor(
