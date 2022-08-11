@@ -10,9 +10,11 @@ import {
 } from '@modules/main-page';
 import { SharedModule } from '@shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CreateWalletFormComponent, CurrencyDropdownComponent } from '@modules-main-page';
+import { CreateWalletFormComponent, CurrencyDropdownComponent, ListOfWalletsComponent } from '@modules-main-page';
 import { FilterCurrencyPipe } from './pipes/filter-currency.pipe';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { SwiperModule } from 'swiper/angular';
+import { WalletLinkPipe } from '@modules/main-page/pipes/wallet-link.pipe';
 
 @NgModule({
     declarations: [
@@ -23,6 +25,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
         AddEditTransactionFormComponent,
         TransactionDialogComponent,
         ViewWalletComponent,
+        ListOfWalletsComponent,
+        WalletLinkPipe,
     ],
     imports: [
         CommonModule,
@@ -31,6 +35,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
         CoreModule,
         NgxMatSelectSearchModule,
         ReactiveFormsModule,
+        SwiperModule,
     ],
 })
 export class MainPageModule {}
