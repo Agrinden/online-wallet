@@ -3,8 +3,10 @@ import { DialogComponent, IncomeDataInterface, TransactionInterface } from '@app
 import { MatDialog } from '@angular/material/dialog';
 import { btnFocus, ConfirmationDialogChoise } from '@shared/enums/dialog-enums';
 import { dialogContent } from './income-delete-constants';
+import { CoreModule } from '@app/core';
+import { filter } from 'rxjs';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: CoreModule })
 export class IncomeDeleteService {
     private dialogContent = dialogContent;
 
@@ -22,8 +24,11 @@ export class IncomeDeleteService {
             panelClass: 'dialog-container',
         });
 
-        dialogRef.afterClosed().subscribe((value: ConfirmationDialogChoise) => {
-            if (value === ConfirmationDialogChoise.confirm) console.log(value, incomeData);
-        });
+        dialogRef
+            .afterClosed()
+            .pipe(filter((value) => value === ConfirmationDialogChoise.confirm))
+            .subscribe((value: ConfirmationDialogChoise) => {
+                console.log(value, incomeData);
+            });
     }
 }
