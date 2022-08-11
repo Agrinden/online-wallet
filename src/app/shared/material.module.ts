@@ -20,6 +20,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     declarations: [],
@@ -53,6 +55,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         MatNativeDateModule,
         MomentDateModule,
         MatProgressSpinnerModule,
+        MatExpansionModule,
+        MatCardModule,
     ],
     providers: [
         {

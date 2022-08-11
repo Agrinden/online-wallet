@@ -5,7 +5,7 @@ import { DialogService } from '@app/shared/dialog/services/dialog.service';
 import { DialogDataInterface } from '@app/shared/interfaces/dialog-data.interface';
 import { TransactionType, WalletService } from '@core';
 import { TransactionDialogComponent } from '@modules/main-page';
-import { Subject, takeUntil } from 'rxjs';
+import { filter, Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-main-page',
@@ -44,21 +44,21 @@ export class MainPageComponent implements OnInit, OnDestroy {
             disableClose: true,
         };
 
-        this.dialogService.open(options);
+        const dialog = this.dialogService.open(options);
 
         this.dialogService
-            .confirmed()
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((result) => {
-                if (result) {
-                    console.log(result);
-                    this.walletService.createWallet(result);
-                }
+            .confirmed(dialog)
+            .pipe(
+                takeUntil(this.destroy$),
+                filter((res) => !!res)
+            )
+            .subscribe((wallet) => {
+                this.walletService.createWallet(wallet);
             });
     }
 
     ngOnDestroy(): void {
         this.destroy$.next(true);
-        this.destroy$.unsubscribe();
+        this.destroy$.complete();
     }
 }

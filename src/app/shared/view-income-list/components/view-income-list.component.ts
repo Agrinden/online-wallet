@@ -1,6 +1,7 @@
-import { IncomeDataService } from './../../../core/services/income-data/income-service';
-import { CategoryInterface } from '@app/shared/interfaces/category.interface';
-import { IncomeWalletInterface } from './../../interfaces/income-wallet.interface';
+import { WalletService } from '@core';
+import { IncomeDataService } from '@app/core';
+import { CategoryInterface } from '@app/shared';
+import { IncomeWalletInterface } from '@app/shared';
 import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
@@ -16,11 +17,15 @@ export class ViewIncomeListComponent {
     public wallets$!: Observable<IncomeWalletInterface[]>;
     public categories$!: Observable<CategoryInterface[]>;
 
-    constructor(private formBuilder: FormBuilder, private incomeDataService: IncomeDataService) {}
+    constructor(
+        private formBuilder: FormBuilder,
+        private incomeDataService: IncomeDataService,
+        private walletService: WalletService
+    ) {}
 
     ngOnInit(): void {
         this.filterForm = this.getInitializedFilterForm();
-        this.wallets$ = this.incomeDataService.getWalletList();
+        this.wallets$ = this.walletService.getWalletList();
         this.categories$ = this.incomeDataService.getIncomeCategories();
     }
 

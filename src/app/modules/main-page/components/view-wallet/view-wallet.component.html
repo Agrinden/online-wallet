@@ -1,0 +1,35 @@
+<ng-container *ngIf='wallet'>
+    <h1>{{wallet.name}}</h1>
+    <p *ngIf='wallet.isDefault'>default wallet</p>
+    <p>Balance: {{wallet.balance }} {{wallet.currency}}</p>
+</ng-container>
+
+<div class='recent-transactions' *ngIf='wallet.recentTransactions$ | async as recentTransactions'>
+    <h2>Recent transactions</h2>
+    <table
+        mat-table
+        [dataSource]='recentTransactions'
+        [trackBy]='transactionTrackBy'
+    >
+        <ng-container *ngFor="let column of columns" matColumnDef="{{column.dataField}}">
+            <th mat-header-cell *matHeaderCellDef>
+                {{column.title}}
+            </th>
+            <td mat-cell *matCellDef="let element">
+                {{element[column.dataField]}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="noAvailableData">
+            <td mat-footer-cell *matFooterCellDef [attr.colspan]="columnsToDisplay.length">
+                No data available
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+        <tr mat-footer-row [class.hidden]='recentTransactions.length !== 0' *matFooterRowDef="['noAvailableData']"></tr>
+    </table>
+
+    <button mat-button class='show-more-button' color='primary' (click)='showMoreTransactions()'>Show more</button>
+</div>

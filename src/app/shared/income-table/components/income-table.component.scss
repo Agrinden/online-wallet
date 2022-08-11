@@ -1,24 +1,27 @@
 @import "mixins";
 @import "variables";
 
-.mat-elevation-z8 {
-    width: 780px;
+:host ::ng-deep {
+    .mat-sort-header-container {
+        justify-content: center;
+    }
+}
+
+.income-table {
+    width: 820px;
     margin-top: 20px;
+    .date-container {
+        margin-left: 50px;
+    }
     .date-sort,
     .amount-sort {
         text-decoration: underline;
-        padding-left: 12px;
     }
-    .ng-tns-c61-10,
-    .ng-tns-c61-9 {
-        @include generalWidth;
-        align-items: center;
-        height: 56px;
-    }
-    .mat-header-row {
-        .mat-header-cell {
-            text-align: center;
-        }
+
+    .category-container,
+    .wallet-container,
+    .note-container {
+        text-align: center;
     }
     .edit-button {
         width: 40px;
@@ -36,4 +39,10 @@
 
 table {
     text-align: center;
+}
+
+.show-more {
+    color: rgb(88, 181, 227);
+    text-decoration: underline;
+    cursor: pointer;
 }

@@ -1,6 +1,6 @@
-import { IncomeTableInterface } from './../shared/interfaces/income-table.interface';
+import { IncomeDataInterface } from './../shared/interfaces/income-data.interface';
 
-export const TABLE: IncomeTableInterface[] = [
+export const INCOME_DATA: IncomeDataInterface[] = [
     {
         id: 1,
         date: '28/07/2022',
