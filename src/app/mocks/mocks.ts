@@ -1,6 +1,6 @@
 import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
 import { CategoryInterface } from '@app/shared/interfaces/categories/category.interface';
-import { IncomeWalletInterface } from '@app/shared';
+import { IncomeWalletInterface } from '@app/shared/interfaces/income-wallet.interface';
 import { CurrencyInterface } from '@app/shared/interfaces/currency.interface';
 import { TransactionInterface } from '@shared/interfaces/transaction.interface';
 
@@ -177,7 +177,7 @@ export const mockWallets: WalletInterface[] = [
 export const mockWalletTransactions: TransactionInterface[] = (() => {
     return new Array(20).fill(null).map((_, index) => {
         return {
-            id: String(index),
+            id: index,
             category: 'Salary',
             amount: Math.round(Math.random() * 1000 - 500),
             date: `2022-07-${30 - index}T17:26:33.581Z`,
@@ -185,7 +185,7 @@ export const mockWalletTransactions: TransactionInterface[] = (() => {
             type: '',
             subcategory: '',
             payer: '',
-            message: '',
+            note: '',
         };
     });
 })();
