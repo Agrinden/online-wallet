@@ -28,4 +28,12 @@ export class WalletService {
     public getWallets(): Observable<WalletInterface[]> {
         return of(mockWallets);
     }
+
+    public delete(id: string): Observable<boolean> {
+        mockWallets.splice(
+            mockWallets.findIndex((wallet) => wallet.id === id),
+            1
+        );
+        return of(true);
+    }
 }
