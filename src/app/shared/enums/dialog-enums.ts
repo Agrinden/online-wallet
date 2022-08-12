@@ -1,5 +1,10 @@
 export enum ConfirmationDialogChoise {
-    cancel,
     refuse,
     confirm,
+}
+
+export enum btnFocus {
+    refuse,
+    confirm,
+    both,
 }

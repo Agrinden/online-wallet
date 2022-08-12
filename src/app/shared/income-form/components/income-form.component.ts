@@ -126,7 +126,6 @@ export class IncomeFormComponent implements OnInit {
                 this.categoryService.create(newCategory);
             });
     }
-
     ngOnDestroy(): void {
         this.destroy$.next(true);
         this.destroy$.unsubscribe();
