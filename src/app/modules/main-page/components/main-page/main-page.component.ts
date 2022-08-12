@@ -7,6 +7,7 @@ import { DialogDataInterface } from '@app/shared/interfaces/dialog-data.interfac
 import { WalletService } from '@core';
 import { TransactionDialogComponent } from '@modules/main-page';
 import { filter, Subject, takeUntil } from 'rxjs';
+import { RECENT_TRANSACTIONS_DATA } from '@app/mocks/recent-transactions';
 
 @Component({
     selector: 'app-main-page',
@@ -15,7 +16,11 @@ import { filter, Subject, takeUntil } from 'rxjs';
 })
 export class MainPageComponent implements OnInit, OnDestroy {
     public type = TransactionTypeEnum;
+    public tableTypes = TransactionTypeEnum;
+    public transaction = RECENT_TRANSACTIONS_DATA;
+
     private destroy$: Subject<boolean> = new Subject<boolean>();
+
     constructor(
         private dialogService: DialogService,
         private walletService: WalletService,

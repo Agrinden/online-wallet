@@ -7,16 +7,13 @@
       <td mat-cell *matCellDef="let element"> {{element.date}} </td>
     </ng-container>
     <ng-container matColumnDef="category">
-      <th class="category-container" mat-header-cell *matHeaderCellDef>Category <p class="subcat" *ngIf="isExpenses">
+      <th class="category-container" mat-header-cell *matHeaderCellDef>Category <p class="subcat"
+          *ngIf="isExpenses || isRecent">
           Subcategory</p>
       </th>
-      <td mat-cell *matCellDef="let element">{{ element.category }} <p class="subcat" *ngIf="isExpenses">{{
+      <td mat-cell *matCellDef="let element">{{ element.category }} <p class="subcat" *ngIf="isExpenses || isRecent">{{
           element.subcategory }}</p>
       </td>
-    </ng-container>
-    <ng-container matColumnDef="subcategory" *ngIf="isExpenses">
-      <th [hidden]="true" mat-header-cell *matHeaderCellDef>Subcategory</th>
-      <td [hidden]="true" mat-cell *matCellDef="let element">{{ element.subcategory }}</td>
     </ng-container>
     <ng-container matColumnDef="amount">
       <th class="amount-container" mat-header-cell *matHeaderCellDef mat-sort-header
@@ -31,7 +28,7 @@
       </th>
       <td mat-cell *matCellDef="let element"> {{element.walletId}} </td>
     </ng-container>
-    <ng-container matColumnDef="payer" *ngIf="isExpenses">
+    <ng-container matColumnDef="payer" *ngIf="isExpenses || isRecent">
       <th mat-header-cell class="payer-container" *matHeaderCellDef>Payer</th>
       <td mat-cell *matCellDef="let element">{{ element.payer }}</td>
     </ng-container>
