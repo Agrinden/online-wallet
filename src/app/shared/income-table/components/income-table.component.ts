@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { AfterViewInit, Component, ViewChild, OnInit, OnDestroy, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { IncomeDeleteService } from '../../../core/services/income-delete/income-delete';
+import { IncomeTableInterface } from '@app/shared/interfaces/income-table.interface';
 import * as moment from 'moment';
 
 @Component({
@@ -24,7 +26,7 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
     public isRecent!: boolean;
     private destroy: Subject<void> = new Subject();
 
-    constructor(public dialog: MatDialog) {}
+    constructor(public dialog: MatDialog, public deleteIncomeService: IncomeDeleteService) {}
 
     ngOnInit() {
         this.initializeTable(this.tableData);
@@ -68,6 +70,10 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
             const dialogRef = this.dialog.open(IncomeFormComponent, { data: rowData });
             dialogRef.afterClosed().pipe(takeUntil(this.destroy)).subscribe();
         }
+    }
+
+    public deleteIncome(rowData: IncomeDataInterface | TransactionInterface): void {
+        this.deleteIncomeService.handleOpenDialog(rowData);
     }
 
     ngOnDestroy() {

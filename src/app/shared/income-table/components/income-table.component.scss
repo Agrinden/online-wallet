@@ -1,5 +1,5 @@
-@import 'mixins';
-@import 'variables';
+@import "mixins";
+@import "variables";
 
 :host ::ng-deep {
     .mat-sort-header-container {
@@ -40,6 +40,14 @@
             }
 
             .edit-button {
+                cursor: pointer;
+                height: 25px;
+                background-color: rgb(105, 101, 97);
+                box-shadow: 1px 0 1px 0px rgba(195, 177, 177, 0.8);
+            }
+
+            .delete-button {
+                margin-left: 5px;
                 cursor: pointer;
                 height: 25px;
                 background-color: rgb(105, 101, 97);

@@ -1,8 +1,14 @@
-<ng-container *ngIf='wallet'>
-    <h1>{{wallet.name}}</h1>
-    <p *ngIf='wallet.isDefault'>default wallet</p>
-    <p>Balance: {{wallet.balance }} {{wallet.currency}}</p>
-</ng-container>
+<div *ngIf='wallet' class='wallet'>
+    <div>
+        <h1>{{wallet.name}}</h1>
+        <p *ngIf='wallet.isDefault'>default wallet</p>
+        <p>Balance: {{wallet.balance }} {{wallet.currency}}</p>
+    </div>
+
+    <button mat-fab color="primary" (click)='deleteWallet()'>
+        <mat-icon>delete</mat-icon>
+    </button>
+</div>
 
 <div class='recent-transactions' *ngIf='wallet.recentTransactions$ | async as recentTransactions'>
     <h2>Recent transactions</h2>
