@@ -1,37 +1,47 @@
 <div class="wrapper">
-  <img src="../assets/logo.svg" alt="Exadel logo" class='logo'>
-  <form class="form" [formGroup]="loginForm">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Email</mat-label>
-      <input formControlName="email" matInput placeholder="yourname@exadel.com">
-    </mat-form-field>
+    <img src="../assets/logo.svg" alt="Exadel logo" class="logo" />
+    <form class="form" [formGroup]="loginForm">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>username</mat-label>
+            <input formControlName="username" matInput placeholder="yourname@exadel.com" />
+        </mat-form-field>
 
-    <div class="errors" *ngIf="loginForm.invalid && loginForm.controls['email'].errors">
-      <span class="error-message" *ngIf="loginForm.controls['email'].errors['pattern']">Valid email must contain only
-        lowercase latin letters (a-z), numbers (0-9), '@'' and '.'</span>
-    </div>
+        <div class="errors" *ngIf="loginForm.invalid && loginForm.controls['username'].errors">
+            <span class="error-message" *ngIf="loginForm.controls['username'].errors['pattern']"
+                >Valid email must contain only lowercase latin letters (a-z), numbers (0-9), '@'' and '.'</span
+            >
+        </div>
 
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Password</mat-label>
-      <input formControlName="password" matInput [type]="isPassVisible ? 'text':'password'">
-      <mat-icon class="eye-icon" (click)="toggleVisibility()">{{ isPassVisible ? 'visibility_off':'visibility' }}
-      </mat-icon>
-    </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Password</mat-label>
+            <input formControlName="password" matInput [type]="isPassVisible ? 'text' : 'password'" />
+            <mat-icon class="eye-icon" (click)="toggleVisibility()"
+                >{{ isPassVisible ? 'visibility_off' : 'visibility' }}
+            </mat-icon>
+        </mat-form-field>
 
-    <div class="errors" *ngIf="loginForm.invalid && loginForm.controls['password'].errors">
-      <span class="error-message" *ngIf="loginForm.controls['password'].errors['pattern']">Valid Password must contain
-        at least 8 characters</span>
-    </div>
+        <div class="errors" *ngIf="loginForm.invalid && loginForm.controls['password'].errors">
+            <span class="error-message" *ngIf="loginForm.controls['password'].errors['pattern']"
+                >Valid Password must contain at least 8 characters</span
+            >
+        </div>
 
-    <div class="errors"
-      *ngIf="loginForm.controls['email'].touched && loginForm.controls['password'].touched && loginForm.invalid">
-      <span class="error-message">Invalid Email or Password.
-        Please provide the correct Login credentials</span>
-    </div>
+        <div
+            class="errors"
+            *ngIf="
+                loginForm.controls['username'].touched && loginForm.controls['password'].touched && loginForm.invalid
+            "
+        >
+            <span class="error-message">Invalid Email or Password. Please provide the correct Login credentials</span>
+        </div>
 
-    <button mat-button color="primary" [disabled]="loginForm.invalid" (click)="login()" class="login-btn">Login</button>
-    <button mat-button color="primary" (click)="signInGoogleHandler()" class="login-btn">Continue with Google</button>
-    <a href="" class="forgot-password">Forgot password?</a>
-  </form>
-  <span class="welcome">Budget planning app welcomes you!</span>
+        <button mat-button color="primary" [disabled]="loginForm.invalid" (click)="login()" class="login-btn">
+            Login
+        </button>
+        <button mat-button color="primary" (click)="signInGoogleHandler()" class="login-btn">
+            Continue with Google
+        </button>
+        <a href="" class="forgot-password">Forgot password?</a>
+    </form>
+    <span class="welcome">Budget planning app welcomes you!</span>
 </div>

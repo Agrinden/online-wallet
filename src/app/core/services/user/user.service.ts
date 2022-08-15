@@ -1,10 +1,14 @@
+import { filter } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouteUrls } from '@core/constants';
 import { CoreModule } from '@core/core.module';
 import { AccessTokenService } from '@core/services';
-import { BehaviorSubject, combineLatest, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, combineLatest, map, Observable, of } from 'rxjs';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '@env/environment';
+import { UserInterface } from '@app/shared';
 
 @Injectable({
     providedIn: CoreModule,
@@ -14,6 +18,7 @@ export class UserService {
     readonly activeUser$ = this.userSubject$.asObservable();
 
     constructor(
+        private http: HttpClient,
         private accessTokenService: AccessTokenService,
         private router: Router,
         private oidcSecurityService: OidcSecurityService
@@ -25,6 +30,15 @@ export class UserService {
 
     private set user(user: any | null) {
         this.userSubject$.next(user);
+    }
+
+    public login(user: UserInterface) {
+        return this.http.post<any>(`${environment.apiUrl}/users/login`, user, { observe: 'response' }).pipe(
+            filter((response) => response.status === 200),
+            catchError((error) => {
+                return of(error === '500' ? 'User already exists' : error);
+            })
+        );
     }
 
     signOut(): void {
