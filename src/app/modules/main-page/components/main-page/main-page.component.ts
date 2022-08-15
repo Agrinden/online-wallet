@@ -18,6 +18,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     public type = TransactionTypeEnum;
     public tableTypes = TransactionTypeEnum;
     public transaction = RECENT_TRANSACTIONS_DATA;
+    public isDataDisable!: boolean;
 
     private destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -26,7 +27,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
         private walletService: WalletService,
         private dialog: MatDialog
     ) {}
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.isDataDisable = RECENT_TRANSACTIONS_DATA.length === 0;
+    }
 
     public onAddTransactionClick(itemType: TransactionTypeEnum): void {
         this.dialog.open(TransactionDialogComponent, {
