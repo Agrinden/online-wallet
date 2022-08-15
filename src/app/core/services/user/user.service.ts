@@ -30,9 +30,25 @@ export class UserService {
     }
 
     signIn(): void {
+        const user = {
+            sub: 'example@exadel.com',
+            roles: [
+                {
+                    id: 1,
+                    name: 'ADMIN',
+                },
+                {
+                    id: 2,
+                    name: 'USER',
+                },
+            ],
+            exp: 1660053922,
+        };
+        const isAdmin = user.roles.some((role) => role.name === 'ADMIN');
         const data =
             'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YWRlbC5jb20iLCJyb2xlcyI6W3siaWQiOjEsIm5hbWUiOiJVU0VSIn1dLCJleHAiOjE2NTk3MzE4MjJ9.kN46guxXMJJzcvYd5Lb9Zi6FZVbHvGx1YeYsx5fLtoY'; // request to server
         this.cookieService.set(data);
+        this.user = { ...user, isAdmin };
     }
 
     signOut(): void {
@@ -47,7 +63,7 @@ export class UserService {
 
         return combineLatest([
             this.oidcSecurityService.checkAuth().pipe(map(({ isAuthenticated }) => isAuthenticated)),
-            of(true),
+            of(!!this.cookieService.get()),
         ]).pipe(
             map(([isLoggedInByGoogle, isLoggedIn]) => {
                 return isLoggedInByGoogle || isLoggedIn;

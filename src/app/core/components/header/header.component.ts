@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { UserService } from '@app/core/services';
 import { defaultMenuTabs, additionalMenuTabs } from '@core';
+import { filter, Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-header',
@@ -24,32 +26,37 @@ export class HeaderComponent implements OnInit {
     };
     public menuItems = [] as typeof defaultMenuTabs;
     public activeLink = this.menuItems[0];
+    private unsubscribeAll: Subject<any> = new Subject<any>();
+
+    constructor(private router: Router, private userService: UserService) {}
 
     menuItemsChange() {
-        let isAdmin = false;
-        this.user.roles.forEach((el) => {
-            if (el.name === 'ADMIN') isAdmin = true;
-        });
-
-        if (isAdmin) {
+        this.userService.signIn();
+        if (this.userService.user.isAdmin) {
             if (window.location.pathname === '/admin_panel') {
                 this.menuItems = [additionalMenuTabs.user_panel];
             } else {
                 this.menuItems = [...defaultMenuTabs];
                 this.menuItems.push(additionalMenuTabs.admin_panel);
             }
+        } else {
+            this.menuItems = [...defaultMenuTabs];
         }
     }
 
-    constructor(private router: Router) {
-        router.events.subscribe((val) => {
-            if (val instanceof NavigationEnd) {
+    ngOnInit(): void {
+        this.router.events
+            .pipe(
+                filter((value: any) => value instanceof NavigationEnd),
+                takeUntil(this.unsubscribeAll)
+            )
+            .subscribe((val) => {
                 this.menuItemsChange();
-            }
-        });
+            });
+        this.menuItemsChange();
     }
 
-    ngOnInit(): void {
-        this.menuItemsChange();
+    ngOnDestroy() {
+        this.unsubscribeAll.complete();
     }
 }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { take } from 'rxjs';
 import { RouteUrls } from '@app/core';
+import { UserService } from '@app/core/services';
 
 @Component({
     templateUrl: './login.component.html',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
     constructor(
         private router: Router,
         private formBuilder: FormBuilder,
-        private oidcSecurityService: OidcSecurityService
+        private oidcSecurityService: OidcSecurityService,
+        private userService: UserService
     ) {}
 
     public ngOnInit(): void {
@@ -28,6 +30,9 @@ export class LoginComponent implements OnInit {
     public login(): void {
         if (this.loginForm.valid) {
             // TODO: add request to BE
+            this.userService.signIn();
+            this.router.navigate([RouteUrls.main]);
+
             console.log(this.loginForm.value);
         }
     }
