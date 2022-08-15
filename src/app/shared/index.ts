@@ -14,3 +14,7 @@ export * from './interfaces/income-data.interface';
 export * from './interfaces/income-form.interface';
 export * from './add-category/components/add-category.component';
 export * from './income-form/components/income-form.component';
+export * from './helpers/category-name.validator';
+export * from './helpers/wallet-name.validator';
+export * from './income-table/components/income-table.component';
+

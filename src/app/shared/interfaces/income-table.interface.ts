@@ -1,8 +1,8 @@
-export interface IncomeDataInterface {
+export interface IncomeTableInterface {
     id: number;
     date: string;
     category: string;
-    amount: number;
+    amount: string;
     walletId: string;
     note: string;
 }

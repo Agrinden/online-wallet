@@ -4,10 +4,14 @@
             <mat-form-field appearance="fill">
                 <mat-label>Wallet name</mat-label>
                 <input matInput placeholder="Wallet name" formControlName="name" />
-                <mat-hint *ngIf="form.get('name')?.errors">Please enter wallet name</mat-hint>
+                <mat-error *ngIf="name?.invalid">{{ nameErrorMessage }}</mat-error>
             </mat-form-field>
 
             <app-currency-dropdown (currencyChange)="onCurrencyChange($event)"></app-currency-dropdown>
+
+            <mat-error *ngIf="form.errors?.['uniqueWallet']">
+                Such wallet already exists, please choose another currency or change the name of wallet
+            </mat-error>
 
             <mat-slide-toggle color="warn" formControlName="isDefault" (change)="onSlideToggle($event)"
                 >Set as default</mat-slide-toggle

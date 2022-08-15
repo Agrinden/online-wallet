@@ -1,11 +1,11 @@
-import { IncomeDataInterface } from './../shared/interfaces/income-data.interface';
+import { IncomeDataInterface } from '@app/shared';
 
 export const INCOME_DATA: IncomeDataInterface[] = [
     {
         id: 1,
         date: '28/07/2022',
         category: 'Gift',
-        amount: '1500',
+        amount: 1500,
         walletId: 'Wallet 1',
         note: 'What a nice surprise!',
     },
@@ -13,7 +13,7 @@ export const INCOME_DATA: IncomeDataInterface[] = [
         id: 2,
         date: '29/07/2022',
         category: 'Credit',
-        amount: '2000',
+        amount: 2000,
         walletId: 'Wallet 2',
         note: 'Found it.',
     },
@@ -21,7 +21,7 @@ export const INCOME_DATA: IncomeDataInterface[] = [
         id: 3,
         date: '30/07/2022',
         category: 'Salary',
-        amount: '4300',
+        amount: 4300,
         walletId: 'Wallet 3',
         note: 'What a nice surprise!',
     },

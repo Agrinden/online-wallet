@@ -28,7 +28,7 @@ export class DialogService {
         return dialogRef.afterClosed().pipe(take(1));
     }
 
-    public close() {
+    public closeAll() {
         this.dialog.closeAll();
     }
 }

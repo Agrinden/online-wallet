@@ -1,3 +1,5 @@
+import { TransactionTypeEnum } from './../../../../shared/enums/transaction-type.enum';
+import { INCOME_DATA } from './../../../../mocks/table';
 import { Component } from '@angular/core';
 
 @Component({
@@ -5,4 +7,7 @@ import { Component } from '@angular/core';
     templateUrl: './incomes.component.html',
     styleUrls: ['./incomes.component.scss'],
 })
-export class IncomesComponent {}
+export class IncomesComponent {
+    public tableTypes = TransactionTypeEnum;
+    public incomes = INCOME_DATA;
+}

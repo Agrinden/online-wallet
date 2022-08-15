@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { filter, Subject } from 'rxjs';
+import { filter, Subject, switchMap, takeUntil } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { WalletService } from '@core';
+import { deleteDefaultWalletMessage, deleteWalletMessage, RouteUrls, WalletService } from '@core';
 import { TransactionInterface } from '@shared/interfaces/transaction.interface';
 import { Wallet } from '@shared/models/wallet';
 import { WalletInterface } from '@app/shared';
 import { WalletTransactionsService } from '@core/services/wallet-transactions/wallet-transactions.service';
+import { DialogService } from '@shared/dialog/services/dialog.service';
 
 interface Column {
     dataField: keyof Pick<TransactionInterface, 'category' | 'amount' | 'date'>;
@@ -43,7 +44,9 @@ export class ViewWalletComponent implements OnInit, OnDestroy {
     constructor(
         private readonly route: ActivatedRoute,
         private readonly walletService: WalletService,
-        private readonly walletTransactionsService: WalletTransactionsService
+        private readonly walletTransactionsService: WalletTransactionsService,
+        private readonly router: Router,
+        private readonly dialogService: DialogService
     ) {}
 
     public ngOnInit(): void {
@@ -55,12 +58,39 @@ export class ViewWalletComponent implements OnInit, OnDestroy {
         this.destroy$.complete();
     }
 
-    public transactionTrackBy(index: number, transaction: TransactionInterface): string {
+    public transactionTrackBy(index: number, transaction: TransactionInterface): number {
         return transaction.id;
     }
 
     public showMoreTransactions(): void {
         this.wallet.loadMoreTransactions();
+    }
+
+    public deleteWallet(): void {
+        const defaultOptions = {
+            title: deleteDefaultWalletMessage,
+            cancelText: 'Ok',
+            width: '400px',
+        };
+        const nonDefaultOptions = {
+            title: deleteWalletMessage,
+            cancelText: 'No',
+            confirmText: 'Yes',
+            width: '400px',
+        };
+        const options = this.wallet.isDefault ? defaultOptions : nonDefaultOptions;
+        const dialog = this.dialogService.open(options);
+
+        this.dialogService
+            .confirmed(dialog)
+            .pipe(
+                filter((isConfirmed) => isConfirmed),
+                switchMap(() => this.walletService.delete(this.wallet.id)),
+                takeUntil(this.destroy$)
+            )
+            .subscribe(() => {
+                this.router.navigate([RouteUrls.main]);
+            });
     }
 
     private initializeWallet(): void {
