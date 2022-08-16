@@ -14,10 +14,6 @@
           element.subcategory }}</p>
       </td>
     </ng-container>
-    <ng-container matColumnDef="subcategory" *ngIf="isExpenses">
-      <th [hidden]="true" mat-header-cell *matHeaderCellDef>Subcategory</th>
-      <td [hidden]="true" mat-cell *matCellDef="let element">{{ element.subcategory }}</td>
-    </ng-container>
     <ng-container matColumnDef="amount">
       <th class="amount-container" mat-header-cell *matHeaderCellDef mat-sort-header
         sortActionDescription="Sort by amount">

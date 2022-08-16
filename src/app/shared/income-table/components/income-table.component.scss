@@ -6,8 +6,10 @@
         justify-content: center;
     }
     .table-container {
+        width: 1220px;
+
         .income-table {
-            width: 1220px;
+            width: 100%;
             margin-top: 20px;
             overflow: hidden;
             .date-container {
