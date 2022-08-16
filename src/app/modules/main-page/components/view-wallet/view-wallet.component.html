@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<div class='recent-transactions' *ngIf='wallet.recentTransactions$ | async as recentTransactions'>
+<div class='recent-transactions' *ngIf='wallet?.recentTransactions$ | async as recentTransactions'>
     <h2>Recent transactions</h2>
     <table
         mat-table

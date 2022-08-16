@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { filter, Subject, switchMap, takeUntil, tap } from 'rxjs';
-import { take } from 'rxjs/operators';
 
 import { deleteDefaultWalletMessage, deleteWalletMessage, RouteUrls, SnackbarService, WalletService } from '@core';
 import { TransactionInterface } from '@shared/interfaces/transaction.interface';
@@ -115,13 +114,13 @@ export class ViewWalletComponent implements OnInit, OnDestroy {
                 switchMap((wallet) => {
                     return this.walletService.edit(this.wallet.id, wallet);
                 }),
+                tap(({ name, isDefault, currency }) => {
+                    this.wallet.update({ name, isDefault, currency });
+                    this.changeDetectorRef.markForCheck();
+                }),
                 tap(() => {
                     const message = 'Your data is successfully updated';
                     this.snackbarService.openSuccess(message);
-                }),
-                tap(() => {
-                    this.initializeWallet();
-                    this.changeDetectorRef.markForCheck();
                 }),
                 takeUntil(this.destroy$)
             )
@@ -133,10 +132,11 @@ export class ViewWalletComponent implements OnInit, OnDestroy {
             .getWallet(this.route.snapshot.params['id'])
             .pipe(
                 filter((wallet): wallet is WalletInterface => wallet !== null),
-                take(1)
+                takeUntil(this.destroy$)
             )
             .subscribe(({ id, name, isDefault, currency, balance }) => {
                 this.wallet = new Wallet(id, name, isDefault, currency, balance, this.walletTransactionsService);
+                this.changeDetectorRef.markForCheck();
             });
     }
 }
