@@ -10,20 +10,6 @@ import { filter, Subject, takeUntil } from 'rxjs';
     styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-    public user = {
-        sub: 'example@exadel.com',
-        roles: [
-            {
-                id: 1,
-                name: 'ADMIN',
-            },
-            {
-                id: 2,
-                name: 'USER',
-            },
-        ],
-        exp: 1660053922,
-    };
     public menuItems = [] as typeof defaultMenuTabs;
     public activeLink = this.menuItems[0];
     private unsubscribeAll: Subject<any> = new Subject<any>();
@@ -34,7 +20,7 @@ export class HeaderComponent implements OnInit {
         if (!this.userService.user) this.userService.setUser();
 
         if (this.userService.user.isAdmin) {
-            if (window.location.pathname === '/admin_panel') {
+            if (this.router.url === '/admin_panel') {
                 this.menuItems = [additionalMenuTabs.user_panel];
             } else {
                 this.menuItems = [...defaultMenuTabs];

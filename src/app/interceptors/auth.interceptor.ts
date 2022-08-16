@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
-// import { AccessTokenService } from '@app/core';
 import { CookieService } from '@app/core/services/cookie/cookie.service';
 
 @Injectable()
