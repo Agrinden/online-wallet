@@ -7,11 +7,10 @@
       <td mat-cell *matCellDef="let element"> {{element.date}} </td>
     </ng-container>
     <ng-container matColumnDef="category">
-      <th class="category-container" mat-header-cell *matHeaderCellDef>Category <p class="subcat"
-          *ngIf="isExpenses || isRecent">
+      <th class="category-container" mat-header-cell *matHeaderCellDef>Category <p class="subcat" *ngIf="isExpenses">
           Subcategory</p>
       </th>
-      <td mat-cell *matCellDef="let element">{{ element.category }} <p class="subcat" *ngIf="isExpenses || isRecent">{{
+      <td mat-cell *matCellDef="let element">{{ element.category }} <p class="subcat" *ngIf="isExpenses">{{
           element.subcategory }}</p>
       </td>
     </ng-container>
@@ -28,7 +27,7 @@
       </th>
       <td mat-cell *matCellDef="let element"> {{element.walletId}} </td>
     </ng-container>
-    <ng-container matColumnDef="payer" *ngIf="isExpenses || isRecent">
+    <ng-container matColumnDef="payer" *ngIf="isExpenses">
       <th mat-header-cell class="payer-container" *matHeaderCellDef>Payer</th>
       <td mat-cell *matCellDef="let element">{{ element.payer }}</td>
     </ng-container>

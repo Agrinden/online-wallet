@@ -14,7 +14,7 @@
   <app-list-of-wallets class='list-of-wallets'></app-list-of-wallets>
 </div>
 <div *ngIf="!isDataDisable; else noData">
-  <income-table [tableData]="transaction" [tableType]="tableTypes.RECENT">
+  <income-table [tableData]="transaction" [tableType]="tableTypes.EXPENSE">
   </income-table>
 </div>
 <ng-template #noData><span class="no-transactions">No data available.</span> </ng-template>

@@ -23,7 +23,6 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
     public displayedColumns!: string[];
     public dataSource!: MatTableDataSource<IncomeDataInterface | TransactionInterface>;
     public isExpenses!: boolean;
-    public isRecent!: boolean;
     private destroy: Subject<void> = new Subject();
 
     constructor(public dialog: MatDialog, public deleteIncomeService: IncomeDeleteService) {}
@@ -31,7 +30,6 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
     ngOnInit() {
         this.initializeTable(this.tableData);
         this.isExpenses = this.tableType === TransactionTypeEnum.EXPENSE;
-        this.isRecent = this.tableType === TransactionTypeEnum.RECENT;
     }
 
     ngAfterViewInit() {
@@ -55,7 +53,7 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
     private initializeTable(tableData: IncomeDataInterface[] | TransactionInterface[]): void {
         this.dataSource = new MatTableDataSource(tableData);
         this.displayedColumns = ['date', 'category', 'amount', 'walletId', 'note', 'actions'];
-        if (this.tableType === TransactionTypeEnum.EXPENSE || this.tableType === TransactionTypeEnum.RECENT) {
+        if (this.tableType === TransactionTypeEnum.EXPENSE) {
             this.displayedColumns = ['date', 'category', 'amount', 'walletId', 'payer', 'note', 'actions'];
         }
     }
