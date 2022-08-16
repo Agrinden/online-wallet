@@ -36,6 +36,9 @@ export class CategoriesComponent {
             content: AddCategoryComponent,
             width: '400px',
             disableClose: true,
+            data: {
+                defaultColor: this.setDefaultColor(type),
+            },
         };
 
         const dialog = this.dialogService.open(options);

@@ -108,6 +108,9 @@ export class IncomeFormComponent implements OnInit {
             content: AddCategoryComponent,
             width: '400px',
             disableClose: true,
+            data: {
+                defaultColor: this.defaultColor,
+            },
         };
 
         const dialog = this.dialogService.open(options);

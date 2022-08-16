@@ -14,7 +14,7 @@ import { CategoryNameValidator } from '@app/shared/helpers/category-name.validat
 export class AddCategoryComponent implements OnInit, OnDestroy, AfterViewInit {
     private destroy$: Subject<boolean> = new Subject<boolean>();
     public categoryForm!: FormGroup;
-    private isEdit: boolean = this.dialogData?.data;
+    private isEdit: boolean = this.dialogData?.data?.name;
     public buttonText: string = this.confirmButtonText();
     public nameErrorMessage!: string;
 
@@ -43,7 +43,9 @@ export class AddCategoryComponent implements OnInit, OnDestroy, AfterViewInit {
                 ],
                 updateOn: 'blur',
             }),
-            colorScheme: new FormControl(this.isEdit ? this.dialogData.data.colorScheme : ''),
+            colorScheme: new FormControl(
+                this.isEdit ? this.dialogData.data.colorScheme : this.dialogData?.data?.defaultColor
+            ),
         });
         return form;
     }
