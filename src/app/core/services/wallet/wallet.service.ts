@@ -1,16 +1,20 @@
+import { environment } from '@env/environment';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 
 import { CoreModule } from '@core/core.module';
 import { mockWallets, WALLETS } from '@app/mocks';
 import { WalletInterface, IncomeWalletInterface, CreateWalletInterface } from '@app/shared';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
     providedIn: CoreModule,
 })
 export class WalletService {
-    public createWallet(wallet: CreateWalletInterface): Observable<any> {
-        return of(wallet);
+    constructor(private http: HttpClient) {}
+
+    public createWallet(wallet: CreateWalletInterface): Observable<WalletInterface> {
+        return this.http.post<WalletInterface>(`${environment.apiUrl}/wallets`, wallet);
     }
 
     public getWalletList(): Observable<IncomeWalletInterface[]> {
@@ -26,7 +30,7 @@ export class WalletService {
     }
 
     public getWallets(): Observable<WalletInterface[]> {
-        return of(mockWallets);
+        return this.http.get<WalletInterface[]>(`${environment.apiUrl}/wallets`);
     }
 
     public delete(id: string): Observable<boolean> {

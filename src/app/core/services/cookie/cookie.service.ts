@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { UserInterface } from '@app/shared';
 import { CoreModule } from '@core/core.module';
+import jwtDecode from 'jwt-decode';
 import { month, weekDays } from './date-constants';
 
 @Injectable({
@@ -16,10 +18,12 @@ export class CookieService {
     }
 
     set(token: string): void {
-        const currDate = new Date();
-        document.cookie = `token=${token}; expires=${weekDays[currDate.getUTCDay()]}, ${currDate.getUTCDate() + 1} ${
-            month[currDate.getUTCMonth()]
-        } ${currDate.getUTCFullYear()} ${currDate.getUTCHours()}:${currDate.getUTCMinutes()}:${currDate.getUTCSeconds()} UTC; SameSite=Strict; Secure; path=/`;
+        const user: UserInterface = jwtDecode(token);
+        const expDate = new Date(user.exp * 1000);
+
+        document.cookie = `token=${token}; expires=${weekDays[expDate.getUTCDay()]}, ${expDate.getUTCDate()} ${
+            month[expDate.getUTCMonth()]
+        } ${expDate.getUTCFullYear()} ${expDate.getUTCHours()}:${expDate.getUTCMinutes()}:${expDate.getUTCSeconds()} UTC; SameSite=Strict; Secure; path=/`;
     }
 
     clear(cookieKey: string = ''): void {

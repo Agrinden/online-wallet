@@ -1,11 +1,15 @@
+import { filter } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouteUrls } from '@core/constants';
 import { CoreModule } from '@core/core.module';
-import { AccessTokenService } from '@core/services';
-import { BehaviorSubject, combineLatest, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, combineLatest, map, Observable, of } from 'rxjs';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { CookieService } from '../cookie/cookie.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '@env/environment';
+import { UserFormInterface, UserInterface } from '@app/shared';
+import jwtDecode from 'jwt-decode';
 
 @Injectable({
     providedIn: CoreModule,
@@ -15,7 +19,7 @@ export class UserService {
     readonly activeUser$ = this.userSubject$.asObservable();
 
     constructor(
-        private accessTokenService: AccessTokenService,
+        private http: HttpClient,
         private router: Router,
         private oidcSecurityService: OidcSecurityService,
         private cookieService: CookieService
@@ -29,33 +33,36 @@ export class UserService {
         this.userSubject$.next(user);
     }
 
-    signIn(): void {
-        const user = {
-            sub: 'example@exadel.com',
-            roles: [
-                {
-                    id: 1,
-                    name: 'ADMIN',
-                },
-                {
-                    id: 2,
-                    name: 'USER',
-                },
-            ],
-            exp: 1660053922,
-        };
-        const isAdmin = user.roles.some((role) => role.name === 'ADMIN');
-        const data =
-            'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YWRlbC5jb20iLCJyb2xlcyI6W3siaWQiOjEsIm5hbWUiOiJVU0VSIn1dLCJleHAiOjE2NTk3MzE4MjJ9.kN46guxXMJJzcvYd5Lb9Zi6FZVbHvGx1YeYsx5fLtoY'; // request to server
-        this.cookieService.set(data);
-        this.user = { ...user, isAdmin };
+    public login(user: UserFormInterface) {
+        return this.http.post<any>(`${environment.apiUrl}/users/login`, user, { observe: 'response' }).pipe(
+            filter((response) => response.status === 200),
+            catchError((error) => {
+                return of(error === '500' ? 'User already exists' : error);
+            })
+        );
     }
 
-    signOut(): void {
+    public setUser() {
+        const token = this.cookieService.get();
+        if (token) {
+            const user: UserInterface = jwtDecode(token);
+            const isAdmin = user.authorities.some((role) => role === 'ROLE_ADMIN');
+
+            this.user = { ...user, isAdmin };
+        }
+    }
+
+    signOut() {
         this.user = null;
-        this.accessTokenService.clear();
+        this.cookieService.clear();
         this.oidcSecurityService.logoff();
         this.router.navigate([RouteUrls.login]);
+        return this.http.get<any>(`${environment.apiUrl}/users/logout`, { observe: 'response' }).pipe(
+            filter((response) => response.status === 200),
+            catchError((error) => {
+                return of(error);
+            })
+        );
     }
 
     public get isLoggedIn$(): Observable<boolean> {

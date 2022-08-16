@@ -13,10 +13,14 @@ export class AccessTokenService {
         return sessionStorage.getItem('refreshToken');
     }
 
-    set(token: string, refreshToken: string): void {
-        sessionStorage.setItem('token', token);
-        sessionStorage.setItem('refreshToken', refreshToken);
+    set(token: string): void {
+        sessionStorage.setItem('token', token); //will be removed with set with refresh token
     }
+
+    // set(token: string, refreshToken: string): void {
+    //     sessionStorage.setItem('token', token);
+    //     sessionStorage.setItem('refreshToken', refreshToken);
+    // }
 
     clear(): void {
         sessionStorage.removeItem('token');

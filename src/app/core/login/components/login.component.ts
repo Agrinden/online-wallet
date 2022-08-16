@@ -1,10 +1,13 @@
+import { UserService } from '@core';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { take } from 'rxjs';
 import { RouteUrls } from '@app/core';
-import { UserService } from '@app/core/services';
+import { CookieService } from '@app/core/services/cookie/cookie.service';
+import jwtDecode from 'jwt-decode';
+import { UserInterface } from '@app/shared';
 
 @Component({
     templateUrl: './login.component.html',
@@ -18,7 +21,8 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private formBuilder: FormBuilder,
         private oidcSecurityService: OidcSecurityService,
-        private userService: UserService
+        private userService: UserService,
+        private cookieService: CookieService
     ) {}
 
     public ngOnInit(): void {
@@ -29,11 +33,17 @@ export class LoginComponent implements OnInit {
 
     public login(): void {
         if (this.loginForm.valid) {
-            // TODO: add request to BE
-            this.userService.signIn();
-            this.router.navigate([RouteUrls.main]);
+            this.userService
+                .login(this.loginForm.value)
+                .pipe(take(1))
+                .subscribe((response) => {
+                    const token = response.headers.get('Authorization');
+                    this.cookieService.set(token);
 
-            console.log(this.loginForm.value);
+                    this.userService.setUser();
+
+                    this.router.navigate([RouteUrls.main]);
+                });
         }
     }
 
@@ -57,7 +67,7 @@ export class LoginComponent implements OnInit {
     /**@description method for creating formGroup */
     private getInitializedForm(): FormGroup {
         const form = this.formBuilder.group({
-            email: [
+            username: [
                 '',
                 [
                     Validators.required,

@@ -11,6 +11,7 @@ import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
 import { secrets } from '@secrets/secrets';
 import { LoaderInterceptor } from './shared/loader/interceptors/loader.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
     declarations: [AppComponent, LoginLayoutComponent, HomeLayoutComponent],
@@ -41,6 +42,11 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
         {
             provide: HTTP_INTERCEPTORS,
             useClass: LoaderInterceptor,
+            multi: true,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
             multi: true,
         },
     ],

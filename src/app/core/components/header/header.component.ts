@@ -31,7 +31,8 @@ export class HeaderComponent implements OnInit {
     constructor(private router: Router, private userService: UserService) {}
 
     menuItemsChange() {
-        this.userService.signIn();
+        if (!this.userService.user) this.userService.setUser();
+
         if (this.userService.user.isAdmin) {
             if (window.location.pathname === '/admin_panel') {
                 this.menuItems = [additionalMenuTabs.user_panel];

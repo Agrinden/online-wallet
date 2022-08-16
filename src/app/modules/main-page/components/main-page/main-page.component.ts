@@ -54,7 +54,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
                 filter((res) => !!res)
             )
             .subscribe((wallet) => {
-                this.walletService.createWallet(wallet);
+                this.walletService.createWallet(wallet).subscribe();
             });
     }
 
