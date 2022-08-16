@@ -4,12 +4,17 @@
 <app-loader></app-loader>
 
 <div class='wallets-wrapper'>
-    <div class="add-button-container">
-        <button mat-fab color="primary" (click)="openCreateWalletModal()">
-            <mat-icon>add</mat-icon>
-        </button>
-        <span>Add wallet</span>
-    </div>
+  <div class="add-button-container">
+    <button mat-fab color="primary" (click)="openCreateWalletModal()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <span>Add wallet</span>
+  </div>
 
-    <app-list-of-wallets class='list-of-wallets'></app-list-of-wallets>
+  <app-list-of-wallets class='list-of-wallets'></app-list-of-wallets>
 </div>
+<div *ngIf="transaction.length; else noData">
+  <income-table [tableData]="transaction" [tableType]="tableTypes.EXPENSE">
+  </income-table>
+</div>
+<ng-template #noData><span class="no-transactions">No data available.</span> </ng-template>

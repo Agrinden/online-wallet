@@ -14,10 +14,6 @@
           element.subcategory }}</p>
       </td>
     </ng-container>
-    <ng-container matColumnDef="subcategory" *ngIf="isExpenses">
-      <th [hidden]="true" mat-header-cell *matHeaderCellDef>Subcategory</th>
-      <td [hidden]="true" mat-cell *matCellDef="let element">{{ element.subcategory }}</td>
-    </ng-container>
     <ng-container matColumnDef="amount">
       <th class="amount-container" mat-header-cell *matHeaderCellDef mat-sort-header
         sortActionDescription="Sort by amount">
@@ -44,10 +40,13 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>
       </th>
-      <td mat-cell *matCellDef="let element"> <button mat-button md-raised-button class="edit-button"
-          (click)="editData(element)">Edit</button>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button md-raised-button class="edit-button" (click)="editData(element)">Edit</button>
+        <button mat-button md-raised-button class="delete-button" (click)="deleteIncome(element)">Delete</button>
+
       </td>
     </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>

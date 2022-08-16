@@ -26,7 +26,7 @@ export class EnvironmentService {
     sendGetRequest(): Observable<EnvironmentInterface<string>> {
         const options = { params: new HttpParams({ fromString: '&searchParam=backend' }) };
         return this.http
-            .get<EnvironmentInterface<string>>(`${environment.searchEngineUrl}`, options)
+            .get<EnvironmentInterface<string>>(`${environment.apiUrl}`, options)
             .pipe(catchError(this.handleError));
     }
 }

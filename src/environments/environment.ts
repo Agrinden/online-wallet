@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    searchEngineUrl: 'http://google.com',
+    apiUrl: 'https://exadel-finance.herokuapp.com/api',
 };
 
 /*

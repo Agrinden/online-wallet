@@ -10,9 +10,15 @@ export class WalletNameExistsValidator implements AsyncValidator {
     validate(control: AbstractControl): Observable<ValidationErrors | null> {
         const name = control.get('name')?.value;
         const currency = control.get('currency')?.value;
-        return this.walletService.isUnique(name, currency).pipe(
-            map((isTaken) => (isTaken ? null : { uniqueWallet: true })),
-            catchError(() => of(null))
+        return this.walletService.getWallets().pipe(
+            map((wallets) => {
+                return wallets.find((wallet) => wallet.name === name && wallet.currency === currency)
+                    ? { uniqueWallet: true }
+                    : null;
+            }),
+            catchError((error) => {
+                return of(error);
+            })
         );
     }
 }
