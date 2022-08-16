@@ -11,11 +11,12 @@ export class DialogService {
 
     public dialogRef!: MatDialogRef<DialogComponent>;
 
-    public open(options: DialogDataInterface): MatDialogRef<DialogComponent> {
+    public open(options: DialogDataInterface<unknown>): MatDialogRef<DialogComponent> {
         return (this.dialogRef = this.dialog.open(DialogComponent, {
             data: {
                 title: options.title,
                 content: options.content,
+                contentData: options.contentData,
                 cancelText: options.cancelText,
                 confirmText: options.confirmText,
                 data: options.data,

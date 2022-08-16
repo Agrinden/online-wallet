@@ -1,15 +1,17 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { filter, Subject, switchMap, takeUntil } from 'rxjs';
+import { filter, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { deleteDefaultWalletMessage, deleteWalletMessage, RouteUrls, WalletService } from '@core';
+import { deleteDefaultWalletMessage, deleteWalletMessage, RouteUrls, SnackbarService, WalletService } from '@core';
 import { TransactionInterface } from '@shared/interfaces/transaction.interface';
 import { Wallet } from '@shared/models/wallet';
 import { WalletInterface } from '@app/shared';
 import { WalletTransactionsService } from '@core/services/wallet-transactions/wallet-transactions.service';
 import { DialogService } from '@shared/dialog/services/dialog.service';
+import { DialogDataInterface } from '@shared/interfaces/dialog-data.interface';
+import { EditWalletFormComponent } from '@modules/main-page/components/edit-wallet-form/edit-wallet-form.component';
 
 interface Column {
     dataField: keyof Pick<TransactionInterface, 'category' | 'amount' | 'date'>;
@@ -46,7 +48,9 @@ export class ViewWalletComponent implements OnInit, OnDestroy {
         private readonly walletService: WalletService,
         private readonly walletTransactionsService: WalletTransactionsService,
         private readonly router: Router,
-        private readonly dialogService: DialogService
+        private readonly dialogService: DialogService,
+        private readonly changeDetectorRef: ChangeDetectorRef,
+        private readonly snackbarService: SnackbarService
     ) {}
 
     public ngOnInit(): void {
@@ -91,6 +95,37 @@ export class ViewWalletComponent implements OnInit, OnDestroy {
             .subscribe(() => {
                 this.router.navigate([RouteUrls.main]);
             });
+    }
+
+    public editWallet(): void {
+        const options: DialogDataInterface<Wallet> = {
+            title: 'Edit wallet',
+            content: EditWalletFormComponent,
+            contentData: this.wallet,
+            width: '500px',
+            disableClose: true,
+        };
+
+        const dialog = this.dialogService.open(options);
+
+        this.dialogService
+            .confirmed(dialog)
+            .pipe(
+                filter((wallet) => !!wallet),
+                switchMap((wallet) => {
+                    return this.walletService.edit(this.wallet.id, wallet);
+                }),
+                tap(() => {
+                    const message = 'Your data is successfully updated';
+                    this.snackbarService.openSuccess(message);
+                }),
+                tap(() => {
+                    this.initializeWallet();
+                    this.changeDetectorRef.markForCheck();
+                }),
+                takeUntil(this.destroy$)
+            )
+            .subscribe();
     }
 
     private initializeWallet(): void {

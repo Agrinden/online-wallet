@@ -36,4 +36,20 @@ export class WalletService {
         );
         return of(true);
     }
+
+    public edit(id: string, wallet: CreateWalletInterface): Observable<WalletInterface> {
+        const walletIndex = mockWallets.findIndex((w) => w.id === id);
+        const previousWallet = mockWallets[walletIndex];
+        const editedWallet = {
+            ...previousWallet,
+            name: wallet.name,
+            currency: wallet.currency,
+            isDefault: wallet.isDefault,
+        };
+
+        mockWallets.splice(walletIndex, 1);
+        mockWallets.push(editedWallet);
+
+        return of(editedWallet);
+    }
 }

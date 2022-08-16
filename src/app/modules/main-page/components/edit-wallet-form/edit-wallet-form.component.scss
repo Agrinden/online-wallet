@@ -1,0 +1,35 @@
+:host {
+    .edit-form {
+        margin: 20px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+
+        .currency-disabled-warning {
+            transform: translate(-21px, -50%);
+            position: absolute;
+        }
+        .slide-toggle-wrapper {
+            margin-top: 20px;
+            display: flex;
+            mat-icon {
+                margin-left: 5px;
+            }
+        }
+
+        .form-buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 20px;
+            button {
+                margin-left: 20px;
+            }
+        }
+    }
+    .edit-form > * {
+        width: 100%;
+    }
+}

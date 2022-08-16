@@ -7,7 +7,7 @@ import { catchError, map, Observable, of } from 'rxjs';
 export class WalletNameExistsValidator implements AsyncValidator {
     constructor(private walletService: WalletService) {}
 
-    validate(control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
+    validate(control: AbstractControl): Observable<ValidationErrors | null> {
         const name = control.get('name')?.value;
         const currency = control.get('currency')?.value;
         return this.walletService.isUnique(name, currency).pipe(

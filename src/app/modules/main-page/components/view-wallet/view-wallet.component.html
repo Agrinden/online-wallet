@@ -5,9 +5,15 @@
         <p>Balance: {{wallet.balance }} {{wallet.currency}}</p>
     </div>
 
-    <button mat-fab color="primary" (click)='deleteWallet()'>
-        <mat-icon>delete</mat-icon>
-    </button>
+    <div>
+        <button mat-fab color="primary" (click)='editWallet()'>
+            <mat-icon>edit</mat-icon>
+        </button>
+
+        <button mat-fab color="primary" (click)='deleteWallet()'>
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
 </div>
 
 <div class='recent-transactions' *ngIf='wallet.recentTransactions$ | async as recentTransactions'>
