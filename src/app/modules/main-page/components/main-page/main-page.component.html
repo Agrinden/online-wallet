@@ -13,7 +13,7 @@
 
   <app-list-of-wallets class='list-of-wallets'></app-list-of-wallets>
 </div>
-<div *ngIf="!isDataDisable; else noData">
+<div *ngIf="transaction.length; else noData">
   <income-table [tableData]="transaction" [tableType]="tableTypes.EXPENSE">
   </income-table>
 </div>

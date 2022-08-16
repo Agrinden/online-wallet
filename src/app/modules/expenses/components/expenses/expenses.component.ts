@@ -9,16 +9,11 @@ import { Component, Inject, OnInit } from '@angular/core';
     templateUrl: './expenses.component.html',
     styleUrls: ['./expenses.component.scss'],
 })
-export class ExpensesComponent implements OnInit {
+export class ExpensesComponent {
     public tableTypes = TransactionTypeEnum;
     public expenses = EXPENSE_DATA;
-    public isDataDisable!: boolean;
 
     constructor(private dialog: MatDialog) {}
-
-    ngOnInit(): void {
-        this.isDataDisable = EXPENSE_DATA.length === 0;
-    }
 
     public onAddTransactionClick(): void {
         this.dialog.open(TransactionDialogComponent, {

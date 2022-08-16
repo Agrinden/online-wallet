@@ -1,5 +1,5 @@
 import { TransactionTypeEnum } from './../../../../shared/enums/transaction-type.enum';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateWalletFormComponent } from '@app/modules/main-page/components/create-wallet-form/create-wallet-form.component';
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
@@ -14,11 +14,10 @@ import { RECENT_TRANSACTIONS_DATA } from '@app/mocks/recent-transactions';
     templateUrl: './main-page.component.html',
     styleUrls: ['./main-page.component.scss'],
 })
-export class MainPageComponent implements OnInit, OnDestroy {
+export class MainPageComponent implements OnDestroy {
     public type = TransactionTypeEnum;
     public tableTypes = TransactionTypeEnum;
     public transaction = RECENT_TRANSACTIONS_DATA;
-    public isDataDisable!: boolean;
 
     private destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -27,9 +26,6 @@ export class MainPageComponent implements OnInit, OnDestroy {
         private walletService: WalletService,
         private dialog: MatDialog
     ) {}
-    ngOnInit(): void {
-        this.isDataDisable = RECENT_TRANSACTIONS_DATA.length === 0;
-    }
 
     public onAddTransactionClick(itemType: TransactionTypeEnum): void {
         this.dialog.open(TransactionDialogComponent, {
