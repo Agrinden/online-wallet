@@ -1,9 +1,9 @@
 import { UserService } from '@core';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { take } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 import { RouteUrls } from '@app/core';
 import { CookieService } from '@app/core/services/cookie/cookie.service';
 import jwtDecode from 'jwt-decode';
@@ -13,7 +13,8 @@ import { UserInterface } from '@app/shared';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+    private destroy$: Subject<boolean> = new Subject<boolean>();
     public loginForm!: FormGroup;
     public isPassVisible!: boolean;
 
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
         if (this.loginForm.valid) {
             this.userService
                 .login(this.loginForm.value)
-                .pipe(take(1))
+                .pipe(takeUntil(this.destroy$))
                 .subscribe((response) => {
                     const token = response.headers.get('Authorization');
                     this.cookieService.set(token);
@@ -78,5 +79,10 @@ export class LoginComponent implements OnInit {
             password: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9!@#\$%\^\&*\)\(/+=._-]{8,100}$/)]],
         });
         return form;
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(true);
+        this.destroy$.complete();
     }
 }
