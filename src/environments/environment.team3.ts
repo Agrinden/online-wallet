@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    searchEngineUrl: 'http://bing.com',
+    searchEngineUrl: 'http://budget-team-3a.herokuapp.com',
 };
