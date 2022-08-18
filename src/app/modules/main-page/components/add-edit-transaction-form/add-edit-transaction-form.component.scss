@@ -59,7 +59,7 @@ input[type='number'] {
                 }
             }
             .new-category {
-                @include generalWidth;
+                @include generalWidth(flex, space-between);
                 font-size: small;
                 margin: 0 0 15px 160px;
                 white-space: nowrap;
@@ -78,7 +78,7 @@ input[type='number'] {
             padding-left: 160px;
         }
         .down-button {
-            @include generalWidth(flex, end);
+            @include generalWidth(flex, flex-end);
         }
     }
 }

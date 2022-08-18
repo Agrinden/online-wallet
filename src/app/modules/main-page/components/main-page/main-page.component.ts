@@ -31,6 +31,7 @@ export class MainPageComponent implements OnDestroy {
         this.dialog.open(TransactionDialogComponent, {
             data: { isEditForm: false, itemType },
             disableClose: true,
+            autoFocus: false,
         });
     }
 
@@ -38,6 +39,7 @@ export class MainPageComponent implements OnDestroy {
         this.dialog.open(TransactionDialogComponent, {
             data: { isEditForm: true, itemType, itemId },
             disableClose: true,
+            autoFocus: false,
         });
     }
 
