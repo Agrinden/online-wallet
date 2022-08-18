@@ -114,17 +114,15 @@ export class ViewWalletComponent implements OnInit, OnDestroy {
                 switchMap((wallet) => {
                     return this.walletService.edit(this.wallet.id, wallet);
                 }),
-                tap(({ name, isDefault, currency }) => {
-                    this.wallet.update({ name, isDefault, currency });
-                    this.changeDetectorRef.markForCheck();
-                }),
-                tap(() => {
-                    const message = 'Your data is successfully updated';
-                    this.snackbarService.openSuccess(message);
-                }),
                 takeUntil(this.destroy$)
             )
-            .subscribe();
+            .subscribe(({ name, isDefault, currency }) => {
+                const message = 'Your data is successfully updated';
+
+                this.wallet.update({ name, isDefault, currency });
+                this.snackbarService.openSuccess(message);
+                this.changeDetectorRef.markForCheck();
+            });
     }
 
     private initializeWallet(): void {
