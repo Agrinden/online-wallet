@@ -20,7 +20,13 @@
                 <span class="field-title">Amount *</span>
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label aria-required="true">Amount</mat-label>
-                    <input formControlName="amount" matInput type="number" />
+                    <input
+                        formControlName="amount"
+                        matInput
+                        type="text"
+                        #toClear
+                        (focus)="incomeForm.controls.amount.value || (toClear.value = '')"
+                    />
                 </mat-form-field>
                 <div class="errors" *ngIf="incomeForm.controls.amount.errors">
                     <span class="error-message" *ngIf="isValidField('amount')">Input only numbers</span>
@@ -75,10 +81,8 @@
         </div>
 
         <mat-dialog-actions class="down-button">
-            <button mat-button [mat-dialog-close]="incomeForm.value" cdkFocusInitial [disabled]="incomeForm.invalid">
-                Add
-            </button>
-            <button mat-button mat-dialog-close>Cancel</button>
+            <button mat-button [mat-dialog-close]="incomeForm.value" [disabled]="incomeForm.invalid">Add</button>
+            <button mat-button (click)="openConfirmationDialog()">Cancel</button>
         </mat-dialog-actions>
     </form>
 </div>
