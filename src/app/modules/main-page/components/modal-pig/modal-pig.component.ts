@@ -5,7 +5,6 @@ import { closeWarning } from './../../../../core/services/user-delete/user-delet
 import { WarningDialogService } from './../../../../core/services/warn-dialog/warning-dialog.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { CURRENCIES } from '@app/mocks';
-import { CurrencyInterface } from './../../../../shared/interfaces/currency.interface';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, Inject, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 
@@ -18,12 +17,12 @@ export class ModalPigComponent implements OnInit, OnDestroy {
     @Input() dataForm!: any;
 
     public pigForm!: FormGroup;
-    public currencyTitle: CurrencyInterface[] = CURRENCIES;
+    public currencyTitle: string[] = CURRENCIES;
     private destroy$ = new Subject();
 
     constructor(
         private formBuilder: FormBuilder,
-        @Inject(MAT_DIALOG_DATA) public data: CurrencyInterface,
+        @Inject(MAT_DIALOG_DATA) public data: string[],
         private warnDialogService: WarningDialogService,
         private dialog: MatDialog,
         private transactionService: TransactionService
@@ -58,10 +57,10 @@ export class ModalPigComponent implements OnInit, OnDestroy {
         }
     }
 
-    private getInitializedForm(formData: CurrencyInterface): FormGroup {
+    private getInitializedForm(formData: string[]): FormGroup {
         const form = this.formBuilder.group({
             saving: ['', [Validators.required, Validators.pattern(/^[A-Za-z0-9 ]{1,30}$/)]],
-            currency: [formData.name, Validators.required],
+            currency: [formData, Validators.required],
             amount: [null, Validators.pattern(/^\d+(\.\d{2})?$/)],
         });
         return form;

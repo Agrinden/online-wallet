@@ -13,8 +13,8 @@
     <mat-form-field appearance="fill">
       <mat-label>Currency</mat-label>
       <mat-select formControlName="currency">
-        <mat-option *ngFor="let item of currencyTitle" [value]="item.name">
-          {{ item.name }}
+        <mat-option *ngFor="let item of currencyTitle" [value]="item">
+          {{ item }}
         </mat-option>
       </mat-select>
     </mat-form-field>
