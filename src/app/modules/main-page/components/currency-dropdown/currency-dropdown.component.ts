@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { CURRENCIES } from '@app/mocks';
-import { CurrencyInterface } from '@app/shared/interfaces/currency.interface';
 
 @Component({
     selector: 'app-currency-dropdown',
@@ -9,15 +8,15 @@ import { CurrencyInterface } from '@app/shared/interfaces/currency.interface';
     styleUrls: ['./currency-dropdown.component.scss'],
 })
 export class CurrencyDropdownComponent {
-    @Output() currencyChange = new EventEmitter<CurrencyInterface>();
+    @Output() currencyChange = new EventEmitter<string>();
 
     public currencyCtrl: FormControl = new FormControl('', [Validators.required]);
 
     public currencyFilterCtrl: FormControl = new FormControl('');
 
-    public filteredCurrencies: CurrencyInterface[] = CURRENCIES;
+    public filteredCurrencies: string[] = CURRENCIES;
 
-    onChange(event: CurrencyInterface) {
+    onChange(event: string) {
         this.currencyChange.emit(event);
     }
 }
