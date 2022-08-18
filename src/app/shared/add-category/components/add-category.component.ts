@@ -12,7 +12,6 @@ import { CategoryNameValidator } from '@app/shared/helpers/category-name.validat
     styleUrls: ['./add-category.component.scss'],
 })
 export class AddCategoryComponent implements OnInit, OnDestroy, AfterViewInit {
-    @Input() itemType!: string;
     private destroy$: Subject<boolean> = new Subject<boolean>();
     public categoryForm!: FormGroup;
     private isEdit: boolean = this.dialogData?.data?.name;
