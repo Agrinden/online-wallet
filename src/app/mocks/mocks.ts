@@ -70,7 +70,6 @@ export const CATEGORIES: CategoryInterface[] = [
     },
     {
         id: '2',
-
         name: 'Transport',
         colorScheme: '#0400ff',
         transactionType: TransactionTypeEnum.EXPENSE,
@@ -140,7 +139,6 @@ export const CATEGORIES: CategoryInterface[] = [
         name: 'Other',
         transactionType: TransactionTypeEnum.INCOME,
         colorScheme: '#eca427',
-        subcategories: [],
     },
 ];
 

@@ -1,6 +1,6 @@
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
 import { Component } from '@angular/core';
-import { CategoryInterface } from '@app/shared';
+import { CategoryInterface, CategoryTemplateInterface } from '@app/shared';
 import { Observable, Subject, takeUntil, filter, map } from 'rxjs';
 import { DialogDataInterface } from '@app/shared/interfaces/dialog-data.interface';
 import { AddCategoryComponent } from '@app/shared/add-category/components/add-category.component';
@@ -52,15 +52,8 @@ export class CategoriesComponent {
                 takeUntil(this.destroy$),
                 filter((res) => !!res)
             )
-            .subscribe((category) => {
-                if (parentId) {
-                    category.parentId = parentId;
-                    const newSubcategory = { ...category, transactionType: type };
-                    this.categoryService.createSubcategory(newSubcategory);
-                } else {
-                    const newCategory = { ...category, transactionType: type };
-                    this.categoryService.create(newCategory);
-                }
+            .subscribe((category: CategoryTemplateInterface) => {
+                this.categoryService.create(category, type, parentId);
             });
     }
 
@@ -82,13 +75,10 @@ export class CategoriesComponent {
                 filter((res) => !!res)
             )
             .subscribe(() => {
-                if (parentId) {
-                    this.categoryService.deleteSubcategory(parentId, id);
-                    this.snackbarService.openSuccess(deleteSubcategorySuccessMessage);
-                } else {
-                    this.categoryService.delete(id);
-                    this.snackbarService.openSuccess(deleteCategorySuccessMessage);
-                }
+                this.categoryService.delete(id, parentId);
+                this.snackbarService.openSuccess(
+                    parentId ? deleteSubcategorySuccessMessage : deleteCategorySuccessMessage
+                );
             });
     }
 
@@ -111,15 +101,9 @@ export class CategoriesComponent {
                 filter((res) => !!res)
             )
             .subscribe((res) => {
-                if (parentId) {
-                    const editedCategory = { ...category, ...res };
-                    this.categoryService.editSubcategory(parentId, editedCategory);
-                    this.snackbarService.openSuccess(EditSubcategorySuccessMessage);
-                } else {
-                    const editedCategory = { ...category, ...res };
-                    this.categoryService.edit(editedCategory);
-                    this.snackbarService.openSuccess(EditCategorySuccessMessage);
-                }
+                const editedCategory = { ...category, ...res };
+                this.categoryService.edit(editedCategory, parentId);
+                this.snackbarService.openSuccess(parentId ? EditSubcategorySuccessMessage : EditCategorySuccessMessage);
             });
     }
 
