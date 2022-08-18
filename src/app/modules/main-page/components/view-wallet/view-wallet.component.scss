@@ -8,6 +8,10 @@
         align-items: flex-start;
         flex-wrap: wrap;
         max-width: 600px;
+
+        button {
+            margin: 0 10px;
+        }
     }
 
     .recent-transactions {

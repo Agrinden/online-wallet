@@ -1,7 +1,6 @@
 import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
 import { CategoryInterface } from '@app/shared/interfaces/categories/category.interface';
 import { IncomeWalletInterface } from '@app/shared/interfaces/income-wallet.interface';
-import { CurrencyInterface } from '@app/shared/interfaces/currency.interface';
 import { TransactionInterface } from '@shared/interfaces/transaction.interface';
 
 import { Observable, of } from 'rxjs';
@@ -43,7 +42,7 @@ export const WALLETS: Observable<IncomeWalletInterface[]> = of([
     },
 ]);
 
-export const CURRENCIES: CurrencyInterface[] = [{ name: 'EUR' }, { name: 'GEL' }, { name: 'PLN' }, { name: 'USD' }];
+export const CURRENCIES: string[] = ['EUR', 'USD', 'GEL', 'PLN'];
 
 export const CATEGORIES: CategoryInterface[] = [
     {
