@@ -15,6 +15,7 @@ import { FilterCurrencyPipe } from './pipes/filter-currency.pipe';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { SwiperModule } from 'swiper/angular';
 import { WalletLinkPipe } from '@modules/main-page/pipes/wallet-link.pipe';
+import { EditWalletFormComponent } from '@modules/main-page/components/edit-wallet-form/edit-wallet-form.component';
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import { WalletLinkPipe } from '@modules/main-page/pipes/wallet-link.pipe';
         ViewWalletComponent,
         ListOfWalletsComponent,
         WalletLinkPipe,
+        EditWalletFormComponent,
     ],
     imports: [
         CommonModule,

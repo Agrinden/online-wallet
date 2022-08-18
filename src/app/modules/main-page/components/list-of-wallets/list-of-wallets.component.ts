@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    OnDestroy,
+    OnInit,
+    ViewEncapsulation,
+} from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
 import { WalletService } from '@core';
@@ -30,7 +37,7 @@ export class ListOfWalletsComponent implements OnInit, OnDestroy {
     };
     public wallets!: WalletInterface[];
 
-    constructor(private walletService: WalletService) {}
+    constructor(private readonly walletService: WalletService, private readonly changeDetectorRef: ChangeDetectorRef) {}
 
     ngOnInit(): void {
         this.walletService
@@ -38,6 +45,7 @@ export class ListOfWalletsComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.destroy$))
             .subscribe((wallets) => {
                 this.wallets = wallets;
+                this.changeDetectorRef.markForCheck();
             });
     }
 

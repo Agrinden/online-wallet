@@ -18,7 +18,7 @@
             *ngFor="let currency of filteredCurrencies | filterCurrencyPipe: currencyFilterCtrl.value"
             [value]="currency"
         >
-            {{ currency.name }}
+            {{ currency }}
         </mat-option>
     </mat-select>
     <mat-hint *ngIf="currencyCtrl.errors">Please choose currency</mat-hint>
