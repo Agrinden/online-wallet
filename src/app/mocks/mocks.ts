@@ -10,8 +10,8 @@ export const mockNotifications = [
     {
         name: 'User1',
         desc: [
-            { text: 'Bla-bla-bla ', date: new Date() },
-            { text: 'La-la-la ', date: new Date() },
+            { text: 'Message1', date: new Date() },
+            { text: 'Message2', date: new Date() },
         ],
     },
 ];
