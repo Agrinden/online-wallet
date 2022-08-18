@@ -55,8 +55,8 @@ export class CategoriesComponent {
             .subscribe((category) => {
                 if (parentId) {
                     category.parentId = parentId;
-                    const newCategory = { ...category, transactionType: type };
-                    this.categoryService.createSubcategory(newCategory);
+                    const newSubcategory = { ...category, transactionType: type };
+                    this.categoryService.createSubcategory(newSubcategory);
                 } else {
                     const newCategory = { ...category, transactionType: type };
                     this.categoryService.create(newCategory);
