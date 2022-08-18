@@ -16,5 +16,12 @@
     <app-list-of-wallets class='list-of-wallets'></app-list-of-wallets>
     <app-savings class="pig"></app-savings>
   </div>
-  <span class="transaction-list-title">Recent transactions</span>
+  <div class="recent-table">
+    <span class="transaction-list-title">Recent transactions</span>
+    <div *ngIf="transaction.length; else noData">
+      <income-table [tableData]="transaction" [tableType]="tableTypes.EXPENSE">
+      </income-table>
+    </div>
+    <ng-template #noData><span class="no-transactions">No data available.</span> </ng-template>
+  </div>
 </div>

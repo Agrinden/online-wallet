@@ -40,7 +40,9 @@ export class AddEditTransactionFormComponent implements OnInit {
     ngOnInit(): void {
         this.currentDate = moment();
         this.dataForm = this.getInitializedForm();
-        this.setFormData();
+        if (this.data.isEditForm) {
+            this.setFormData(this.data);
+        }
     }
 
     public isValidField(controlName: keyof TransactionFormInterface): boolean {
@@ -85,7 +87,7 @@ export class AddEditTransactionFormComponent implements OnInit {
             wallet: new FormControl<string>('', Validators.required),
             amount: new FormControl<number>(0.01, [
                 Validators.required,
-                Validators.pattern(/^[0-9]*[.]?[0-9]+$/),
+                Validators.pattern(/^(?!0+[1-9])(?:\d+|\d(?:\d)+)(?:[.]\d+)?$/),
                 Validators.min(0.01),
             ]),
             category: new FormControl<string>('', Validators.maxLength(100)),
@@ -97,15 +99,8 @@ export class AddEditTransactionFormComponent implements OnInit {
         return form;
     }
 
-    private setFormData(): void {
-        if (this.data.isEditForm) {
-            this.transactionService
-                .get(this.data.itemId)
-                .pipe(takeUntil(this.destroy$))
-                .subscribe((item: any) => {
-                    return this.dataForm.patchValue(item);
-                });
-        }
+    private setFormData(formData: any): void {
+        this.dataForm.patchValue(formData);
     }
 
     ngOnDestroy() {

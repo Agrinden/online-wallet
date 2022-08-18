@@ -1,10 +1,16 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .form {
     .title {
         font-size: 23px;
         margin-bottom: 5px;
     }
     margin: 0;
-    height: 240px;
+    height: 360px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,14 +21,13 @@
         align-items: center;
         overflow: hidden;
         padding: 16px 69px 0;
-        .amount-container {
-            position: relative;
-            .currency-view {
-                position: absolute;
-                padding: 20px 0 0 15px;
-                font-size: 17px;
-            }
-        }
+    }
+    .error-message {
+        color: red;
+        font-size: 14px;
+        display: inline-block;
+        padding-left: 6px;
+        margin-bottom: 6px;
     }
     .down-button {
         padding-top: 10px;

@@ -72,10 +72,10 @@ export class IncomeFormComponent implements OnInit {
         const date = formData?.date ? moment(formData.date, 'DD/MM/YYYY') : moment();
         const form = this.formBuilder.group<IncomeFormInterface>({
             wallet: new FormControl<string>(formData?.walletId, Validators.required),
-            amount: new FormControl<number>(+formData?.amount || 0.0, [
+            amount: new FormControl<number>(+formData?.amount || 0.01, [
                 Validators.required,
-                Validators.pattern(/^[0-9]*[.]?[0-9]+$/),
-                Validators.min(0.0),
+                Validators.pattern(/^(?!0+[1-9])(?:\d+|\d(?:\d)+)(?:[.]\d+)?$/),
+                Validators.min(0.01),
             ]),
             category: new FormControl<string>(formData?.category, Validators.required),
             date: new FormControl<moment.Moment>(date, Validators.required),
@@ -108,6 +108,9 @@ export class IncomeFormComponent implements OnInit {
             content: AddCategoryComponent,
             width: '400px',
             disableClose: true,
+            data: {
+                defaultColor: this.defaultColor,
+            },
         };
 
         const dialog = this.dialogService.open(options);
@@ -126,7 +129,6 @@ export class IncomeFormComponent implements OnInit {
                 this.categoryService.create(newCategory);
             });
     }
-
     ngOnDestroy(): void {
         this.destroy$.next(true);
         this.destroy$.unsubscribe();

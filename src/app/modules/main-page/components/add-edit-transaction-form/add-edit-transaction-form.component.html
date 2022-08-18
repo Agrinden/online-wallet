@@ -16,7 +16,7 @@
       <span class="field-title">Amount *</span>
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label aria-required="true">Amount</mat-label>
-        <input formControlName="amount" matInput type="number" />
+        <input formControlName="amount" matInput type="text" />
       </mat-form-field>
       <div class="errors" *ngIf="dataForm.controls.amount.errors">
         <span class="error-message" *ngIf="isValidField('amount')">Input only numbers</span>
@@ -44,10 +44,10 @@
       <span class="field-title">Subcategory</span>
       <mat-form-field class="data-field" appearance="fill">
         <mat-label>Please choose the subcategory</mat-label>
-        <mat-select formControlName="subcategory" [disabled]="!!!selectedCategory">
+        <mat-select formControlName="subcategory" [disabled]="!selectedCategory">
           <ng-container *ngFor="let category of categories$ | async">
-            <mat-option *ngFor="let subcat of category.subcategories" [value]="subcat">
-              {{ subcat }}
+            <mat-option *ngFor="let subcat of category.subcategories" [value]="subcat.name">
+              {{ subcat.name }}
             </mat-option>
           </ng-container>
         </mat-select>

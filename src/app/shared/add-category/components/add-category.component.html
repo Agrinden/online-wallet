@@ -1,14 +1,14 @@
 <form class="form" [formGroup]="categoryForm">
-    <mat-form-field>
+    <mat-form-field class="category-name">
         <mat-label aria-required="true">Category name</mat-label>
         <input formControlName="name" matInput required />
-        <mat-error *ngIf="name?.invalid">{{ nameErrorMessage }}</mat-error>
+        <mat-error *ngIf="name?.invalid && name?.touched">{{ nameErrorMessage }}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
         <mat-label>Category color</mat-label>
 
-        <input type="color" matInput formControlName="colorScheme" class="color" />
+        <input type="color" matInput formControlName="colorScheme" />
 
         <mat-hint> Click the icon to set the color, or the default color will be set</mat-hint>
     </mat-form-field>
@@ -22,6 +22,6 @@
         >
             {{ buttonText }}
         </button>
-        <button mat-flat-button color="warn" (click)="onCancel()">Cancel</button>
+        <button mat-flat-button color="warn" type="button" (click)="onCancel()">Cancel</button>
     </div>
 </form>
