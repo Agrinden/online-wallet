@@ -1,36 +1,29 @@
 <mat-sidenav-container class="sidenav-container">
-    <mat-toolbar class="header-container">
-        <div class="header-content">
-            <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-                <a
-                    mat-tab-link
-                    routerLinkActive="active-link"
-                    *ngFor="let link of menuItems"
-                    #rla="routerLinkActive"
-                    [active]="rla.isActive"
-                    [routerLink]="link.route"
-                    [routerLinkActiveOptions]="{ exact: true }"
-                >
-                    <mat-icon aria-hidden="false" class="header-icons"> {{ link.icon }} </mat-icon>
-                    <span>{{ link.name }}</span>
-                </a>
-            </nav>
-        </div>
-        <div class="header-right-icons">
-            <app-notifications>
-                <mat-icon aria-hidden="false" class="header-icons notifications" aria-label="notifications">
-                    notifications
-                </mat-icon>
-            </app-notifications>
+  <mat-toolbar class="header-container">
+    <div class="header-content">
+      <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+        <a mat-tab-link routerLinkActive="active-link" *ngFor="let link of menuItems" #rla="routerLinkActive"
+          [active]="rla.isActive" [routerLink]="link.route" [routerLinkActiveOptions]="{ exact: true }">
+          <mat-icon aria-hidden="false" class="header-icons"> {{ link.icon }} </mat-icon>
+          <span>{{ link.name }}</span>
+        </a>
+      </nav>
+    </div>
+    <div class="header-right-icons">
+      <app-notifications>
+        <mat-icon aria-hidden="false" class="header-icons notifications" aria-label="notifications">
+          notifications
+        </mat-icon>
+      </app-notifications>
 
-            <app-user-profile class="header-right-icons">
-                <mat-icon aria-hidden="false" class="header-icons profile-menu" aria-label="account_circle">
-                    account_circle
-                </mat-icon>
-            </app-user-profile>
-        </div>
-    </mat-toolbar>
-    <mat-tab-nav-panel #tabPanel>
-        <ng-content></ng-content>
-    </mat-tab-nav-panel>
+      <app-user-profile class="header-right-user-icons">
+        <mat-icon aria-hidden="false" class="header-icons profile-menu" aria-label="account_circle">
+          account_circle
+        </mat-icon>
+      </app-user-profile>
+    </div>
+  </mat-toolbar>
+  <mat-tab-nav-panel #tabPanel>
+    <ng-content></ng-content>
+  </mat-tab-nav-panel>
 </mat-sidenav-container>

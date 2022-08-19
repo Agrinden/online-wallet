@@ -99,7 +99,7 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
                     category.colorScheme = this.defaultColor;
                 }
                 const newCategory = { ...category, transactionType: type };
-                this.categoryService.create(newCategory);
+                this.categoryService.create(newCategory, type);
             });
     }
 
