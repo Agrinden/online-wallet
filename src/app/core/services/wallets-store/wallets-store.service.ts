@@ -26,7 +26,7 @@ export class WalletsStoreService {
 
     public addWallet(wallet: CreateWalletInterface): Observable<WalletInterface[]> {
         return this.walletService.createWallet(wallet).pipe(
-            map((id) => {
+            tap((id) => {
                 const newWallet: WalletInterface = {
                     id,
                     balance: 0,
@@ -34,7 +34,8 @@ export class WalletsStoreService {
                 };
 
                 this.walletsSubject$.next([...this.wallets, newWallet]);
-
+            }),
+            map(() => {
                 return this.wallets;
             })
         );
@@ -53,7 +54,9 @@ export class WalletsStoreService {
 
                 this.walletsSubject$.next(wallets);
             }),
-            map(() => this.wallets)
+            map(() => {
+                return this.wallets;
+            })
         );
     }
 
