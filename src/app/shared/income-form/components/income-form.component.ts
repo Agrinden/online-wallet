@@ -122,11 +122,7 @@ export class IncomeFormComponent implements OnInit {
                 filter((res) => !!res)
             )
             .subscribe((category) => {
-                if (!category.colorScheme) {
-                    category.colorScheme = this.defaultColor;
-                }
-                const newCategory = { ...category, transactionType: type };
-                this.categoryService.create(newCategory);
+                this.categoryService.create(category, type);
             });
     }
     ngOnDestroy(): void {

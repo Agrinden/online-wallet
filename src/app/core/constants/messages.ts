@@ -5,8 +5,11 @@ export const cancelCategoryCreation =
 export const cancelCategoryEditing =
     'Do you really want to cancel the editing of the category? All you entered data will be lost';
 export const deleteCategoryMessage = 'You are about to delete category. Are you sure?';
+export const deleteSubcategoryMessage = 'You are about to delete subcategory. Are you sure?';
 export const deleteCategorySuccessMessage = 'You category successfully deleted';
+export const deleteSubcategorySuccessMessage = 'You subcategory successfully deleted';
 export const EditCategorySuccessMessage = 'You category successfully updated';
+export const EditSubcategorySuccessMessage = 'You subcategory successfully updated';
 export const shouldCreateWallet = 'Please, create a wallet and after that you can return to adding your transaction';
 export const deleteWalletMessage = 'Are you sure you want to delete this wallet?';
 export const deleteDefaultWalletMessage =
