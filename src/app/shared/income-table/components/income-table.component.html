@@ -1,54 +1,57 @@
 <div class="table-container">
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 income-table">
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date">
-        <span class="date-sort">Sort by Date</span>
-      </th>
-      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
-    </ng-container>
-    <ng-container matColumnDef="category">
-      <th class="category-container" mat-header-cell *matHeaderCellDef>Category <p class="subcat" *ngIf="isExpenses">
-          Subcategory</p>
-      </th>
-      <td mat-cell *matCellDef="let element">{{ element.category }} <p class="subcat" *ngIf="isExpenses">{{
-          element.subcategory }}</p>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="amount">
-      <th class="amount-container" mat-header-cell *matHeaderCellDef mat-sort-header
-        sortActionDescription="Sort by amount">
-        <span class="amount-sort">Sort by Amount</span>
-      </th>
-      <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
-    </ng-container>
-    <ng-container matColumnDef="walletId">
-      <th class="wallet-container" mat-header-cell *matHeaderCellDef>
-        Wallet
-      </th>
-      <td mat-cell *matCellDef="let element"> {{element.walletId}} </td>
-    </ng-container>
-    <ng-container matColumnDef="payer" *ngIf="isExpenses">
-      <th mat-header-cell class="payer-container" *matHeaderCellDef>Payer</th>
-      <td mat-cell *matCellDef="let element">{{ element.payer }}</td>
-    </ng-container>
-    <ng-container matColumnDef="note">
-      <th class="note-container" mat-header-cell *matHeaderCellDef>
-        Note
-      </th>
-      <td mat-cell *matCellDef="let element"> {{element.note}} </td>
-    </ng-container>
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>
-      </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-button md-raised-button class="edit-button" (click)="editData(element)">Edit</button>
-        <button mat-button md-raised-button class="delete-button" (click)="deleteIncome(element)">Delete</button>
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 income-table">
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date">
+                <span class="date-sort">Sort by Date</span>
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+        </ng-container>
+        <ng-container matColumnDef="category">
+            <th class="category-container" mat-header-cell *matHeaderCellDef>
+                Category
+                <p class="subcat" *ngIf="isExpenses">Subcategory</p>
+            </th>
+            <td mat-cell *matCellDef="let element">
+                {{ element.category.name }}
+                <p class="subcat" *ngIf="isExpenses">{{ element.subcategory.name }}</p>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="amount">
+            <th
+                class="amount-container"
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                sortActionDescription="Sort by amount"
+            >
+                <span class="amount-sort">Sort by Amount</span>
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.amount }}</td>
+        </ng-container>
+        <ng-container matColumnDef="walletId">
+            <th class="wallet-container" mat-header-cell *matHeaderCellDef>Wallet</th>
+            <td mat-cell *matCellDef="let element">{{ element.walletId }}</td>
+        </ng-container>
+        <ng-container matColumnDef="payer" *ngIf="isExpenses">
+            <th mat-header-cell class="payer-container" *matHeaderCellDef>Payer</th>
+            <td mat-cell *matCellDef="let element">{{ element.payer }}</td>
+        </ng-container>
+        <ng-container matColumnDef="note">
+            <th class="note-container" mat-header-cell *matHeaderCellDef>Note</th>
+            <td mat-cell *matCellDef="let element">{{ element.note }}</td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-button md-raised-button class="edit-button" (click)="editData(element)">Edit</button>
+                <button mat-button md-raised-button class="delete-button" (click)="deleteIncome(element)">
+                    Delete
+                </button>
+            </td>
+        </ng-container>
 
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-  <a class="show-more">Show more</a>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <a class="show-more">Show more</a>
 </div>

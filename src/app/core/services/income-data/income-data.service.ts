@@ -2,7 +2,7 @@ import { TransactionInterface } from '@app/shared';
 import { EXPENSE_DATA } from './../../../mocks/expense-table';
 import { INCOME_DATA } from './../../../mocks/table';
 import { IncomeDataInterface } from '@app/shared';
-import { categories } from '@app/core';
+
 import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';

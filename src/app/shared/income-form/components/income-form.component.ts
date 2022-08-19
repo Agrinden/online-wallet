@@ -77,7 +77,7 @@ export class IncomeFormComponent implements OnInit {
                 Validators.pattern(/^[0-9]*[.]?[0-9]+$/),
                 Validators.min(0.0),
             ]),
-            category: new FormControl<string>(formData?.category, Validators.required),
+            category: new FormControl<CategoryInterface>(formData?.category, Validators.required),
             date: new FormControl<moment.Moment>(date, Validators.required),
             note: new FormControl<string>(formData?.note, Validators.maxLength(200)),
         });

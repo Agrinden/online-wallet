@@ -10,8 +10,8 @@ export const mockNotifications = [
     {
         name: 'User1',
         desc: [
-            { text: 'Bla-bla-bla ', date: new Date() },
-            { text: 'La-la-la ', date: new Date() },
+            { text: 'Message1', date: new Date() },
+            { text: 'Message2', date: new Date() },
         ],
     },
 ];
@@ -176,12 +176,12 @@ export const mockWalletTransactions: TransactionInterface[] = (() => {
     return new Array(20).fill(null).map((_, index) => {
         return {
             id: index,
-            category: 'Salary',
+            category: { id: '', transactionType: TransactionTypeEnum.INCOME, name: 'Salary' },
             amount: Math.round(Math.random() * 1000 - 500),
             date: `2022-07-${30 - index}T17:26:33.581Z`,
             walletId: '',
             type: '',
-            subcategory: '',
+            subcategory: { id: '', transactionType: TransactionTypeEnum.INCOME, name: 'Freelance' },
             payer: '',
             note: '',
         };

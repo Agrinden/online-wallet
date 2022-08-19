@@ -1,9 +1,9 @@
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { Component, OnInit, OnDestroy, Optional, Inject, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Optional, Inject, AfterViewInit, Input } from '@angular/core';
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
 import { cancelCategoryCreation, cancelCategoryEditing, CategoryService } from '@core';
 import { Subject, takeUntil, filter } from 'rxjs';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CategoryNameValidator } from '@app/shared/helpers/category-name.validator';
 
 @Component({
@@ -22,7 +22,8 @@ export class AddCategoryComponent implements OnInit, OnDestroy, AfterViewInit {
         private formBuilder: FormBuilder,
         private dialogService: DialogService,
         @Optional() @Inject(MAT_DIALOG_DATA) private dialogData: any,
-        private categoryService: CategoryService
+        private categoryService: CategoryService,
+        private dialogRef: MatDialogRef<AddCategoryComponent>
     ) {}
 
     ngOnInit(): void {
@@ -79,7 +80,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy, AfterViewInit {
 
     public onCancel(): void {
         if (this.categoryForm.pristine) {
-            this.dialogService.closeAll();
+            this.dialogRef.close();
         } else {
             this.cancelCategoryCreation();
         }
