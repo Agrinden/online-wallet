@@ -1,7 +1,7 @@
-import { EXPENSE_DATA } from './../../../mocks/expense-table';
 import { Injectable } from '@angular/core';
-import { CATEGORIES, CoreModule } from '@app/core';
-import { categories } from '@core/constants';
+import { CATEGORIES } from '@app/core';
+import { EXPENSE_DATA } from './../../../mocks/expense-table';
+
 import { CategoryInterface, TransactionInterface } from '@app/shared';
 
 import { HttpTransactionService } from '@core/services';

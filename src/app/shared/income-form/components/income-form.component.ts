@@ -77,7 +77,7 @@ export class IncomeFormComponent implements OnInit {
                 Validators.pattern(/^(?!0+[1-9])(?:\d+|\d(?:\d)+)(?:[.]\d+)?$/),
                 Validators.min(0.01),
             ]),
-            category: new FormControl<string>(formData?.category, Validators.required),
+            category: new FormControl<CategoryInterface>(formData?.category, Validators.required),
             date: new FormControl<moment.Moment>(date, Validators.required),
             note: new FormControl<string>(formData?.note, Validators.maxLength(200)),
         });
@@ -122,11 +122,7 @@ export class IncomeFormComponent implements OnInit {
                 filter((res) => !!res)
             )
             .subscribe((category) => {
-                if (!category.colorScheme) {
-                    category.colorScheme = this.defaultColor;
-                }
-                const newCategory = { ...category, transactionType: type };
-                this.categoryService.create(newCategory);
+                this.categoryService.create(category, type);
             });
     }
     ngOnDestroy(): void {

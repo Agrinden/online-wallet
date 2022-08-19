@@ -36,7 +36,7 @@ export class UserService {
         return this.http.post<any>(`${environment.apiUrl}/users/login`, user, { observe: 'response' }).pipe(
             filter((response) => response.status === 200),
             catchError((error) => {
-                return of(error === '500' ? 'User already exists' : error);
+                return of(error);
             })
         );
     }

@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiUrl: 'http://bing.com',
+    apiUrl: 'http://budget-team-3a.herokuapp.com',
 };

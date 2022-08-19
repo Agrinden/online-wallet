@@ -16,7 +16,8 @@
       <span class="field-title">Amount *</span>
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label aria-required="true">Amount</mat-label>
-        <input formControlName="amount" matInput type="text" />
+        <input formControlName="amount" #toClear matInput type="text"
+          (focus)="dataForm.controls.amount.value || (toClear.value = '')" />
       </mat-form-field>
       <div class="errors" *ngIf="dataForm.controls.amount.errors">
         <span class="error-message" *ngIf="isValidField('amount')">Input only numbers</span>
@@ -27,9 +28,9 @@
       <span class="field-title">Category *</span>
       <mat-form-field class="data-field" appearance="fill">
         <mat-label>Please choose the category</mat-label>
-        <mat-select formControlName="category" [(value)]="selectedCategory">
-          <mat-option *ngFor="let item of categories$ | async" [value]="item.name">
-            {{ item.name }}
+        <mat-select formControlName="category">
+          <mat-option *ngFor="let category of categories$ | async" [value]="category">
+            {{ category.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -37,26 +38,25 @@
 
     <div class="new-category">
       <span class="no-category">Can't find the right category?</span>
-      <a class="add-new-category" (click)="openAddInstanseForm()">+ Add new category </a>
+      <a class="add-new-category" (click)="createCategory(data.itemType)">+ Add new category </a>
     </div>
 
     <div class="field" *ngIf="data.itemType === type.EXPENSE">
       <span class="field-title">Subcategory</span>
+
       <mat-form-field class="data-field" appearance="fill">
         <mat-label>Please choose the subcategory</mat-label>
-        <mat-select formControlName="subcategory" [disabled]="!selectedCategory">
-          <ng-container *ngFor="let category of categories$ | async">
-            <mat-option *ngFor="let subcat of category.subcategories" [value]="subcat.name">
-              {{ subcat.name }}
-            </mat-option>
-          </ng-container>
+        <mat-select formControlName="subcategory">
+          <mat-option *ngFor="let subcat of selectedCategory?.subcategories" [value]="subcat">
+            {{ subcat.name }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
 
     <div class="new-category" *ngIf="data.itemType === type.EXPENSE">
-      <span class="no-category">Can't find the right category?</span>
-      <a class="add-new-category" (click)="openAddInstanseForm()">+ Add new category </a>
+      <span class="no-category">Can't find subcategory?</span>
+      <a class="add-new-category" (click)="createCategory(type.EXPENSE)">+ Add new subcategory </a>
     </div>
 
     <div class="field" *ngIf="data.itemType === type.EXPENSE">
@@ -73,7 +73,7 @@
 
     <div class="new-category" *ngIf="data.itemType === type.EXPENSE">
       <span class="no-category">Can't find the right person?</span>
-      <a class="add-new-category" (click)="openAddInstanseForm()">+ Add new payer </a>
+      <a class="add-new-category" (click)="createPayer()">+ Add new payer </a>
     </div>
 
     <div class="field">
@@ -104,8 +104,7 @@
   </div>
 
   <mat-dialog-actions class="down-button">
-    <button mat-button [mat-dialog-close]="dataForm.value" cdkFocusInitial [disabled]="dataForm.invalid"
-      (click)="onFormSubmit()">
+    <button mat-button [mat-dialog-close]="dataForm.value" [disabled]="dataForm.invalid" (click)="onFormSubmit()">
       Submit
     </button>
     <button mat-button (click)="onFormClose()">Cancel</button>

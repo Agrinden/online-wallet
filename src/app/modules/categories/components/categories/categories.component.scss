@@ -1,8 +1,7 @@
 :host {
     display: block;
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+    margin-bottom: 20px;
 
     .categories-container {
         display: flex;
@@ -42,6 +41,24 @@
             .subcategories {
                 display: flex;
                 justify-content: space-between;
+                .subcategory-title {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    .subcategory-color {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                    }
+                    .subcategory-name {
+                        margin-left: 10px;
+                    }
+                }
+            }
+
+            .add-subcategory-btn {
+                display: flex;
+                justify-content: space-evenly;
             }
 
             ::ng-deep .mat-expansion-panel-header {
