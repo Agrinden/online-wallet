@@ -67,7 +67,11 @@ export class CategoryService {
     }
 
     public isNameUnique(name: string): Observable<boolean> {
-        return of(this.categories.every((c) => c.name !== name));
+        const checkedCategories = this.categories.some((category) => category.name === name);
+        const checkedSubcategories = this.categories.some((category) => {
+            return category.subcategories && category.subcategories.some((subcategory) => subcategory.name === name);
+        });
+        return of(checkedCategories || checkedSubcategories);
     }
 
     private generateId(): string {

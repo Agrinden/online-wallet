@@ -64,7 +64,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.name?.hasError('required')) {
             return 'Please fill in the name of category';
         }
-        if (this.name?.hasError('uniqueName')) {
+        if (this.name?.hasError('notUniqueName')) {
             return 'This name already exists';
         }
         if (this.name?.hasError('pattern')) {
