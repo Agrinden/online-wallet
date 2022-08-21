@@ -1,0 +1,12 @@
+:host table {
+    th:not(:first-child, :last-child) {
+        padding: 0 10px;
+    }
+    td:not(:first-child, :last-child) {
+        padding: 0 10px;
+    }
+
+    th , td:not(:first-child) {
+        text-align: center;
+    }
+}
