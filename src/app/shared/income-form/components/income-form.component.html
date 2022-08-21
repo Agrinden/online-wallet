@@ -67,6 +67,7 @@
     <div class="form-error" *ngIf="isFormErrorInvalid()">
       <span class="error-message">Please fill in all required fields</span>
     </div>
+
     <mat-dialog-actions class="down-button">
       <button mat-button [mat-dialog-close]="incomeForm.value" [disabled]="incomeForm.invalid">Add</button>
       <button mat-button (click)="openConfirmationDialog()">Cancel</button>
