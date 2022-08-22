@@ -82,8 +82,6 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
     public addExpense(): void {
         if (this.dataForm && this.dataForm.valid) {
             const expenseFormData = this.dataForm.value;
-            console.log(expenseFormData);
-
             const expenseData: TransactionDTOInterface = {
                 amount: String(expenseFormData.amount),
                 category: {

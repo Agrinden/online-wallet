@@ -25,6 +25,20 @@ export class IncomeDataService {
         return of(EXPENSE_DATA);
     }
 
+    public get(): Observable<TransactionInterface[]> {
+        const obj: any = {
+            transactionsType: 'INCOME',
+            sortBy: 'DATEDESC',
+            page: '1',
+            size: '10',
+        };
+        const queryParams = Object.keys(obj)
+            .map((key) => `${key}=${obj[key]}`)
+            .join('&');
+        const url = environment.apiUrl.concat('/transactions?', queryParams);
+        return this.http.get<TransactionInterface[]>(`${url}`);
+    }
+
     public add(incomeData: TransactionDTOInterface): Observable<any> {
         return this.http.post(`${environment.apiUrl}/transactions`, incomeData);
     }

@@ -1,3 +1,4 @@
+import { IncomeDataService } from '@app/core';
 import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
@@ -24,11 +25,16 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
     public isExpenses!: boolean;
     private destroy: Subject<void> = new Subject();
 
-    constructor(public dialog: MatDialog, public deleteIncomeService: IncomeDeleteService) {}
+    constructor(
+        public dialog: MatDialog,
+        public deleteIncomeService: IncomeDeleteService,
+        public incomeDataService: IncomeDataService
+    ) {}
 
     ngOnInit() {
         this.initializeTable(this.tableData);
         this.isExpenses = this.tableType === TransactionTypeEnum.EXPENSE;
+        this.incomeDataService.get().subscribe((tableData) => console.log(tableData));
     }
 
     ngAfterViewInit() {
