@@ -39,6 +39,6 @@ export const defaultMenuTabs = [
 ];
 
 export const additionalMenuTabs = {
-    admin_panel: { name: 'AdminPanel', icon: 'manage_accounts', route: RouteUrls.adminPanel },
-    user_panel: { name: 'User', icon: 'person', route: RouteUrls.main },
+    adminPanel: { name: 'AdminPanel', icon: 'manage_accounts', route: RouteUrls.adminPanel },
+    userPanel: { name: 'User', icon: 'person', route: RouteUrls.main },
 };

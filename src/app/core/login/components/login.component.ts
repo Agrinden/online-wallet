@@ -40,8 +40,6 @@ export class LoginComponent implements OnInit, OnDestroy {
                 .subscribe((response) => {
                     const token = response.headers.get('Authorization');
 
-                    // console.log(token);
-
                     this.cookieService.set(token);
 
                     this.userService.setUser();

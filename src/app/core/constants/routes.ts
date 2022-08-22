@@ -5,5 +5,5 @@ export enum RouteUrls {
     expenses = 'expenses',
     incomes = 'incomes',
     statistics = 'statistics',
-    adminPanel = 'admin_panel',
+    adminPanel = 'adminPanel',
 }
