@@ -4,9 +4,7 @@ export interface UserFormInterface {
 }
 
 export interface UserInterface {
-    jti: string;
-    sub: string;
-    authorities: string[];
-    iat: number;
+    username: string;
+    roles: string[];
     exp: number;
 }

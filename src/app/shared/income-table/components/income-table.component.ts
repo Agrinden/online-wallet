@@ -8,7 +8,7 @@ import { IncomeDataService } from '@app/core';
 import { AfterViewInit, Component, ViewChild, OnInit, OnDestroy, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { IncomeDeleteService } from '../../../core/services/income-delete/income-delete';
+import { TransactionDeleteService } from '../../../core/services/income-delete/transaction-delete';
 import { IncomeTableInterface } from '@app/shared/interfaces/income-table.interface';
 
 @Component({
@@ -29,7 +29,7 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
     constructor(
         private incomeDataService: IncomeDataService,
         public dialog: MatDialog,
-        public deleteIncomeService: IncomeDeleteService
+        public deleteIncomeService: TransactionDeleteService
     ) {}
 
     ngOnInit() {
@@ -71,7 +71,7 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
     }
 
     public deleteIncome(rowData: IncomeDataInterface | TransactionInterface): void {
-        this.deleteIncomeService.handleOpenDialog(rowData);
+        this.deleteIncomeService.handleOpenDialog(rowData, this.isExpenses);
     }
 
     ngOnDestroy() {

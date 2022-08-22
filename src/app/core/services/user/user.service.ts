@@ -44,9 +44,10 @@ export class UserService {
 
     public setUser() {
         const token = this.cookieService.get();
+        console.log(token);
         if (token) {
             const user: UserInterface = jwtDecode(token);
-            const isAdmin = user.authorities.some((role) => role === 'ROLE_ADMIN');
+            const isAdmin = user.roles.some((role) => role === 'ROLE_ADMIN');
 
             this.user = { ...user, isAdmin };
         }
