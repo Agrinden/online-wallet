@@ -1,15 +1,27 @@
-<button mat-button class="add-button" (click)="onAddTransactionClick(type.EXPENSE)">+ Add expense</button>
+<div class="main-container">
+  <div class="amount-container">
+    <button mat-button class="add-button" (click)="onAddTransactionClick(type.EXPENSE)">+ Add expense</button>
 
-<open-income-form></open-income-form>
-<app-loader></app-loader>
-
-<div class='wallets-wrapper'>
-  <div class="add-button-container">
-    <button mat-fab color="primary" (click)="openCreateWalletModal()">
-      <mat-icon>add</mat-icon>
-    </button>
-    <span>Add wallet</span>
+    <open-income-form></open-income-form>
   </div>
-
-  <app-list-of-wallets class='list-of-wallets'></app-list-of-wallets>
+  <app-loader></app-loader>
+  <span class="choose-wallet">Choose your wallet</span>
+  <div class='wallets-wrapper'>
+    <div class="add-button-container">
+      <button mat-fab color="primary" (click)="openCreateWalletModal()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <span>Add wallet</span>
+    </div>
+    <app-list-of-wallets class='list-of-wallets'></app-list-of-wallets>
+    <app-savings class="pig"></app-savings>
+  </div>
+  <div class="recent-table">
+    <span class="transaction-list-title">Recent transactions</span>
+    <div *ngIf="transaction.length; else noData">
+      <income-table [tableData]="transaction" [tableType]="tableTypes.EXPENSE">
+      </income-table>
+    </div>
+    <ng-template #noData><span class="no-transactions">No data available.</span> </ng-template>
+  </div>
 </div>

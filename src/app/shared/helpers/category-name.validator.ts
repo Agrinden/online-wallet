@@ -9,7 +9,7 @@ export class CategoryNameValidator {
                 return of(null);
             }
             return categoryService.isNameUnique(control.value).pipe(
-                map((isUnique) => (isUnique ? null : { uniqueName: true })),
+                map((isNotUnique) => (isNotUnique ? { notUniqueName: true } : null)),
                 catchError(() => of(null))
             );
         };

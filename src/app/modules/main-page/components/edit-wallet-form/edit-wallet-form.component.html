@@ -1,0 +1,81 @@
+<form [formGroup]="form" class='edit-form'>
+    <mat-form-field appearance="fill">
+        <mat-label>Wallet name</mat-label>
+        <input matInput placeholder="Wallet name" formControlName="name" />
+        <mat-error *ngIf="name?.invalid">{{ nameErrorMessage }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Currency</mat-label>
+        <mat-select
+            formControlName="currency"
+            placeholder="Currency"
+            appearance="fill"
+            [disabled]='!!(isCurrencyDisabled$ | async)'
+        >
+            <mat-option>
+                <ngx-mat-select-search
+                    [formControl]="currencyFilterCtrl"
+                    placeholderLabel="Find currency"
+                    noEntriesFoundLabel="no matching currency found"
+                ></ngx-mat-select-search>
+            </mat-option>
+
+            <mat-option
+                *ngFor="let currency of currencies | filterCurrencyPipe: currencyFilterCtrl.value"
+                [value]="currency"
+            >
+                {{ currency }}
+            </mat-option>
+
+        </mat-select>
+
+        <mat-icon
+            *ngIf='isCurrencyDisabled$ | async'
+            class='currency-disabled-warning'
+            matTooltip='You have transactions connected to this wallet. Currency can&#039;t be changed'
+            matTooltipPosition='below'>
+            warning
+        </mat-icon>
+    </mat-form-field>
+
+    <mat-error *ngIf="form.errors?.['uniqueWallet']">
+        Such wallet already exists, please choose another currency or change the name of wallet
+    </mat-error>
+
+    <div class='slide-toggle-wrapper'>
+        <mat-slide-toggle
+            color="warn"
+            formControlName="isDefault"
+            [disabled]='wallet.isDefault'
+            (change)="onSlideToggle($event)">
+            Set as default
+        </mat-slide-toggle>
+
+        <mat-icon
+            *ngIf='wallet.isDefault'
+            matTooltip='There must be a default wallet. Please choose any wallet as default'
+            matTooltipPosition='below'>
+            warning
+        </mat-icon>
+    </div>
+
+    <div class="form-buttons">
+        <button
+            mat-flat-button
+            color="primary"
+            [mat-dialog-close]="form.value"
+            [disabled]="form.invalid"
+            type="submit">
+            Save
+        </button>
+
+        <button
+            mat-flat-button
+            color="warn"
+            (click)="onCancel()"
+            [mat-dialog-close]="false">
+            Cancel
+        </button>
+    </div>
+</form>

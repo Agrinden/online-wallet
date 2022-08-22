@@ -2,7 +2,6 @@ import { Subject, takeUntil } from 'rxjs';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { CurrencyInterface } from '@app/shared/interfaces/currency.interface';
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
 import { isWalletDefaultMessage } from '@core';
 import { WalletNameExistsValidator } from '@app/shared/helpers/wallet-name.validator';
@@ -18,9 +17,9 @@ export class CreateWalletFormComponent implements OnInit, OnDestroy, AfterViewIn
     public nameErrorMessage!: string;
 
     constructor(
-        private formBuilder: FormBuilder,
-        private dialogService: DialogService,
-        private walletValidator: WalletNameExistsValidator
+        protected formBuilder: FormBuilder,
+        protected dialogService: DialogService,
+        protected walletValidator: WalletNameExistsValidator
     ) {}
 
     ngOnInit(): void {
@@ -59,8 +58,8 @@ export class CreateWalletFormComponent implements OnInit, OnDestroy, AfterViewIn
         return this.name?.hasError('maxlength') ? 'Name must contain at most 30 characters' : '';
     }
 
-    public onCurrencyChange(event: CurrencyInterface): void {
-        this.form.get('currency')?.setValue(event.name);
+    public onCurrencyChange(currency: string): void {
+        this.form.get('currency')?.setValue(currency);
     }
 
     public onCancel(): void {

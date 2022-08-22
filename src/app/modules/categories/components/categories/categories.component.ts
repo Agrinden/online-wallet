@@ -1,14 +1,17 @@
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
 import { Component } from '@angular/core';
-import { CategoryInterface } from '@app/shared';
-import { Observable, Subject, takeUntil, filter } from 'rxjs';
+import { CategoryInterface, CategoryTemplateInterface } from '@app/shared';
+import { Observable, Subject, takeUntil, filter, map } from 'rxjs';
 import { DialogDataInterface } from '@app/shared/interfaces/dialog-data.interface';
 import { AddCategoryComponent } from '@app/shared/add-category/components/add-category.component';
 import {
     CategoryService,
     deleteCategoryMessage,
     deleteCategorySuccessMessage,
+    deleteSubcategoryMessage,
+    deleteSubcategorySuccessMessage,
     EditCategorySuccessMessage,
+    EditSubcategorySuccessMessage,
     SnackbarService,
 } from '@app/core';
 import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
@@ -22,22 +25,22 @@ import { ColorSchemeEnum } from '@app/shared/enums/color-scheme.enum';
 export class CategoriesComponent {
     private destroy$: Subject<boolean> = new Subject<boolean>();
     public categories$: Observable<CategoryInterface[]> = this.categoryService.get();
-    public income = TransactionTypeEnum.INCOME;
-    public expense = TransactionTypeEnum.EXPENSE;
+    public type = TransactionTypeEnum;
+
     constructor(
         private dialogService: DialogService,
         private categoryService: CategoryService,
         private snackbarService: SnackbarService
     ) {}
 
-    public createCategory(type: TransactionTypeEnum) {
+    public createCategory(type: TransactionTypeEnum, parentId?: string, parentColor?: string): void {
         const options: DialogDataInterface = {
-            title: 'Add Category',
+            title: parentId ? 'Add Expense Subcategory' : 'Add Category',
             content: AddCategoryComponent,
             width: '400px',
             disableClose: true,
             data: {
-                defaultColor: this.setDefaultColor(type),
+                defaultColor: parentId ? parentColor : this.setDefaultColor(type),
             },
         };
 
@@ -49,19 +52,15 @@ export class CategoriesComponent {
                 takeUntil(this.destroy$),
                 filter((res) => !!res)
             )
-            .subscribe((category) => {
-                if (!category.colorScheme) {
-                    category.colorScheme = this.setDefaultColor(type);
-                }
-                const newCategory = { ...category, transactionType: type };
-                this.categoryService.create(newCategory);
+            .subscribe((category: CategoryTemplateInterface) => {
+                this.categoryService.create(category, type, parentId);
             });
     }
 
-    public deleteCategory(id: string, event: Event): void {
+    public deleteCategory(id: string, event: Event, parentId?: string): void {
         event.stopPropagation();
         const options = {
-            title: deleteCategoryMessage,
+            title: parentId ? deleteSubcategoryMessage : deleteCategoryMessage,
             cancelText: 'NO',
             confirmText: 'YES',
             width: '700px',
@@ -76,15 +75,17 @@ export class CategoriesComponent {
                 filter((res) => !!res)
             )
             .subscribe(() => {
-                this.categoryService.delete(id);
-                this.snackbarService.openSuccess(deleteCategorySuccessMessage);
+                this.categoryService.delete(id, parentId);
+                this.snackbarService.openSuccess(
+                    parentId ? deleteSubcategorySuccessMessage : deleteCategorySuccessMessage
+                );
             });
     }
 
-    public editCategory(category: CategoryInterface, event: Event): void {
+    public editCategory(category: CategoryInterface, event: Event, parentId?: string): void {
         event.stopPropagation();
         const options: DialogDataInterface = {
-            title: 'Edit Category',
+            title: parentId ? 'Edit Expense Subcategory' : 'Edit Category',
             content: AddCategoryComponent,
             width: '400px',
             disableClose: true,
@@ -101,13 +102,13 @@ export class CategoriesComponent {
             )
             .subscribe((res) => {
                 const editedCategory = { ...category, ...res };
-                this.categoryService.edit(editedCategory);
-                this.snackbarService.openSuccess(EditCategorySuccessMessage);
+                this.categoryService.edit(editedCategory, parentId);
+                this.snackbarService.openSuccess(parentId ? EditSubcategorySuccessMessage : EditCategorySuccessMessage);
             });
     }
 
     private setDefaultColor(type: string): string {
-        return type === this.income ? ColorSchemeEnum.GREEN : ColorSchemeEnum.RED;
+        return type === TransactionTypeEnum.INCOME ? ColorSchemeEnum.GREEN : ColorSchemeEnum.RED;
     }
 
     ngOnDestroy(): void {

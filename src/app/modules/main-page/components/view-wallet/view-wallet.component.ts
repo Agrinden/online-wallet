@@ -1,15 +1,16 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { filter, Subject, switchMap, takeUntil } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { filter, Subject, switchMap, takeUntil, tap } from 'rxjs';
 
-import { deleteDefaultWalletMessage, deleteWalletMessage, RouteUrls, WalletService } from '@core';
+import { deleteDefaultWalletMessage, deleteWalletMessage, RouteUrls, SnackbarService, WalletService } from '@core';
 import { TransactionInterface } from '@shared/interfaces/transaction.interface';
 import { Wallet } from '@shared/models/wallet';
 import { WalletInterface } from '@app/shared';
 import { WalletTransactionsService } from '@core/services/wallet-transactions/wallet-transactions.service';
 import { DialogService } from '@shared/dialog/services/dialog.service';
+import { DialogDataInterface } from '@shared/interfaces/dialog-data.interface';
+import { EditWalletFormComponent } from '@modules/main-page/components/edit-wallet-form/edit-wallet-form.component';
 
 interface Column {
     dataField: keyof Pick<TransactionInterface, 'category' | 'amount' | 'date'>;
@@ -46,7 +47,9 @@ export class ViewWalletComponent implements OnInit, OnDestroy {
         private readonly walletService: WalletService,
         private readonly walletTransactionsService: WalletTransactionsService,
         private readonly router: Router,
-        private readonly dialogService: DialogService
+        private readonly dialogService: DialogService,
+        private readonly changeDetectorRef: ChangeDetectorRef,
+        private readonly snackbarService: SnackbarService
     ) {}
 
     public ngOnInit(): void {
@@ -93,15 +96,45 @@ export class ViewWalletComponent implements OnInit, OnDestroy {
             });
     }
 
+    public editWallet(): void {
+        const options: DialogDataInterface<Wallet> = {
+            title: 'Edit wallet',
+            content: EditWalletFormComponent,
+            contentData: this.wallet,
+            width: '500px',
+            disableClose: true,
+        };
+
+        const dialog = this.dialogService.open(options);
+
+        this.dialogService
+            .confirmed(dialog)
+            .pipe(
+                filter((wallet) => !!wallet),
+                switchMap((wallet) => {
+                    return this.walletService.edit(this.wallet.id, wallet);
+                }),
+                takeUntil(this.destroy$)
+            )
+            .subscribe(({ name, isDefault, currency }) => {
+                const message = 'Your data is successfully updated';
+
+                this.wallet.update({ name, isDefault, currency });
+                this.snackbarService.openSuccess(message);
+                this.changeDetectorRef.markForCheck();
+            });
+    }
+
     private initializeWallet(): void {
         this.walletService
             .getWallet(this.route.snapshot.params['id'])
             .pipe(
                 filter((wallet): wallet is WalletInterface => wallet !== null),
-                take(1)
+                takeUntil(this.destroy$)
             )
             .subscribe(({ id, name, isDefault, currency, balance }) => {
                 this.wallet = new Wallet(id, name, isDefault, currency, balance, this.walletTransactionsService);
+                this.changeDetectorRef.markForCheck();
             });
     }
 }

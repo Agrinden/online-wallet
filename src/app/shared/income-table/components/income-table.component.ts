@@ -1,15 +1,13 @@
-import { TransactionTypeEnum } from './../../enums/transaction-type.enum';
-import { TransactionDialogComponent } from './../../../modules/main-page/components/transaction-dialog/transaction-dialog.component';
-import { Subject, takeUntil } from 'rxjs';
-import { IncomeFormComponent, TransactionInterface } from '@app/shared';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { IncomeDataInterface } from '@app/shared';
-import { IncomeDataService } from '@app/core';
-import { AfterViewInit, Component, ViewChild, OnInit, OnDestroy, Input } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { IncomeDataInterface, IncomeFormComponent, TransactionInterface } from '@app/shared';
+import * as moment from 'moment';
+import { Subject, takeUntil } from 'rxjs';
 import { TransactionDeleteService } from '../../../core/services/income-delete/transaction-delete';
-import { IncomeTableInterface } from '@app/shared/interfaces/income-table.interface';
+import { TransactionDialogComponent } from './../../../modules/main-page/components/transaction-dialog/transaction-dialog.component';
+import { TransactionTypeEnum } from './../../enums/transaction-type.enum';
 
 @Component({
     selector: 'income-table',
@@ -26,11 +24,7 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
     public isExpenses!: boolean;
     private destroy: Subject<void> = new Subject();
 
-    constructor(
-        private incomeDataService: IncomeDataService,
-        public dialog: MatDialog,
-        public deleteIncomeService: TransactionDeleteService
-    ) {}
+    constructor(public dialog: MatDialog, public deleteIncomeService: TransactionDeleteService) {}
 
     ngOnInit() {
         this.initializeTable(this.tableData);
@@ -38,6 +32,20 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
     }
 
     ngAfterViewInit() {
+        this.dataSource.sortingDataAccessor = (item, property) => {
+            switch (property) {
+                case 'date':
+                    const date = moment(item.date, 'DD/MM/YYYY');
+                    return date.unix();
+                default:
+                    if ('payer' in item) {
+                        const transactionProp = property as keyof TransactionInterface;
+                        return +item[transactionProp] || item[transactionProp].toString();
+                    }
+                    const incomeProp = property as keyof IncomeDataInterface;
+                    return +item[incomeProp] || item[incomeProp].toString();
+            }
+        };
         this.dataSource.sort = this.sort;
     }
 
@@ -45,21 +53,12 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
         this.dataSource = new MatTableDataSource(tableData);
         this.displayedColumns = ['date', 'category', 'amount', 'walletId', 'note', 'actions'];
         if (this.tableType === TransactionTypeEnum.EXPENSE) {
-            this.displayedColumns = [
-                'date',
-                'category',
-                'subcategory',
-                'amount',
-                'walletId',
-                'payer',
-                'note',
-                'actions',
-            ];
+            this.displayedColumns = ['date', 'category', 'amount', 'walletId', 'payer', 'note', 'actions'];
         }
     }
 
     public editData(rowData: IncomeDataInterface | TransactionInterface): void {
-        if ('payer' in rowData) {
+        if (rowData.type === TransactionTypeEnum.EXPENSE) {
             const dialogRef = this.dialog.open(TransactionDialogComponent, {
                 data: { ...rowData, isEditForm: true, itemId: rowData.id, itemType: TransactionTypeEnum.EXPENSE },
             });

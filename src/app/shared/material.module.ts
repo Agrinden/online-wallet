@@ -22,6 +22,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     declarations: [],
@@ -57,6 +58,7 @@ import { MatCardModule } from '@angular/material/card';
         MatProgressSpinnerModule,
         MatExpansionModule,
         MatCardModule,
+        MatTooltipModule,
     ],
     providers: [
         {
