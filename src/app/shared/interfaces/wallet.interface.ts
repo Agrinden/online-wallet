@@ -1,5 +1,5 @@
 export interface WalletInterface {
-    id: string;
+    id: number;
     name: string;
     isDefault: boolean;
     currency: string;

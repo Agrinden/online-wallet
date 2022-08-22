@@ -5,7 +5,7 @@
       <mat-form-field class="data-field" appearance="fill">
         <mat-label>Choose your wallet</mat-label>
         <mat-select formControlName="wallet">
-          <mat-option *ngFor="let item of wallets$ | async" [value]="item.currency">
+          <mat-option *ngFor="let item of wallets" [value]="item.id">
             {{ item.name }}
           </mat-option>
         </mat-select>
@@ -18,7 +18,7 @@
         <mat-label aria-required="true">Amount</mat-label>
         <input formControlName="amount" #toClear matInput type="text"
           (focus)="dataForm.controls.amount.value || (toClear.value = '')" />
-        <span matSuffix class="currency-icon">{{ currency | currencyIcon }}</span>
+        <span matSuffix class="currency-icon">{{ currency | currencyIcon: wallets }}</span>
 
       </mat-form-field>
       <div class="errors" *ngIf="dataForm.controls.amount.errors">
@@ -66,7 +66,7 @@
       <mat-form-field class="data-field" appearance="fill">
         <mat-label>Please choose payer</mat-label>
         <mat-select formControlName="payer">
-          <mat-option *ngFor="let payer of payers$ | async" [value]="payer">
+          <mat-option *ngFor="let payer of payers$ | async" [value]="payer.name">
             {{ payer.name }}
           </mat-option>
         </mat-select>
@@ -106,8 +106,8 @@
   </div>
 
   <mat-dialog-actions class="down-button">
-    <button mat-button [mat-dialog-close]="dataForm.value" [disabled]="dataForm.invalid" (click)="onFormSubmit()">
-      Submit
+    <button mat-button [mat-dialog-close]="dataForm.value" [disabled]="dataForm.invalid" (click)="addExpense()">
+      Add
     </button>
     <button mat-button (click)="onFormClose()">Cancel</button>
   </mat-dialog-actions>

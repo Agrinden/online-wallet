@@ -31,37 +31,6 @@ export const payers$ = of([
     },
 ]);
 
-export const WALLETS: Observable<WalletInterface[]> = of([
-    {
-        id: '1',
-        name: 'Wallet1',
-        isDefault: true,
-        currency: 'USD',
-        balance: 0,
-    },
-    {
-        id: '2',
-        name: 'Wallet55',
-        isDefault: false,
-        currency: 'EUR',
-        balance: 0,
-    },
-    {
-        id: '3',
-        name: 'My wallet',
-        isDefault: false,
-        currency: 'GEL',
-        balance: 0,
-    },
-    {
-        id: '4',
-        name: 'New test wallet',
-        isDefault: false,
-        currency: 'PLN',
-        balance: 0,
-    },
-]);
-
 export const CURRENCIES: string[] = ['EUR', 'USD', 'GEL', 'PLN'];
 
 export const CATEGORIES: CategoryInterface[] = [
@@ -158,37 +127,6 @@ export const CATEGORIES: CategoryInterface[] = [
         name: 'Other',
         transactionType: TransactionTypeEnum.INCOME,
         colorScheme: '#eca427',
-    },
-];
-
-export const mockWallets: WalletInterface[] = [
-    {
-        id: '1',
-        name: 'My default wallet',
-        balance: 5000,
-        currency: 'USD',
-        isDefault: true,
-    },
-    {
-        id: '2',
-        name: 'My wallet 2',
-        balance: 8000,
-        currency: 'EUR',
-        isDefault: false,
-    },
-    {
-        id: '3',
-        name: 'My wallet 3',
-        balance: 500,
-        currency: 'USD',
-        isDefault: false,
-    },
-    {
-        id: '4',
-        name: 'My wallet 4',
-        balance: 7200,
-        currency: 'PLN',
-        isDefault: false,
     },
 ];
 

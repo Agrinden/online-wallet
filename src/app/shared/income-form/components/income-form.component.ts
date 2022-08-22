@@ -1,4 +1,5 @@
-import { WalletInterface, TransactionInterface } from '@app/shared';
+import { TransactionDTOInterface } from './../../interfaces/transaction.interface';
+import { WalletInterface, TransactionInterface, IncomeDataInterface, CategoryInterface } from '@app/shared';
 import { CategoryService, WalletService } from '@core';
 import { ConfirmationDialogChoise } from './../../enums/dialog-enums';
 import { closeWarning } from './../../../core/services/user-delete/user-delete-constants';
@@ -9,7 +10,6 @@ import { filter } from 'rxjs/operators';
 import { AddCategoryComponent } from '@app/shared';
 import { MatDialog } from '@angular/material/dialog';
 import { IncomeFormInterface } from '@app/shared';
-import { IncomeWalletInterface } from '@app/shared';
 import { Observable, takeUntil, Subject } from 'rxjs';
 import { Component, Inject, OnInit } from '@angular/core';
 
@@ -17,7 +17,6 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 
 import * as moment from 'moment';
-import { CategoryInterface } from '@app/shared';
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
 import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
 import { DialogDataInterface } from '@app/shared/interfaces/dialog-data.interface';
@@ -34,8 +33,7 @@ export class IncomeFormComponent implements OnInit {
     public income = TransactionTypeEnum.INCOME;
     private defaultColor = ColorSchemeEnum.GREEN;
 
-    //TODO: load wallets from BE
-    public wallets$!: Observable<WalletInterface[]>;
+    public wallets: WalletInterface[] = [];
     public categories$!: Observable<CategoryInterface[]>;
     private destroy$ = new Subject();
 
@@ -52,7 +50,7 @@ export class IncomeFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.incomeForm = this.getInitializedForm(this.data);
-        this.wallets$ = this.walletService.getWalletList();
+        this.walletService.getWallets().subscribe((wallets) => (this.wallets = wallets));
         this.categories$ = this.incomeDataService.getIncomeCategories();
     }
 
@@ -71,7 +69,7 @@ export class IncomeFormComponent implements OnInit {
     private getInitializedForm(formData: TransactionInterface): FormGroup<IncomeFormInterface> {
         const date = formData?.date ? moment(formData.date, 'DD/MM/YYYY') : moment();
         const form = this.formBuilder.group<IncomeFormInterface>({
-            wallet: new FormControl<string>(formData?.walletId, Validators.required),
+            walletId: new FormControl<number>(+formData?.walletId | 0, Validators.required),
             amount: new FormControl<number>(+formData?.amount | 0, [
                 Validators.required,
                 Validators.pattern(/^(?!0+[1-9])(?:\d+|\d(?:\d)+)(?:[.]\d+)?$/),
@@ -126,8 +124,30 @@ export class IncomeFormComponent implements OnInit {
             });
     }
 
-    public get currency(): string {
-        return this.incomeForm.get('wallet')?.value || '';
+    public get currency(): any {
+        return this.incomeForm.get('walletId')?.value;
+    }
+
+    public addIncome(): void {
+        if (this.incomeForm && this.incomeForm.valid) {
+            const incomeFormData = this.incomeForm.value as IncomeDataInterface;
+            const incomeData: TransactionDTOInterface = {
+                amount: String(incomeFormData.amount),
+                category: {
+                    id: +incomeFormData.category.id,
+                    categoryType: TransactionTypeEnum.INCOME,
+                    color: '',
+                    name: '',
+                },
+                date: incomeFormData.date.format('YYYY-MM-DD'),
+                notes: incomeFormData.note,
+                payer: '',
+                subcategory: '',
+                transactionType: TransactionTypeEnum.INCOME,
+                walletId: incomeFormData.walletId,
+            };
+            this.incomeDataService.add(incomeData).subscribe();
+        }
     }
 
     ngOnDestroy(): void {

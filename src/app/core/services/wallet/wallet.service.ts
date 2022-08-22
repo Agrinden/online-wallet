@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { CoreModule } from '@core/core.module';
-import { WALLETS } from '@app/mocks';
-import { WalletInterface, IncomeWalletInterface, CreateWalletInterface } from '@app/shared';
+import { WalletInterface, CreateWalletInterface } from '@app/shared';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -17,11 +16,7 @@ export class WalletService {
         return this.http.post<WalletInterface>(`${environment.apiUrl}/wallets`, wallet);
     }
 
-    public getWalletList(): Observable<WalletInterface[]> {
-        return WALLETS;
-    }
-
-    public getWallet(id: string): Observable<WalletInterface | null> {
+    public getWallet(id: number): Observable<WalletInterface | null> {
         return this.http.get<WalletInterface>(`${environment.apiUrl}/wallets/${id}`);
     }
 
@@ -29,11 +24,11 @@ export class WalletService {
         return this.http.get<WalletInterface[]>(`${environment.apiUrl}/wallets`);
     }
 
-    public delete(id: string): Observable<null> {
+    public delete(id: number): Observable<null> {
         return this.http.delete<null>(`${environment.apiUrl}/wallets/${id}`);
     }
 
-    public edit(id: string, wallet: CreateWalletInterface): Observable<WalletInterface> {
+    public edit(id: number, wallet: CreateWalletInterface): Observable<WalletInterface> {
         return this.http.put<WalletInterface>(`${environment.apiUrl}/wallets/${id}`, wallet);
     }
 }
