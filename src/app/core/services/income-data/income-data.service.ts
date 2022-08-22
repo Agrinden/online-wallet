@@ -1,8 +1,6 @@
 import { TransactionInterface } from '@app/shared';
 import { EXPENSE_DATA } from './../../../mocks/expense-table';
 import { INCOME_DATA } from './../../../mocks/table';
-import { IncomeDataInterface } from '@app/shared';
-
 import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
@@ -15,7 +13,7 @@ export class IncomeDataService {
         return of(CATEGORIES);
     }
 
-    public getIncomeData(): Observable<IncomeDataInterface[]> {
+    public getIncomeData(): Observable<TransactionInterface[]> {
         return of(INCOME_DATA);
     }
 

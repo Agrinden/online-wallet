@@ -1,4 +1,4 @@
-import { IncomeDataInterface } from '@app/shared';
+import { WalletInterface, TransactionInterface } from '@app/shared';
 import { CategoryService, WalletService } from '@core';
 import { ConfirmationDialogChoise } from './../../enums/dialog-enums';
 import { closeWarning } from './../../../core/services/user-delete/user-delete-constants';
@@ -35,7 +35,7 @@ export class IncomeFormComponent implements OnInit {
     private defaultColor = ColorSchemeEnum.GREEN;
 
     //TODO: load wallets from BE
-    public wallets$!: Observable<IncomeWalletInterface[]>;
+    public wallets$!: Observable<WalletInterface[]>;
     public categories$!: Observable<CategoryInterface[]>;
     private destroy$ = new Subject();
 
@@ -43,7 +43,7 @@ export class IncomeFormComponent implements OnInit {
         private formBuilder: FormBuilder,
         private incomeDataService: IncomeDataService,
         private walletService: WalletService,
-        @Inject(MAT_DIALOG_DATA) public data: IncomeDataInterface,
+        @Inject(MAT_DIALOG_DATA) public data: TransactionInterface,
         private dialog: MatDialog,
         private warnDialogService: WarningDialogService,
         private dialogService: DialogService,
@@ -57,7 +57,7 @@ export class IncomeFormComponent implements OnInit {
     }
 
     public isValidField(controlName: keyof IncomeFormInterface): boolean {
-        return !this.incomeForm.controls[controlName].hasError('pattern');
+        return this.incomeForm.controls[controlName].hasError('pattern');
     }
 
     public isControlTouched(controlName: keyof IncomeFormInterface): boolean {
@@ -68,11 +68,11 @@ export class IncomeFormComponent implements OnInit {
         return this.incomeForm.touched && this.incomeForm.invalid;
     }
 
-    private getInitializedForm(formData: IncomeDataInterface): FormGroup<IncomeFormInterface> {
+    private getInitializedForm(formData: TransactionInterface): FormGroup<IncomeFormInterface> {
         const date = formData?.date ? moment(formData.date, 'DD/MM/YYYY') : moment();
         const form = this.formBuilder.group<IncomeFormInterface>({
             wallet: new FormControl<string>(formData?.walletId, Validators.required),
-            amount: new FormControl<number>(+formData?.amount || 0.01, [
+            amount: new FormControl<number>(+formData?.amount | 0, [
                 Validators.required,
                 Validators.pattern(/^(?!0+[1-9])(?:\d+|\d(?:\d)+)(?:[.]\d+)?$/),
                 Validators.min(0.01),
@@ -125,6 +125,11 @@ export class IncomeFormComponent implements OnInit {
                 this.categoryService.create(category, type);
             });
     }
+
+    public get currency(): string {
+        return this.incomeForm.get('wallet')?.value || '';
+    }
+
     ngOnDestroy(): void {
         this.destroy$.next(true);
         this.destroy$.unsubscribe();

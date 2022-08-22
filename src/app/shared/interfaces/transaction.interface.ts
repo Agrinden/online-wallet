@@ -7,6 +7,7 @@ export interface TransactionInterface {
     type: string;
     walletId: string;
     amount: number;
+    currency: string;
     category: CategoryInterface;
     subcategory: CategoryInterface;
     payer: string;

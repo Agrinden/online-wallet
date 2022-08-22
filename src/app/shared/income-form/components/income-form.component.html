@@ -10,8 +10,8 @@
         <mat-form-field class="income-field" appearance="fill">
           <mat-label>Choose your wallet</mat-label>
           <mat-select formControlName="wallet">
-            <mat-option *ngFor="let item of wallets$ | async" [value]="item.value">
-              {{ item.viewValue }}
+            <mat-option *ngFor="let item of wallets$ | async" [value]="item.currency">
+              {{ item.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -22,6 +22,7 @@
           <mat-label aria-required="true">Amount</mat-label>
           <input formControlName="amount" matInput type="text" #toClear
             (focus)="incomeForm.controls.amount.value || (toClear.value = '')" />
+          <span matSuffix class="currency-icon">{{ currency | currencyIcon}}</span>
         </mat-form-field>
         <div class="errors" *ngIf="incomeForm.controls.amount.errors">
           <span class="error-message" *ngIf="isValidField('amount')">Input only numbers</span>

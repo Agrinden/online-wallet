@@ -17,7 +17,7 @@ export class WalletService {
         return this.http.post<WalletInterface>(`${environment.apiUrl}/wallets`, wallet);
     }
 
-    public getWalletList(): Observable<IncomeWalletInterface[]> {
+    public getWalletList(): Observable<WalletInterface[]> {
         return WALLETS;
     }
 

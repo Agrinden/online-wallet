@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { filter, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { filter, Subject, switchMap, takeUntil } from 'rxjs';
 
 import { deleteDefaultWalletMessage, deleteWalletMessage, RouteUrls, SnackbarService, WalletService } from '@core';
 import { TransactionInterface } from '@shared/interfaces/transaction.interface';
