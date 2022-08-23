@@ -1,8 +1,10 @@
+import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
 import { IncomeDataInterface } from '@app/shared';
 
 export const INCOME_DATA: IncomeDataInterface[] = [
     {
         id: 1,
+        type: TransactionTypeEnum.INCOME,
         date: '28/07/2022',
         category: 'Gift',
         amount: 1500,
@@ -11,6 +13,7 @@ export const INCOME_DATA: IncomeDataInterface[] = [
     },
     {
         id: 2,
+        type: TransactionTypeEnum.INCOME,
         date: '29/07/2022',
         category: 'Credit',
         amount: 2000,
@@ -19,6 +22,7 @@ export const INCOME_DATA: IncomeDataInterface[] = [
     },
     {
         id: 3,
+        type: TransactionTypeEnum.INCOME,
         date: '30/07/2022',
         category: 'Salary',
         amount: 4300,

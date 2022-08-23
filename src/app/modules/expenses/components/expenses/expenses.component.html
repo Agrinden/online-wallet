@@ -1,5 +1,8 @@
 <div class="expenses-container">
   <h2 class="expense-title">Your Expenses</h2>
   <button mat-button class="add-button" (click)="onAddTransactionClick()">+ Add expense</button>
-  <income-table [tableData]="expenses" [tableType]="tableTypes.EXPENSE"></income-table>
+  <div *ngIf="expenses.length; else noData">
+    <income-table [tableData]="expenses" [tableType]="tableTypes.EXPENSE"></income-table>
+  </div>
+  <ng-template #noData><span class="no-transactions">No expense transactions.</span> </ng-template>
 </div>

@@ -2,7 +2,7 @@ import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
 import { TransactionDialogComponent } from '@modules/main-page';
 import { MatDialog } from '@angular/material/dialog';
 import { EXPENSE_DATA } from './../../../../mocks/expense-table';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-expenses',
