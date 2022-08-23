@@ -45,8 +45,9 @@
         .recent-table {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
             padding: 0 15px;
+            width: 100%;
+
             .transaction-list-title {
                 font-size: 18px;
             }

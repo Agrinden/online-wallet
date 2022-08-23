@@ -34,4 +34,26 @@
         background-color: #424242;
         font-size: 20px;
     }
+
+    .expense-table {
+        display: flex;
+        flex-direction: column;
+        padding: 0 15px;
+        width: 100%;
+
+        .transaction-list-title {
+            font-size: 18px;
+        }
+        .no-transactions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            width: 1220px;
+            height: 40px;
+            border-radius: 5px;
+            background-color: #424242;
+            font-size: 20px;
+        }
+    }
 }
