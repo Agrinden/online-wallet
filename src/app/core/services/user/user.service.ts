@@ -9,8 +9,8 @@ import { CoreModule } from '@core/core.module';
 import { AccessTokenService, WarningDialogService } from '@core/services';
 import { environment } from '@env/environment';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { catchError, combineLatest, map, Observable, of, Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, catchError, combineLatest, map, Observable, of, Subject, Subscription, timer } from 'rxjs';
+import { filter, takeUntil, takeWhile, tap } from 'rxjs/operators';
 import { autoLogoutContent } from '../user-delete/user-delete-constants';
 
 @Injectable({
@@ -20,6 +20,10 @@ export class UserService {
     private destroy$ = new Subject();
 
     private isLogged = false;
+
+    public timerSubject$ = new BehaviorSubject<number>(0);
+
+    public timerValue$ = this.timerSubject$.asObservable();
 
     constructor(
         private http: HttpClient,
@@ -37,16 +41,20 @@ export class UserService {
         this.initInterval();
     }
 
+    private set timerValue(timerValue: number) {
+        this.timerSubject$.next(timerValue);
+    }
+
     public setAuthState() {
         this.isLoggedIn$.pipe(takeUntil(this.destroy$)).subscribe((value) => (this.isLogged = value));
     }
 
     public getLastAction(): string {
-        return localStorage.getItem('lastAction') || '';
+        return sessionStorage.getItem('lastAction') || '';
     }
 
     public setLastAction(value: any): void {
-        localStorage.setItem('lastAction', JSON.stringify(value));
+        sessionStorage.setItem('lastAction', JSON.stringify(value));
     }
 
     public initListener(): void {
@@ -59,7 +67,7 @@ export class UserService {
         this.ngZone.runOutsideAngular(() => {
             setInterval(() => {
                 this.checkIdle();
-            }, 10);
+            }, 1000);
         });
     }
 
@@ -69,29 +77,41 @@ export class UserService {
 
     public checkIdle(): void {
         const now = Date.now();
-        const timeLeft = parseInt(this.getLastAction()) + 3 * 60 * 10;
+        const timeLeft = parseInt(this.getLastAction()) + 4 * 60 * 20;
         const diff = timeLeft - now;
         const isTimeout = diff < 100;
 
         this.ngZone.run(() => {
             if (this.isLogged) {
-                console.log('log' + this.isLogged);
                 if (isTimeout) {
-                    console.log('time' + isTimeout);
-                    localStorage.removeItem('lastAction');
+                    sessionStorage.removeItem('lastAction');
 
                     this.warnDialogService
                         .open(autoLogoutContent)
-                        .pipe(
-                            filter((value) => value === ConfirmationDialogChoise.confirm),
-                            takeUntil(this.destroy$)
-                        )
-                        .subscribe(() => {
-                            this.dialog.closeAll();
-                            this.signOut();
+                        .pipe(takeUntil(this.destroy$))
+                        .subscribe((submittedValue) => {
+                            if (submittedValue) {
+                                this.resetIdle();
+                            } else {
+                                this.dialog.closeAll();
+                                this.signOut();
+                            }
                         });
                 }
             }
+        });
+    }
+
+    timer(counter: number, interval: number, func: () => void): Subscription {
+        let timeLast = counter;
+        const obs = timer(0, interval).pipe(
+            takeWhile(() => timeLast > 0),
+            tap(() => (timeLast -= 1))
+        );
+
+        return obs.pipe(takeUntil(this.destroy$)).subscribe(() => {
+            if (timeLast === 0) func();
+            return (this.timerValue = timeLast);
         });
     }
 

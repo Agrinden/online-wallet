@@ -15,5 +15,6 @@ export const logoutContent = {
 
 export const autoLogoutContent = {
     dialogHeading: 'Idle Auto Logout',
-    dialogContent: 'Your session is to expire due to long inactivity',
+    dialogContent: 'Your session is to expire due to long inactivity. Do you want to extend it?',
+    hasTimer: true,
 };
