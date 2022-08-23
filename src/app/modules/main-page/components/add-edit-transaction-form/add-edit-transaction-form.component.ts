@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoryService, payers$, WALLETS } from '@app/core';
-import { CategoryInterface, TransactionFormInterface, WalletInterface, TransactionInterface } from '@app/shared';
+import { CategoryInterface, TransactionFormInterface, TransactionInterface, WalletInterface } from '@app/shared';
 import { AddCategoryComponent } from '@app/shared/add-category/components/add-category.component';
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
 import { ColorSchemeEnum } from '@app/shared/enums/color-scheme.enum';

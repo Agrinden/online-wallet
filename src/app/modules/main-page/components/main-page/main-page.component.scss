@@ -19,6 +19,7 @@
                 height: 40px;
                 font-size: medium;
                 border: 1px solid black;
+
                 cursor: pointer;
             }
         }
@@ -37,6 +38,7 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                gap: 10px;
             }
             .list-of-wallets {
                 max-width: 600px;
