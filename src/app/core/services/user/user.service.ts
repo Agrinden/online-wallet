@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, NgZone } from '@angular/core';
+import { HostListener, Injectable, NgZone } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UserInterface } from '@app/shared';
-import { ConfirmationDialogChoise } from '@app/shared/enums/dialog-enums';
 import { RouteUrls } from '@core/constants';
 import { CoreModule } from '@core/core.module';
 import { AccessTokenService, WarningDialogService } from '@core/services';
@@ -19,7 +18,9 @@ import { autoLogoutContent } from '../user-delete/user-delete-constants';
 export class UserService {
     private destroy$ = new Subject();
 
-    private isLogged = false;
+    private isLogged!: boolean;
+
+    public idleInterval!: any;
 
     public timerSubject$ = new BehaviorSubject<number>(0);
 
@@ -27,17 +28,16 @@ export class UserService {
 
     constructor(
         private http: HttpClient,
-        private accessTokenService: AccessTokenService,
+
         private router: Router,
         private oidcSecurityService: OidcSecurityService,
         private ngZone: NgZone,
         private warnDialogService: WarningDialogService,
         private dialog: MatDialog
     ) {
-        this.setAuthState();
+        this.setAuthState(true);
         this.setLastAction(Date.now());
         this.checkIdle();
-        this.initListener();
         this.initInterval();
     }
 
@@ -45,8 +45,9 @@ export class UserService {
         this.timerSubject$.next(timerValue);
     }
 
-    public setAuthState() {
-        this.isLoggedIn$.pipe(takeUntil(this.destroy$)).subscribe((value) => (this.isLogged = value));
+    private setAuthState(value: boolean) {
+        this.isLogged = value;
+        // this.isLoggedIn$.pipe(takeUntil(this.destroy$)).subscribe((value) => (this.isLogged = value));
     }
 
     public getLastAction(): string {
@@ -57,18 +58,16 @@ export class UserService {
         sessionStorage.setItem('lastAction', JSON.stringify(value));
     }
 
-    public initListener(): void {
+    public initInterval() {
         this.ngZone.runOutsideAngular(() => {
-            document.body.addEventListener('click', () => this.resetIdle());
+            this.idleInterval = setInterval(() => {
+                this.checkIdle();
+            }, 60 * 1000);
         });
     }
 
-    public initInterval(): void {
-        this.ngZone.runOutsideAngular(() => {
-            setInterval(() => {
-                this.checkIdle();
-            }, 1000);
-        });
+    public clearIdleInterval() {
+        clearInterval(this.idleInterval);
     }
 
     public resetIdle(): void {
@@ -77,15 +76,14 @@ export class UserService {
 
     public checkIdle(): void {
         const now = Date.now();
-        const timeLeft = parseInt(this.getLastAction()) + 4 * 60 * 20;
+        const timeLeft = parseInt(this.getLastAction()) + 60 * 60 * 1000 - 6; // session 6sec for countdowntimer on dialog
         const diff = timeLeft - now;
-        const isTimeout = diff < 100;
+        const isTimeout = diff < 0;
 
         this.ngZone.run(() => {
             if (this.isLogged) {
                 if (isTimeout) {
                     sessionStorage.removeItem('lastAction');
-
                     this.warnDialogService
                         .open(autoLogoutContent)
                         .pipe(takeUntil(this.destroy$))
@@ -127,9 +125,10 @@ export class UserService {
     public signOut(): void {
         this.destroy$.next(null);
         this.destroy$.complete();
-        this.setAuthState();
+        this.clearIdleInterval();
 
-        this.accessTokenService.clear();
+        this.setAuthState(false);
+
         this.oidcSecurityService.logoff();
         this.router.navigate([RouteUrls.login]);
     }
