@@ -44,6 +44,7 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnDestroy() {
+        this.unsubscribeAll.next(null);
         this.unsubscribeAll.complete();
     }
 }
