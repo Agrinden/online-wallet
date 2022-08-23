@@ -10,7 +10,6 @@ export * from './interfaces/income-wallet.interface';
 export * from './loader/components/loader.component';
 export * from './interfaces/categories/category.interface';
 export * from './interfaces/categories/category-template.interface';
-export * from './interfaces/income-data.interface';
 export * from './interfaces/income-form.interface';
 export * from './add-category/components/add-category.component';
 export * from './income-form/components/income-form.component';

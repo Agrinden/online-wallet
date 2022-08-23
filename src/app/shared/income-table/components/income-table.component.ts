@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { IncomeDataInterface, IncomeFormComponent, TransactionInterface } from '@app/shared';
+import { IncomeFormComponent, TransactionInterface } from '@app/shared';
 import * as moment from 'moment';
 import { Subject, takeUntil } from 'rxjs';
 import { TransactionDeleteService } from '../../../core/services/income-delete/transaction-delete';
@@ -16,11 +16,11 @@ import { TransactionTypeEnum } from './../../enums/transaction-type.enum';
 })
 export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
     @Input() tableType = TransactionTypeEnum.INCOME;
-    @Input() tableData: IncomeDataInterface[] | TransactionInterface[] = [];
+    @Input() tableData: TransactionInterface[] = [];
     @ViewChild(MatSort) sort!: MatSort;
 
     public displayedColumns!: string[];
-    public dataSource!: MatTableDataSource<IncomeDataInterface | TransactionInterface>;
+    public dataSource!: MatTableDataSource<TransactionInterface>;
     public isExpenses!: boolean;
     private destroy: Subject<void> = new Subject();
 
@@ -42,14 +42,14 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
                         const transactionProp = property as keyof TransactionInterface;
                         return +item[transactionProp] || item[transactionProp].toString();
                     }
-                    const incomeProp = property as keyof IncomeDataInterface;
+                    const incomeProp = property as keyof TransactionInterface;
                     return +item[incomeProp] || item[incomeProp].toString();
             }
         };
         this.dataSource.sort = this.sort;
     }
 
-    private initializeTable(tableData: IncomeDataInterface[] | TransactionInterface[]): void {
+    private initializeTable(tableData: TransactionInterface[]): void {
         this.dataSource = new MatTableDataSource(tableData);
         this.displayedColumns = ['date', 'category', 'amount', 'walletId', 'note', 'actions'];
         if (this.tableType === TransactionTypeEnum.EXPENSE) {
@@ -57,7 +57,7 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
         }
     }
 
-    public editData(rowData: IncomeDataInterface | TransactionInterface): void {
+    public editData(rowData: TransactionInterface): void {
         if (rowData.type === TransactionTypeEnum.EXPENSE) {
             const dialogRef = this.dialog.open(TransactionDialogComponent, {
                 data: { ...rowData, isEditForm: true, itemId: rowData.id, itemType: TransactionTypeEnum.EXPENSE },
@@ -69,7 +69,7 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
         }
     }
 
-    public deleteIncome(rowData: IncomeDataInterface | TransactionInterface): void {
+    public deleteIncome(rowData: TransactionInterface): void {
         this.deleteIncomeService.handleOpenDialog(rowData, this.isExpenses);
     }
 

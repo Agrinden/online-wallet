@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoryService, payers$, WALLETS } from '@app/core';
-import { CategoryInterface, TransactionFormInterface, TransactionInterface } from '@app/shared';
+import { CategoryInterface, TransactionFormInterface, WalletInterface, TransactionInterface } from '@app/shared';
 import { AddCategoryComponent } from '@app/shared/add-category/components/add-category.component';
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
 import { ColorSchemeEnum } from '@app/shared/enums/color-scheme.enum';
@@ -32,7 +32,7 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
     private destroy$ = new Subject();
     public currentDate!: moment.Moment;
     public categories$: Observable<any> = this.transactionService.categories$;
-    public wallets$: Observable<any> = WALLETS;
+    public wallets$: Observable<WalletInterface[]> = WALLETS;
     public payers$: Observable<any> = payers$;
 
     constructor(
@@ -58,7 +58,7 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
     }
 
     public isValidField(controlName: keyof TransactionFormInterface): boolean {
-        return !this.dataForm.controls[controlName].hasError('pattern');
+        return this.dataForm.controls[controlName].hasError('pattern');
     }
 
     public isControlTouched(controlName: keyof TransactionFormInterface): boolean {
@@ -125,6 +125,10 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
 
     public onFormClose() {
         this.closeForm.emit();
+    }
+
+    public get currency(): string {
+        return this.dataForm.get('wallet')?.value || '';
     }
 
     private getInitializedForm(formData: TransactionInterface): FormGroup<TransactionFormInterface> {
