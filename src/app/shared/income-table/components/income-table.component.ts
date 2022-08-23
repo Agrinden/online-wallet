@@ -1,14 +1,13 @@
-import { TransactionTypeEnum } from './../../enums/transaction-type.enum';
-import { TransactionDialogComponent } from './../../../modules/main-page/components/transaction-dialog/transaction-dialog.component';
-import { Subject, takeUntil } from 'rxjs';
-import { IncomeFormComponent, TransactionInterface, IncomeDataInterface } from '@app/shared';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AfterViewInit, Component, ViewChild, OnInit, OnDestroy, Input } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { IncomeDeleteService } from '../../../core/services/income-delete/income-delete';
-import { IncomeTableInterface } from '@app/shared/interfaces/income-table.interface';
+import { MatTableDataSource } from '@angular/material/table';
+import { IncomeFormComponent, TransactionInterface } from '@app/shared';
 import * as moment from 'moment';
+import { Subject, takeUntil } from 'rxjs';
+import { IncomeDeleteService } from '../../../core/services/income-delete/income-delete';
+import { TransactionDialogComponent } from './../../../modules/main-page/components/transaction-dialog/transaction-dialog.component';
+import { TransactionTypeEnum } from './../../enums/transaction-type.enum';
 
 @Component({
     selector: 'income-table',
@@ -17,11 +16,11 @@ import * as moment from 'moment';
 })
 export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
     @Input() tableType = TransactionTypeEnum.INCOME;
-    @Input() tableData: IncomeDataInterface[] | TransactionInterface[] = [];
+    @Input() tableData: TransactionInterface[] = [];
     @ViewChild(MatSort) sort!: MatSort;
 
     public displayedColumns!: string[];
-    public dataSource!: MatTableDataSource<IncomeDataInterface | TransactionInterface>;
+    public dataSource!: MatTableDataSource<TransactionInterface>;
     public isExpenses!: boolean;
     private destroy: Subject<void> = new Subject();
 
@@ -41,16 +40,16 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
                 default:
                     if ('payer' in item) {
                         const transactionProp = property as keyof TransactionInterface;
-                        return item[transactionProp];
+                        return +item[transactionProp] || item[transactionProp].toString();
                     }
-                    const incomeProp = property as keyof IncomeDataInterface;
-                    return item[incomeProp];
+                    const incomeProp = property as keyof TransactionInterface;
+                    return +item[incomeProp] || item[incomeProp].toString();
             }
         };
         this.dataSource.sort = this.sort;
     }
 
-    private initializeTable(tableData: IncomeDataInterface[] | TransactionInterface[]): void {
+    private initializeTable(tableData: TransactionInterface[]): void {
         this.dataSource = new MatTableDataSource(tableData);
         this.displayedColumns = ['date', 'category', 'amount', 'walletId', 'note', 'actions'];
         if (this.tableType === TransactionTypeEnum.EXPENSE) {
@@ -58,7 +57,7 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
         }
     }
 
-    public editData(rowData: IncomeDataInterface | TransactionInterface): void {
+    public editData(rowData: TransactionInterface): void {
         if (rowData.type === TransactionTypeEnum.EXPENSE) {
             const dialogRef = this.dialog.open(TransactionDialogComponent, {
                 data: { ...rowData, isEditForm: true, itemId: rowData.id, itemType: TransactionTypeEnum.EXPENSE },
@@ -70,7 +69,7 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
         }
     }
 
-    public deleteIncome(rowData: IncomeDataInterface | TransactionInterface): void {
+    public deleteIncome(rowData: TransactionInterface): void {
         this.deleteIncomeService.handleOpenDialog(rowData);
     }
 

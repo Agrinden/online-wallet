@@ -10,8 +10,8 @@ export const mockNotifications = [
     {
         name: 'User1',
         desc: [
-            { text: 'Bla-bla-bla ', date: new Date() },
-            { text: 'La-la-la ', date: new Date() },
+            { text: 'Message1', date: new Date() },
+            { text: 'Message2', date: new Date() },
         ],
     },
 ];
@@ -31,14 +31,34 @@ export const payers$ = of([
     },
 ]);
 
-export const WALLETS: Observable<IncomeWalletInterface[]> = of([
+export const WALLETS: Observable<WalletInterface[]> = of([
     {
-        value: '1',
-        viewValue: 'Wallet 1',
+        id: '1',
+        name: 'Wallet1',
+        isDefault: true,
+        currency: 'USD',
+        balance: 0,
     },
     {
-        value: '2',
-        viewValue: 'Wallet 2',
+        id: '2',
+        name: 'Wallet55',
+        isDefault: false,
+        currency: 'EUR',
+        balance: 0,
+    },
+    {
+        id: '3',
+        name: 'My wallet',
+        isDefault: false,
+        currency: 'GEL',
+        balance: 0,
+    },
+    {
+        id: '4',
+        name: 'New test wallet',
+        isDefault: false,
+        currency: 'PLN',
+        balance: 0,
     },
 ]);
 
@@ -54,22 +74,21 @@ export const CATEGORIES: CategoryInterface[] = [
             {
                 id: '1',
                 name: 'Groceries',
-                colorScheme: '#ff0000',
-                categoryId: '1',
+                colorScheme: '#fffc00',
+                parentId: '1',
                 transactionType: TransactionTypeEnum.EXPENSE,
             },
             {
                 id: '2',
                 name: 'Restaurants',
-                colorScheme: '#ff0000',
-                categoryId: '1',
+                colorScheme: '#f5c242',
+                parentId: '1',
                 transactionType: TransactionTypeEnum.EXPENSE,
             },
         ],
     },
     {
         id: '2',
-
         name: 'Transport',
         colorScheme: '#0400ff',
         transactionType: TransactionTypeEnum.EXPENSE,
@@ -77,15 +96,15 @@ export const CATEGORIES: CategoryInterface[] = [
             {
                 id: '1',
                 name: 'Taxi',
-                colorScheme: '#ff0000',
-                categoryId: '2',
+                colorScheme: '#42daf5',
+                parentId: '2',
                 transactionType: TransactionTypeEnum.EXPENSE,
             },
             {
                 id: '2',
                 name: 'Bus',
-                colorScheme: '#ff0000',
-                categoryId: '2',
+                colorScheme: '#8f77bf',
+                parentId: '2',
                 transactionType: TransactionTypeEnum.EXPENSE,
             },
         ],
@@ -99,15 +118,15 @@ export const CATEGORIES: CategoryInterface[] = [
             {
                 id: '1',
                 name: 'Movies',
-                colorScheme: '#ff0000',
-                categoryId: '3',
+                colorScheme: '#42daf5',
+                parentId: '3',
                 transactionType: TransactionTypeEnum.EXPENSE,
             },
             {
                 id: '2',
                 name: 'TV',
-                colorScheme: '#ff0000',
-                categoryId: '3',
+                colorScheme: '#12e034',
+                parentId: '3',
                 transactionType: TransactionTypeEnum.EXPENSE,
             },
         ],
@@ -121,15 +140,15 @@ export const CATEGORIES: CategoryInterface[] = [
             {
                 id: '1',
                 name: 'Clothes',
-                colorScheme: '#ff0000',
-                categoryId: '4',
+                colorScheme: '#12e034',
+                parentId: '4',
                 transactionType: TransactionTypeEnum.EXPENSE,
             },
             {
                 id: '2',
                 name: 'Shoes',
-                colorScheme: '#ff0000',
-                categoryId: '4',
+                colorScheme: '#bf9577',
+                parentId: '4',
                 transactionType: TransactionTypeEnum.EXPENSE,
             },
         ],
@@ -146,29 +165,29 @@ export const mockWallets: WalletInterface[] = [
     {
         id: '1',
         name: 'My default wallet',
-        balance: 10000,
+        balance: 5000,
         currency: 'USD',
         isDefault: true,
     },
     {
         id: '2',
-        name: 'test',
-        balance: 10000,
-        currency: 'USD',
+        name: 'My wallet 2',
+        balance: 8000,
+        currency: 'EUR',
         isDefault: false,
     },
     {
         id: '3',
         name: 'My wallet 3',
-        balance: 10000,
+        balance: 500,
         currency: 'USD',
         isDefault: false,
     },
     {
         id: '4',
         name: 'My wallet 4',
-        balance: 10000,
-        currency: 'USD',
+        balance: 7200,
+        currency: 'PLN',
         isDefault: false,
     },
 ];
@@ -177,12 +196,13 @@ export const mockWalletTransactions: TransactionInterface[] = (() => {
     return new Array(20).fill(null).map((_, index) => {
         return {
             id: index,
-            category: 'Salary',
+            category: { id: '', transactionType: TransactionTypeEnum.INCOME, name: 'Salary' },
             amount: Math.round(Math.random() * 1000 - 500),
             date: `2022-07-${30 - index}T17:26:33.581Z`,
             walletId: '',
+            currency: '',
             type: '',
-            subcategory: '',
+            subcategory: { id: '', transactionType: TransactionTypeEnum.INCOME, name: 'Freelance' },
             payer: '',
             note: '',
         };
