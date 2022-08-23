@@ -8,7 +8,7 @@ interface ReportTableItemInterface {
     payer?: string;
     subTableTitle?: string;
 }
-interface Column {
+interface ColumnInterface {
     dataField: keyof ReportTableItemInterface;
     title: string;
 }
@@ -20,7 +20,7 @@ interface Column {
 })
 export class ReportTaleComponent implements OnChanges {
     @Input() report?: ReportInterface;
-    public readonly columns: Column[] = [
+    public readonly columns: ColumnInterface[] = [
         {
             title: '',
             dataField: 'category',
