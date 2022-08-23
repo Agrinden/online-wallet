@@ -14,17 +14,19 @@ export class WalletsStoreService {
         return this.walletsSubject$.value;
     }
 
-    public loadInitialData(): void {
-        this.walletService.getWallets().subscribe((wallets) => {
-            this.walletsSubject$.next(wallets);
-        });
+    public loadInitialData(): Observable<WalletInterface[]> {
+        return this.walletService.getWallets().pipe(
+            tap((wallets) => {
+                this.walletsSubject$.next(wallets);
+            })
+        );
     }
 
     public clear(): void {
         this.walletsSubject$.next([]);
     }
 
-    public addWallet(wallet: CreateWalletInterface): Observable<WalletInterface[]> {
+    public add(wallet: CreateWalletInterface): Observable<WalletInterface[]> {
         return this.walletService.createWallet(wallet).pipe(
             tap((id) => {
                 const newWallet: WalletInterface = {
@@ -41,7 +43,7 @@ export class WalletsStoreService {
         );
     }
 
-    public editWallet(wallet: WalletInterface): Observable<WalletInterface[]> {
+    public edit(wallet: WalletInterface): Observable<WalletInterface[]> {
         return this.walletService.edit(wallet.id, wallet).pipe(
             tap((editedWallet) => {
                 const wallets = this.wallets.map((w) => {
@@ -60,7 +62,7 @@ export class WalletsStoreService {
         );
     }
 
-    public deleteWallet(id: string): Observable<WalletInterface[]> {
+    public delete(id: string): Observable<WalletInterface[]> {
         return this.walletService.delete(id).pipe(
             tap(() => {
                 this.walletsSubject$.next(this.wallets.filter((wallet) => String(wallet.id) !== String(id)));
@@ -71,7 +73,7 @@ export class WalletsStoreService {
         );
     }
 
-    public getWallet(id: string): Observable<WalletInterface | null> {
+    public get(id: string): Observable<WalletInterface | null> {
         return this.wallets$.pipe(
             map((wallets) => {
                 return wallets.find((wallet) => String(wallet.id) === String(id)) ?? null;

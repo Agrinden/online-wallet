@@ -60,7 +60,7 @@ export class MainPageComponent implements OnDestroy {
                 filter((res) => !!res)
             )
             .subscribe((wallet) => {
-                this.walletStoreService.addWallet(wallet).pipe(takeUntil(this.destroy$)).subscribe();
+                this.walletStoreService.add(wallet).pipe(takeUntil(this.destroy$)).subscribe();
             });
     }
 

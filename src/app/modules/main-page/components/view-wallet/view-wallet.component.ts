@@ -96,7 +96,7 @@ export class ViewWalletComponent implements OnInit, OnDestroy {
             .confirmed(dialog)
             .pipe(
                 filter((isConfirmed) => isConfirmed),
-                switchMap(() => this.walletStoreService.deleteWallet(this.wallet.id)),
+                switchMap(() => this.walletStoreService.delete(this.wallet.id)),
                 takeUntil(this.destroy$)
             )
             .subscribe(() => {
@@ -121,7 +121,7 @@ export class ViewWalletComponent implements OnInit, OnDestroy {
                 filter((wallet) => !!wallet),
                 map((editedFields) => ({ id: this.wallet.id, balance: this.wallet.balance, ...editedFields })),
                 switchMap((wallet: WalletInterface) => {
-                    return this.walletStoreService.editWallet(wallet).pipe(map(() => wallet));
+                    return this.walletStoreService.edit(wallet).pipe(map(() => wallet));
                 }),
                 takeUntil(this.destroy$)
             )
@@ -134,7 +134,7 @@ export class ViewWalletComponent implements OnInit, OnDestroy {
 
     private initializeWallet$(): void {
         this.wallet$ = this.walletStoreService
-            .getWallet(this.route.snapshot.params['id'])
+            .get(this.route.snapshot.params['id'])
             .pipe(filter((wallet): wallet is WalletInterface => wallet !== null));
     }
 
