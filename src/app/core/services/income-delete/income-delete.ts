@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DialogComponent, IncomeDataInterface, TransactionInterface } from '@app/shared';
+import { DialogComponent, TransactionInterface } from '@app/shared';
 import { MatDialog } from '@angular/material/dialog';
 import { btnFocus, ConfirmationDialogChoise } from '@shared/enums/dialog-enums';
 import { dialogContent } from './income-delete-constants';
@@ -11,7 +11,7 @@ export class IncomeDeleteService {
 
     constructor(public dialog: MatDialog) {}
 
-    handleOpenDialog(incomeData: IncomeDataInterface | TransactionInterface) {
+    handleOpenDialog(incomeData: TransactionInterface) {
         const dialogRef = this.dialog.open(DialogComponent, {
             data: {
                 dialogHeading: this.dialogContent.dialogHeading,

@@ -5,6 +5,7 @@ import { TransactionInterface } from '@shared/interfaces/transaction.interface';
 
 import { Observable, of } from 'rxjs';
 import { WalletInterface } from '@shared/interfaces/wallet.interface';
+import { ReportInterface } from '@shared/interfaces/custom-report-interface';
 
 export const mockNotifications = [
     {
@@ -31,14 +32,34 @@ export const payers$ = of([
     },
 ]);
 
-export const WALLETS: Observable<IncomeWalletInterface[]> = of([
+export const WALLETS: Observable<WalletInterface[]> = of([
     {
-        value: '1',
-        viewValue: 'Wallet 1',
+        id: '1',
+        name: 'Wallet1',
+        isDefault: true,
+        currency: 'USD',
+        balance: 0,
     },
     {
-        value: '2',
-        viewValue: 'Wallet 2',
+        id: '2',
+        name: 'Wallet55',
+        isDefault: false,
+        currency: 'EUR',
+        balance: 0,
+    },
+    {
+        id: '3',
+        name: 'My wallet',
+        isDefault: false,
+        currency: 'GEL',
+        balance: 0,
+    },
+    {
+        id: '4',
+        name: 'New test wallet',
+        isDefault: false,
+        currency: 'PLN',
+        balance: 0,
     },
 ]);
 
@@ -180,6 +201,7 @@ export const mockWalletTransactions: TransactionInterface[] = (() => {
             amount: Math.round(Math.random() * 1000 - 500),
             date: `2022-07-${30 - index}T17:26:33.581Z`,
             walletId: '',
+            currency: '',
             type: '',
             subcategory: { id: '', transactionType: TransactionTypeEnum.INCOME, name: 'Freelance' },
             payer: '',
@@ -187,3 +209,15 @@ export const mockWalletTransactions: TransactionInterface[] = (() => {
         };
     });
 })();
+
+export const mockReport: ReportInterface = {
+    expense: [
+        { category: 'Food', amount: 150, payer: 'Me' },
+        { category: 'Food', amount: 350, payer: 'Joe' },
+        { category: 'Health', amount: 50, payer: 'Me' },
+    ],
+    income: [
+        { category: 'Salary', amount: 3500 },
+        { category: 'Gift', amount: 1100 },
+    ],
+};
