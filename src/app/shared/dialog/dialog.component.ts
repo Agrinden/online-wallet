@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UserService } from '@app/core/services/user/user.service';
+import { TimerService } from '@app/core/services/timer/timer.service';
 import { btnFocus, ConfirmationDialogChoise } from '@shared/enums/dialog-enums';
 import { DialogContentInputValuesInterface } from '@shared/interfaces/dialog.interface';
 
@@ -16,12 +16,12 @@ export class DialogComponent implements OnInit {
     public btnFocused!: btnFocus;
     public dialogEnum = ConfirmationDialogChoise;
     public hasTimer?: boolean;
-    public timer$ = this.userService.timerValue$;
+    public timer$ = this.timerService.timerValue$;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) private data: DialogContentInputValuesInterface,
         public dialogRef: MatDialogRef<DialogComponent>,
-        private userService: UserService
+        private timerService: TimerService
     ) {}
 
     ngOnInit() {
@@ -33,7 +33,7 @@ export class DialogComponent implements OnInit {
     }
 
     public closeOnTickerRunOut() {
-        this.userService.timer(6, 1000, () => {
+        this.timerService.timer(6, 1000, () => {
             this.dialogRef.close();
         });
     }
