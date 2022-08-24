@@ -28,7 +28,6 @@ export class UserService {
 
     constructor(
         private http: HttpClient,
-
         private router: Router,
         private oidcSecurityService: OidcSecurityService,
         private ngZone: NgZone,
@@ -76,26 +75,24 @@ export class UserService {
 
     public checkIdle(): void {
         const now = Date.now();
-        const timeLeft = parseInt(this.getLastAction()) + 60 * 60 * 1000 - 6; // session 6sec for countdowntimer on dialog
+        const timeLeft = parseInt(this.getLastAction()) + 60 * 60 * 1000 - 6000;
         const diff = timeLeft - now;
         const isTimeout = diff < 0;
 
         this.ngZone.run(() => {
-            if (this.isLogged) {
-                if (isTimeout) {
-                    sessionStorage.removeItem('lastAction');
-                    this.warnDialogService
-                        .open(autoLogoutContent)
-                        .pipe(takeUntil(this.destroy$))
-                        .subscribe((submittedValue) => {
-                            if (submittedValue) {
-                                this.resetIdle();
-                            } else {
-                                this.dialog.closeAll();
-                                this.signOut();
-                            }
-                        });
-                }
+            if (this.isLogged && isTimeout) {
+                sessionStorage.removeItem('lastAction');
+                this.warnDialogService
+                    .open(autoLogoutContent)
+                    .pipe(takeUntil(this.destroy$))
+                    .subscribe((submittedValue) => {
+                        if (submittedValue) {
+                            this.resetIdle();
+                        } else {
+                            this.dialog.closeAll();
+                            this.signOut();
+                        }
+                    });
             }
         });
     }

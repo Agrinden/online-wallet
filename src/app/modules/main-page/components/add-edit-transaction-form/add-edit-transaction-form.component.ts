@@ -144,7 +144,7 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
 
             category: new FormControl<CategoryInterface | null>(formData?.category, Validators.maxLength(100)),
             subcategory: new FormControl<CategoryInterface | null>(formData?.subcategory, Validators.maxLength(100)),
-            payer: new FormControl<string>(formData.payer, Validators.maxLength(64)),
+            payer: new FormControl<string>(formData?.payer, Validators.maxLength(64)),
             date: new FormControl<moment.Moment>(date, Validators.maxLength(10)),
             note: new FormControl<string>(formData.note, Validators.maxLength(400)),
         });
