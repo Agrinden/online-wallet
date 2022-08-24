@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
-import { UserService } from '@app/core';
-import { BehaviorSubject, Subscription, takeUntil, takeWhile, tap, timer } from 'rxjs';
+import { Subject, Subscription, takeWhile, tap, timer } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 export class TimerService {
-    public timerSubject$ = new BehaviorSubject<number>(0);
+    public timerSubject$ = new Subject<number>();
 
     public timerValue$ = this.timerSubject$.asObservable();
-
-    constructor(private userService: UserService) {}
 
     private set timerValue(timerValue: number) {
         this.timerSubject$.next(timerValue);
@@ -18,12 +15,12 @@ export class TimerService {
 
     timer(counter: number, interval: number, func: () => void): Subscription {
         let timeLast = counter;
-        const obs = timer(0, interval).pipe(
+        const obs = timer(counter, interval).pipe(
             takeWhile(() => timeLast > 0),
             tap(() => (timeLast -= 1))
         );
 
-        return obs.pipe(takeUntil(this.userService.unsubscribeOnSignout$)).subscribe(() => {
+        return obs.subscribe(() => {
             if (timeLast === 0) func();
             return (this.timerValue = timeLast);
         });
