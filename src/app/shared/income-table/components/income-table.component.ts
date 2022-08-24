@@ -61,10 +61,16 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
         if (rowData.type === TransactionTypeEnum.EXPENSE) {
             const dialogRef = this.dialog.open(TransactionDialogComponent, {
                 data: { ...rowData, isEditForm: true, itemId: rowData.id, itemType: TransactionTypeEnum.EXPENSE },
+                disableClose: true,
+                autoFocus: false,
             });
             dialogRef.afterClosed().pipe(takeUntil(this.destroy)).subscribe();
         } else {
-            const dialogRef = this.dialog.open(IncomeFormComponent, { data: rowData });
+            const dialogRef = this.dialog.open(IncomeFormComponent, {
+                data: rowData,
+                disableClose: true,
+                autoFocus: false,
+            });
             dialogRef.afterClosed().pipe(takeUntil(this.destroy)).subscribe();
         }
     }

@@ -1,10 +1,10 @@
 import { TransactionTypeEnum } from './../../../../shared/enums/transaction-type.enum';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateWalletFormComponent } from '@app/modules/main-page/components/create-wallet-form/create-wallet-form.component';
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
 import { DialogDataInterface } from '@app/shared/interfaces/dialog-data.interface';
-import { WalletsStoreService } from '@core';
+import { shouldCreateWallet, WalletsStoreService } from '@core';
 import { TransactionDialogComponent } from '@modules/main-page';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { RECENT_TRANSACTIONS_DATA } from '@app/mocks/recent-transactions';
@@ -27,12 +27,35 @@ export class MainPageComponent implements OnDestroy {
         private dialog: MatDialog
     ) {}
 
-    public onAddTransactionClick(itemType: TransactionTypeEnum): void {
-        this.dialog.open(TransactionDialogComponent, {
-            data: { isEditForm: false, itemType },
+    public openShouldCreateDialog(): void {
+        const options: DialogDataInterface = {
+            title: shouldCreateWallet,
+            confirmText: 'Ok',
+            width: '500px',
             disableClose: true,
-            autoFocus: false,
-        });
+        };
+
+        const dialog = this.dialogService.open(options);
+
+        this.dialogService
+            .confirmed(dialog)
+            .pipe(
+                takeUntil(this.destroy$),
+                filter((res) => !!res)
+            )
+            .subscribe();
+    }
+
+    public onAddTransactionClick(itemType: TransactionTypeEnum): void {
+        if (!this.walletStoreService.wallets.length) {
+            this.openShouldCreateDialog();
+        } else {
+            this.dialog.open(TransactionDialogComponent, {
+                data: { isEditForm: false, itemType },
+                disableClose: true,
+                autoFocus: false,
+            });
+        }
     }
 
     public onEditTransactionClick(itemType: TransactionTypeEnum, itemId: string): void {
