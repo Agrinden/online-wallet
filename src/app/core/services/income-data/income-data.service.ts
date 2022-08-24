@@ -42,4 +42,8 @@ export class IncomeDataService {
     public add(incomeData: TransactionDTOInterface): Observable<any> {
         return this.http.post(`${environment.apiUrl}/transactions`, incomeData);
     }
+
+    public edit(incomeData: TransactionDTOInterface, id: string): Observable<any> {
+        return this.http.put(`${environment.apiUrl}/transactions/${id}`, incomeData);
+    }
 }

@@ -1,5 +1,11 @@
 import { TransactionDTOInterface } from './../../interfaces/transaction.interface';
-import { WalletInterface, TransactionInterface, IncomeDataInterface, CategoryInterface } from '@app/shared';
+import {
+    WalletInterface,
+    TransactionInterface,
+    IncomeDataInterface,
+    CategoryInterface,
+    IncomeFormInterface,
+} from '@app/shared';
 import { CategoryService, WalletService } from '@core';
 import { ConfirmationDialogChoise } from './../../enums/dialog-enums';
 import { closeWarning } from './../../../core/services/user-delete/user-delete-constants';
@@ -9,7 +15,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
 import { AddCategoryComponent } from '@app/shared';
 import { MatDialog } from '@angular/material/dialog';
-import { IncomeFormInterface } from '@app/shared';
 import { Observable, takeUntil, Subject } from 'rxjs';
 import { Component, Inject, OnInit } from '@angular/core';
 
@@ -94,10 +99,27 @@ export class IncomeFormComponent implements OnInit {
                     filter((value) => value === ConfirmationDialogChoise.confirm),
                     takeUntil(this.destroy$)
                 )
-                .subscribe(() => this.dialog.closeAll());
-        } else {
-            this.dialog.closeAll();
+                .subscribe(() => {
+                    const incomeFormData = this.incomeForm.value as IncomeDataInterface;
+                    const incomeData: TransactionDTOInterface = {
+                        amount: String(incomeFormData.amount),
+                        category: {
+                            id: +incomeFormData.category.id,
+                            categoryType: TransactionTypeEnum.INCOME,
+                            color: '',
+                            name: '',
+                        },
+                        date: incomeFormData.date.format('YYYY-MM-DD'),
+                        notes: incomeFormData.note,
+                        payer: '',
+                        subcategory: '',
+                        transactionType: TransactionTypeEnum.INCOME,
+                        walletId: incomeFormData.walletId,
+                    };
+                    this.incomeDataService.edit(incomeData, String(incomeFormData.id)).subscribe();
+                });
         }
+        this.dialog.closeAll();
     }
 
     public createCategory(type: TransactionTypeEnum) {

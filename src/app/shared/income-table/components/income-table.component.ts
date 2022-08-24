@@ -34,7 +34,6 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
     ngOnInit() {
         this.initializeTable(this.tableData);
         this.isExpenses = this.tableType === TransactionTypeEnum.EXPENSE;
-        this.incomeDataService.get().subscribe((tableData) => console.log(tableData));
     }
 
     ngAfterViewInit() {
@@ -77,6 +76,10 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
 
     public deleteIncome(rowData: TransactionInterface): void {
         this.deleteIncomeService.handleOpenDialog(rowData);
+    }
+
+    public showMore() {
+        //Request transactions according to offset and limit
     }
 
     ngOnDestroy() {

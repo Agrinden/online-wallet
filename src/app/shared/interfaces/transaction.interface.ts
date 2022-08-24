@@ -20,7 +20,7 @@ export interface TransactionDTOInterface {
     amount: string;
     category: {
         id: number;
-        categoryType: TransactionTypeEnum;
+        categoryType: string;
         color: string;
         name: string;
     };
@@ -28,7 +28,7 @@ export interface TransactionDTOInterface {
     notes: string;
     payer: string;
     subcategory: string;
-    transactionType: TransactionTypeEnum;
+    transactionType: string;
     walletId: number;
 }
 
