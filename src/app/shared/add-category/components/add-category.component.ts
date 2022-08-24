@@ -1,7 +1,7 @@
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Component, OnInit, OnDestroy, Optional, Inject, AfterViewInit } from '@angular/core';
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
-import { cancelCategoryCreation, cancelCategoryEditing, CategoryService } from '@core';
+import { cancelCategoryCreation, cancelCategoryEditing, CategoryWrapperService } from '@core';
 import { Subject, takeUntil, filter } from 'rxjs';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CategoryNameValidator } from '@app/shared/helpers/category-name.validator';
@@ -22,7 +22,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy, AfterViewInit {
         private formBuilder: FormBuilder,
         private dialogService: DialogService,
         @Optional() @Inject(MAT_DIALOG_DATA) private dialogData: any,
-        private categoryService: CategoryService
+        private categoryWrapperService: CategoryWrapperService
     ) {}
 
     ngOnInit(): void {
@@ -39,7 +39,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy, AfterViewInit {
                     Validators.maxLength(100),
                 ],
                 asyncValidators: [
-                    CategoryNameValidator.createValidator(this.categoryService, this.dialogData?.data?.name),
+                    CategoryNameValidator.createValidator(this.categoryWrapperService, this.dialogData?.data?.name),
                 ],
                 updateOn: 'blur',
             }),

@@ -136,8 +136,32 @@ export const CATEGORIES: CategoryInterface[] = [
     {
         id: '5',
         name: 'Other',
-        transactionType: TransactionTypeEnum.INCOME,
+        transactionType: TransactionTypeEnum.EXPENSE,
         colorScheme: '#eca427',
+    },
+    {
+        id: '6',
+        name: 'Salary',
+        transactionType: TransactionTypeEnum.INCOME,
+        colorScheme: '#4efc03',
+    },
+    {
+        id: '7',
+        name: 'Gifts',
+        transactionType: TransactionTypeEnum.INCOME,
+        colorScheme: '#8c03fc',
+    },
+    {
+        id: '8',
+        name: 'Business',
+        transactionType: TransactionTypeEnum.INCOME,
+        colorScheme: '#581ac9',
+    },
+    {
+        id: '9',
+        name: 'Trading',
+        transactionType: TransactionTypeEnum.INCOME,
+        colorScheme: '#fc7b03',
     },
 ];
 
