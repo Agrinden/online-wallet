@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CategoryService, IncomeDataService, payers$ } from '@app/core';
+import { CategoryService, CategoryWrapperService, IncomeDataService, payers$ } from '@app/core';
 import {
     CategoryInterface,
     TransactionDTOInterface,
@@ -48,7 +48,7 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
         private incomeDataService: IncomeDataService,
         private transactionService: TransactionService,
         private dialogService: DialogService,
-        private categoryService: CategoryService
+        private categoryService: CategoryWrapperService
     ) {}
 
     ngOnInit(): void {

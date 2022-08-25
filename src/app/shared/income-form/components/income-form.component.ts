@@ -6,7 +6,7 @@ import {
     CategoryInterface,
     IncomeFormInterface,
 } from '@app/shared';
-import { CategoryService, WalletService } from '@core';
+import { CategoryService, CategoryWrapperService, WalletService } from '@core';
 import { ConfirmationDialogChoise } from './../../enums/dialog-enums';
 import { closeWarning } from './../../../core/services/user-delete/user-delete-constants';
 import { WarningDialogService } from './../../../core/services/warn-dialog/warning-dialog.service';
@@ -50,7 +50,7 @@ export class IncomeFormComponent implements OnInit {
         private dialog: MatDialog,
         private warnDialogService: WarningDialogService,
         private dialogService: DialogService,
-        private categoryService: CategoryService
+        private categoryService: CategoryWrapperService
     ) {}
 
     ngOnInit(): void {
