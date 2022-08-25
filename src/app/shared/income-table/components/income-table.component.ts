@@ -1,3 +1,5 @@
+import { TransactionDeleteService } from './../../../core/services/income-delete/transaction-delete';
+import { IncomeDataService } from '@app/core';
 import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
@@ -5,7 +7,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { IncomeFormComponent, TransactionInterface } from '@app/shared';
 import * as moment from 'moment';
 import { Subject, takeUntil } from 'rxjs';
-import { TransactionDeleteService } from '../../../core/services/income-delete/transaction-delete';
 import { TransactionDialogComponent } from './../../../modules/main-page/components/transaction-dialog/transaction-dialog.component';
 import { TransactionTypeEnum } from './../../enums/transaction-type.enum';
 
@@ -24,7 +25,11 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
     public isExpenses!: boolean;
     private destroy: Subject<void> = new Subject();
 
-    constructor(public dialog: MatDialog, public deleteIncomeService: TransactionDeleteService) {}
+    constructor(
+        public dialog: MatDialog,
+        public deleteIncomeService: TransactionDeleteService,
+        public incomeDataService: IncomeDataService
+    ) {}
 
     ngOnInit() {
         this.initializeTable(this.tableData);

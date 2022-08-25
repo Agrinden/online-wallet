@@ -1,3 +1,5 @@
+import { environment } from '@env/environment';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DialogComponent, TransactionInterface } from '@app/shared';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,7 +12,7 @@ export class TransactionDeleteService {
     private incomeDeleteDialogContent = incomeDeleteDialogContent;
     private expenseDeleteDialogContent = expenseDeleteDialogContent;
 
-    constructor(public dialog: MatDialog) {}
+    constructor(public dialog: MatDialog, private http: HttpClient) {}
 
     handleOpenDialog(incomeData: TransactionInterface, isExpenses: boolean) {
         const contentData = isExpenses ? this.expenseDeleteDialogContent : this.incomeDeleteDialogContent;
@@ -30,7 +32,9 @@ export class TransactionDeleteService {
             .afterClosed()
             .pipe(filter((value) => value === ConfirmationDialogChoise.confirm))
             .subscribe((value: ConfirmationDialogChoise) => {
-                //request to delete transaction
+                if (value) {
+                    this.http.delete<any>(`${environment.apiUrl}/transactions/${incomeData.id}`).subscribe();
+                }
             });
     }
 }

@@ -1,3 +1,4 @@
+import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
 import { AbstractControl } from '@angular/forms';
 import { Moment } from 'moment';
 import { CategoryInterface } from './categories/category.interface';
@@ -12,6 +13,31 @@ export interface TransactionInterface {
     subcategory: CategoryInterface;
     payer: string;
     date: string;
+    note: string;
+}
+
+export interface TransactionDTOInterface {
+    amount: string;
+    category: {
+        id: number;
+        categoryType: string;
+        color: string;
+        name: string;
+    };
+    date: string;
+    notes: string;
+    payer: string;
+    subcategory: string;
+    transactionType: string;
+    walletId: number;
+}
+
+export interface IncomeDataInterface {
+    id: number;
+    date: Moment;
+    category: CategoryInterface;
+    amount: number;
+    walletId: number;
     note: string;
 }
 

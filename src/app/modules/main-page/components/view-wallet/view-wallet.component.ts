@@ -96,7 +96,7 @@ export class ViewWalletComponent implements OnInit, OnDestroy {
             .confirmed(dialog)
             .pipe(
                 filter((isConfirmed) => isConfirmed),
-                switchMap(() => this.walletStoreService.delete(this.wallet.id)),
+                switchMap(() => this.walletStoreService.delete(String(this.wallet.id))),
                 takeUntil(this.destroy$)
             )
             .subscribe(() => {

@@ -3,7 +3,7 @@ import { Moment } from 'moment';
 import { CategoryInterface } from './categories/category.interface';
 
 export interface IncomeFormInterface {
-    wallet: AbstractControl<string | null>;
+    walletId: AbstractControl<number | null>;
     amount: AbstractControl<number | null>;
     category: AbstractControl<CategoryInterface | null>;
     date: AbstractControl<Moment | null>;
