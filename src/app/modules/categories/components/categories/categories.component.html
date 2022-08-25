@@ -10,7 +10,7 @@
             </div>
         </div>
         <mat-accordion togglePosition="before" multi>
-            <mat-expansion-panel *ngFor="let category of categories$ | async" [disabled]="!category.subcategories">
+            <mat-expansion-panel *ngFor="let category of expenseCategories$ | async">
                 <mat-expansion-panel-header>
                     <mat-panel-title class="category-title">
                         <div class="category-color" [ngStyle]="{ 'background-color': category.colorScheme }"></div>
@@ -71,7 +71,7 @@
             </div>
         </div>
         <mat-accordion>
-            <mat-expansion-panel *ngFor="let category of categories$ | async" disabled>
+            <mat-expansion-panel *ngFor="let category of incomeCategories$ | async" disabled>
                 <mat-expansion-panel-header>
                     <mat-panel-title class="category-title">
                         <div class="category-color" [ngStyle]="{ 'background-color': category.colorScheme }"></div>

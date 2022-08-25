@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { CategoryService, WalletService } from '@app/core/services';
+import { CategoryService, CategoryWrapperService, WalletService } from '@app/core/services';
 import { mockPayers } from '@app/mocks';
 import { CategoryInterface, WalletInterface } from '@app/shared';
 import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
@@ -21,7 +21,7 @@ export class StatisticsFiltersComponent implements OnInit {
     private wallets$!: Observable<WalletInterface[]>;
     private categories$!: Observable<CategoryInterface[]>;
 
-    public incomeCategories: { name: string; id: string }[] = [];
+    public INCOMECategories: { name: string; id: string }[] = [];
     public expenseCategories: { name: string; id: string }[] = [];
     public walletsList: { name: string; id: string }[] = [];
     public payers = mockPayers;
@@ -29,14 +29,14 @@ export class StatisticsFiltersComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private walletService: WalletService,
-        private categoryService: CategoryService,
+        private сategoryWrapperService: CategoryWrapperService,
         private cdr: ChangeDetectorRef
     ) {}
 
     ngOnInit(): void {
         this.filterForm = this.getInitializedFilterForm();
-        this.wallets$ = this.walletService.getWalletList();
-        this.categories$ = this.categoryService.get();
+        this.wallets$ = this.walletService.getMockWallets();
+        this.categories$ = this.сategoryWrapperService.getIncomes();
 
         this.wallets$.forEach((wallets) => {
             this.walletsList = wallets.map((wallet) => ({ name: wallet.name, id: wallet.id }));
@@ -48,8 +48,8 @@ export class StatisticsFiltersComponent implements OnInit {
             });
         });
 
-        if (this.incomeCategories.length > 0)
-            this.incomeCategories.unshift({
+        if (this.INCOMECategories.length > 0)
+            this.INCOMECategories.unshift({
                 id: '0',
                 name: 'All categories',
             });

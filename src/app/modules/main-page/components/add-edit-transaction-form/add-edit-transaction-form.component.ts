@@ -1,7 +1,14 @@
+import { WalletService } from '@core';
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CategoryService, payers$, WALLETS } from '@app/core';
-import { CategoryInterface, TransactionFormInterface, WalletInterface, TransactionInterface } from '@app/shared';
+import { CategoryService, payers$, IncomeDataService } from '@app/core';
+import {
+    CategoryInterface,
+    TransactionFormInterface,
+    WalletInterface,
+    TransactionInterface,
+    TransactionDTOInterface,
+} from '@app/shared';
 import { AddCategoryComponent } from '@app/shared/add-category/components/add-category.component';
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
 import { ColorSchemeEnum } from '@app/shared/enums/color-scheme.enum';
@@ -32,11 +39,13 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
     private destroy$ = new Subject();
     public currentDate!: moment.Moment;
     public categories$: Observable<any> = this.transactionService.categories$;
-    public wallets$: Observable<WalletInterface[]> = WALLETS;
+    public wallets: WalletInterface[] = [];
     public payers$: Observable<any> = payers$;
 
     constructor(
+        private walletService: WalletService,
         private formBuilder: FormBuilder,
+        private incomeDataService: IncomeDataService,
         private transactionService: TransactionService,
         private dialogService: DialogService,
         private categoryService: CategoryService
@@ -45,6 +54,10 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
     ngOnInit(): void {
         this.currentDate = moment();
         this.dataForm = this.getInitializedForm(this.data);
+        this.walletService
+            .getWallets()
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((wallets) => (this.wallets = wallets));
         this.setFormData();
     }
 
@@ -69,12 +82,25 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
         return this.dataForm.touched && this.dataForm.invalid;
     }
 
-    public onFormSubmit(): void {
-        if (this.dataForm) {
-            const formControls = this.dataForm.getRawValue();
-            const model = { ...formControls, itemType: this.data.itemType };
-
-            this.data.isEditForm ? this.transactionService.edit(model) : this.transactionService.create(model);
+    public addExpense(): void {
+        if (this.dataForm && this.dataForm.valid) {
+            const expenseFormData = this.dataForm.value;
+            const expenseData: TransactionDTOInterface = {
+                amount: String(expenseFormData.amount),
+                category: {
+                    id: Number(expenseFormData.category?.id),
+                    categoryType: TransactionTypeEnum.EXPENSE,
+                    color: '',
+                    name: '',
+                },
+                date: moment(expenseFormData.date).format('YYYY-MM-DD'),
+                notes: String(expenseFormData.note),
+                payer: String(expenseFormData.payer),
+                subcategory: String(expenseFormData.subcategory?.name),
+                transactionType: TransactionTypeEnum.EXPENSE,
+                walletId: Number(expenseFormData.wallet),
+            };
+            this.incomeDataService.add(expenseData).subscribe();
         }
     }
 

@@ -157,7 +157,7 @@ export const CATEGORIES: CategoryInterface[] = [
     {
         id: '5',
         name: 'Other',
-        transactionType: TransactionTypeEnum.INCOME,
+        transactionType: TransactionTypeEnum.EXPENSE,
         colorScheme: '#eca427',
     },
     {
@@ -171,37 +171,6 @@ export const CATEGORIES: CategoryInterface[] = [
         name: 'Gift',
         transactionType: TransactionTypeEnum.INCOME,
         colorScheme: '#eca427',
-    },
-];
-
-export const mockWallets: WalletInterface[] = [
-    {
-        id: '1',
-        name: 'My default wallet',
-        balance: 5000,
-        currency: 'USD',
-        isDefault: true,
-    },
-    {
-        id: '2',
-        name: 'My wallet 2',
-        balance: 8000,
-        currency: 'EUR',
-        isDefault: false,
-    },
-    {
-        id: '3',
-        name: 'My wallet 3',
-        balance: 500,
-        currency: 'USD',
-        isDefault: false,
-    },
-    {
-        id: '4',
-        name: 'My wallet 4',
-        balance: 7200,
-        currency: 'PLN',
-        isDefault: false,
     },
 ];
 
