@@ -22,7 +22,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy, AfterViewInit {
         private formBuilder: FormBuilder,
         private dialogService: DialogService,
         @Optional() @Inject(MAT_DIALOG_DATA) private dialogData: any,
-        private categoryWrapperService: CategoryWrapperService
+        private categoryWrapperService: CategoryWrapperService,
         private dialogRef: MatDialogRef<AddCategoryComponent>
     ) {}
 
