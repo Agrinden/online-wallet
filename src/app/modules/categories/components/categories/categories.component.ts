@@ -1,11 +1,12 @@
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { CategoryInterface, CategoryTemplateInterface } from '@app/shared';
-import { Observable, Subject, takeUntil, filter, map } from 'rxjs';
+import { Observable, Subject, takeUntil, filter } from 'rxjs';
 import { DialogDataInterface } from '@app/shared/interfaces/dialog-data.interface';
 import { AddCategoryComponent } from '@app/shared/add-category/components/add-category.component';
 import {
-    CategoryService,
+    categoryDeletionFailedMessage,
+    CategoryWrapperService,
     deleteCategoryMessage,
     deleteCategorySuccessMessage,
     deleteSubcategoryMessage,
@@ -22,15 +23,17 @@ import { ColorSchemeEnum } from '@app/shared/enums/color-scheme.enum';
     templateUrl: './categories.component.html',
     styleUrls: ['./categories.component.scss'],
 })
-export class CategoriesComponent {
+export class CategoriesComponent implements OnDestroy {
     private destroy$: Subject<boolean> = new Subject<boolean>();
-    public categories$: Observable<CategoryInterface[]> = this.categoryService.get();
+    public incomeCategories$: Observable<CategoryInterface[]> = this.categoryWrapperService.getIncomes();
+    public expenseCategories$: Observable<CategoryInterface[]> = this.categoryWrapperService.getExpenses();
+
     public type = TransactionTypeEnum;
 
     constructor(
         private dialogService: DialogService,
-        private categoryService: CategoryService,
-        private snackbarService: SnackbarService
+        private snackbarService: SnackbarService,
+        private categoryWrapperService: CategoryWrapperService
     ) {}
 
     public createCategory(type: TransactionTypeEnum, parentId?: string, parentColor?: string): void {
@@ -53,7 +56,16 @@ export class CategoriesComponent {
                 filter((res) => !!res)
             )
             .subscribe((category: CategoryTemplateInterface) => {
-                this.categoryService.create(category, type, parentId);
+                this.categoryWrapperService
+                    .create(category, type, parentId)
+                    .pipe(
+                        takeUntil(this.destroy$),
+                        filter((res) => !!res)
+                    )
+                    .subscribe(() => {
+                        this.incomeCategories$ = this.categoryWrapperService.getIncomes();
+                        this.expenseCategories$ = this.categoryWrapperService.getExpenses();
+                    });
             });
     }
 
@@ -75,10 +87,20 @@ export class CategoriesComponent {
                 filter((res) => !!res)
             )
             .subscribe(() => {
-                this.categoryService.delete(id, parentId);
-                this.snackbarService.openSuccess(
-                    parentId ? deleteSubcategorySuccessMessage : deleteCategorySuccessMessage
-                );
+                this.categoryWrapperService
+                    .delete(id, parentId)
+                    .pipe(takeUntil(this.destroy$))
+                    .subscribe((res: any) => {
+                        if (res && res.status === 409) {
+                            this.snackbarService.openSuccess(categoryDeletionFailedMessage);
+                        } else {
+                            this.incomeCategories$ = this.categoryWrapperService.getIncomes();
+                            this.expenseCategories$ = this.categoryWrapperService.getExpenses();
+                            this.snackbarService.openSuccess(
+                                parentId ? deleteSubcategorySuccessMessage : deleteCategorySuccessMessage
+                            );
+                        }
+                    });
             });
     }
 
@@ -102,8 +124,19 @@ export class CategoriesComponent {
             )
             .subscribe((res) => {
                 const editedCategory = { ...category, ...res };
-                this.categoryService.edit(editedCategory, parentId);
-                this.snackbarService.openSuccess(parentId ? EditSubcategorySuccessMessage : EditCategorySuccessMessage);
+                this.categoryWrapperService
+                    .edit(editedCategory, parentId)
+                    .pipe(
+                        takeUntil(this.destroy$),
+                        filter((res) => !!res)
+                    )
+                    .subscribe(() => {
+                        this.incomeCategories$ = this.categoryWrapperService.getIncomes();
+                        this.expenseCategories$ = this.categoryWrapperService.getExpenses();
+                        this.snackbarService.openSuccess(
+                            parentId ? EditSubcategorySuccessMessage : EditCategorySuccessMessage
+                        );
+                    });
             });
     }
 

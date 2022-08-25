@@ -14,3 +14,4 @@ export const shouldCreateWallet = 'Please, create a wallet and after that you ca
 export const deleteWalletMessage = 'Are you sure you want to delete this wallet?';
 export const deleteDefaultWalletMessage =
     'This wallet is default, first you need to change the status to non-default and then proceed with deletion';
+export const categoryDeletionFailedMessage = 'This category is associated with a transaction and cannot be deleted';

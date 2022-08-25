@@ -1,17 +1,22 @@
 import { CoreModule } from '@core/core.module';
 import { Injectable } from '@angular/core';
 import { CategoryInterface, CategoryTemplateInterface } from '@app/shared';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { CATEGORIES } from '@app/mocks';
 import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
+import { CategoryService } from './category-service.abstract';
 
 @Injectable({
     providedIn: CoreModule,
 })
-export class CategoryService {
+export class CategoryMockService extends CategoryService {
     private categories: CategoryInterface[] = CATEGORIES;
 
-    public create(category: CategoryTemplateInterface, type: TransactionTypeEnum, parentId?: string): void {
+    public create(
+        category: CategoryTemplateInterface,
+        type: TransactionTypeEnum,
+        parentId?: string
+    ): Observable<CategoryInterface> {
         if (parentId) {
             category.parentId = parentId;
             const parentCategory = this.categories.find((c) => c.id === category.parentId);
@@ -34,13 +39,34 @@ export class CategoryService {
                 });
             }
         }
+        return of({
+            ...category,
+            transactionType: type,
+            id: this.generateId(),
+        });
     }
 
-    public get(): Observable<CategoryInterface[]> {
-        return of(this.categories);
+    public getIncomes(): Observable<CategoryInterface[]> {
+        return of(this.categories).pipe(
+            map((categories: CategoryInterface[]) =>
+                categories.filter(
+                    (category: CategoryInterface) => category.transactionType === TransactionTypeEnum.INCOME
+                )
+            )
+        );
     }
 
-    public edit(category: CategoryInterface, parentId?: string): void {
+    public getExpenses(): Observable<CategoryInterface[]> {
+        return of(this.categories).pipe(
+            map((categories: CategoryInterface[]) =>
+                categories.filter(
+                    (category: CategoryInterface) => category.transactionType === TransactionTypeEnum.EXPENSE
+                )
+            )
+        );
+    }
+
+    public edit(category: CategoryInterface, parentId?: string): Observable<CategoryInterface> {
         if (parentId) {
             const parentCategory = this.categories.find((c) => c.id === parentId);
             if (parentCategory) {
@@ -51,9 +77,10 @@ export class CategoryService {
             const index = this.categories.findIndex((c) => c.id === category.id);
             this.categories[index] = category;
         }
+        return of(category);
     }
 
-    public delete(id: string, parentId?: string): void {
+    public delete(id: string, parentId?: string): Observable<null> {
         if (parentId) {
             const parentCategory = this.categories.find((c) => c.id === parentId);
             if (parentCategory) {
@@ -64,6 +91,8 @@ export class CategoryService {
             const index = this.categories.findIndex((c) => c.id === id);
             this.categories.splice(index, 1);
         }
+
+        return of(null);
     }
 
     public isNameUnique(name: string): Observable<boolean> {
