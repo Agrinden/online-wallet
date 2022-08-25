@@ -1,18 +1,18 @@
-import { WalletService } from '@core';
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CategoryService, payers$, IncomeDataService } from '@app/core';
+import { CategoryService, IncomeDataService, payers$ } from '@app/core';
 import {
     CategoryInterface,
-    TransactionFormInterface,
-    WalletInterface,
-    TransactionInterface,
     TransactionDTOInterface,
+    TransactionFormInterface,
+    TransactionInterface,
+    WalletInterface,
 } from '@app/shared';
 import { AddCategoryComponent } from '@app/shared/add-category/components/add-category.component';
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
 import { ColorSchemeEnum } from '@app/shared/enums/color-scheme.enum';
 import { DialogDataInterface } from '@app/shared/interfaces/dialog-data.interface';
+import { WalletService } from '@core';
 import { TransactionService } from '@modules/main-page';
 import * as moment from 'moment';
 import { filter, Observable, Subject, takeUntil } from 'rxjs';
@@ -161,7 +161,7 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
         const date = formData?.date ? moment(formData?.date, 'DD/MM/YYYY') : moment();
         const form = this.formBuilder.group<TransactionFormInterface>({
             id: new FormControl<number | null>(formData?.id),
-            wallet: new FormControl<string>('', Validators.required),
+            wallet: new FormControl<string>(formData?.walletId, Validators.required),
             amount: new FormControl<number | null>(+formData?.amount | 0, [
                 Validators.required,
                 Validators.pattern(/^(?!0+[1-9])(?:\d+|\d(?:\d)+)(?:[.]\d+)?$/),
@@ -170,7 +170,7 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
 
             category: new FormControl<CategoryInterface | null>(formData?.category, Validators.maxLength(100)),
             subcategory: new FormControl<CategoryInterface | null>(formData?.subcategory, Validators.maxLength(100)),
-            payer: new FormControl<string>(formData.payer, Validators.maxLength(64)),
+            payer: new FormControl<string>(formData?.payer, Validators.maxLength(64)),
             date: new FormControl<moment.Moment>(date, Validators.maxLength(10)),
             note: new FormControl<string>(formData.note, Validators.maxLength(400)),
         });

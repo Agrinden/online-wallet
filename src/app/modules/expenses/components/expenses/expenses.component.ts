@@ -1,9 +1,9 @@
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { IncomeDataService } from '@app/core';
 import { TransactionInterface } from '@app/shared';
 import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
 import { TransactionDialogComponent } from '@modules/main-page';
-import { MatDialog } from '@angular/material/dialog';
-import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-expenses',
@@ -26,6 +26,7 @@ export class ExpensesComponent {
         this.dialog.open(TransactionDialogComponent, {
             data: { isEditForm: false, itemType: TransactionTypeEnum.EXPENSE },
             disableClose: true,
+            autoFocus: false,
         });
     }
 }
