@@ -1,3 +1,4 @@
+import { IncomeFormInterface } from './../../interfaces/income-form.interface';
 import { IncomeDataService } from '@app/core';
 import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -76,10 +77,6 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
 
     public deleteIncome(rowData: TransactionInterface): void {
         this.deleteIncomeService.handleOpenDialog(rowData);
-    }
-
-    public showMore() {
-        //Request transactions according to offset and limit
     }
 
     ngOnDestroy() {

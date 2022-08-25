@@ -17,7 +17,9 @@ export class ExpensesComponent {
     constructor(private dialog: MatDialog, private incomeDataService: IncomeDataService) {}
 
     ngOnInit(): void {
-        this.incomeDataService.get().subscribe((tableData) => (this.expenses = tableData || []));
+        this.incomeDataService
+            .get(TransactionTypeEnum.EXPENSE)
+            .subscribe((tableData) => (this.expenses = tableData || []));
     }
 
     public onAddTransactionClick(): void {

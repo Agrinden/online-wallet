@@ -54,7 +54,10 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
     ngOnInit(): void {
         this.currentDate = moment();
         this.dataForm = this.getInitializedForm(this.data);
-        this.walletService.getWallets().subscribe((wallets) => (this.wallets = wallets));
+        this.walletService
+            .getWallets()
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((wallets) => (this.wallets = wallets));
         this.setFormData();
     }
 

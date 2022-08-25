@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    apiUrl: 'https://exadel-finance.herokuapp.com/api',
+    apiUrl: 'https://budget-team-3a.herokuapp.com',
 };
 
 /*

@@ -55,7 +55,10 @@ export class IncomeFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.incomeForm = this.getInitializedForm(this.data);
-        this.walletService.getWallets().subscribe((wallets) => (this.wallets = wallets));
+        this.walletService
+            .getWallets()
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((wallets) => (this.wallets = wallets));
         this.categories$ = this.incomeDataService.getIncomeCategories();
     }
 

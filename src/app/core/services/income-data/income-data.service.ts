@@ -1,3 +1,4 @@
+import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
 import { environment } from '@env/environment';
 import { HttpClient } from '@angular/common/http';
 import { TransactionDTOInterface, TransactionInterface } from '@app/shared';
@@ -25,9 +26,9 @@ export class IncomeDataService {
         return of(EXPENSE_DATA);
     }
 
-    public get(): Observable<TransactionInterface[]> {
+    public get(transactionType: TransactionTypeEnum): Observable<TransactionInterface[]> {
         const obj: any = {
-            transactionsType: 'INCOME',
+            transactionsType: transactionType,
             sortBy: 'DATEDESC',
             page: '1',
             size: '10',

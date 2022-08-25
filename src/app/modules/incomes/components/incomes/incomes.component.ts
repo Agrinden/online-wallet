@@ -15,6 +15,8 @@ export class IncomesComponent implements OnInit {
     constructor(private incomeDataService: IncomeDataService) {}
 
     ngOnInit(): void {
-        this.incomeDataService.get().subscribe((tableData) => (this.incomes = tableData || []));
+        this.incomeDataService
+            .get(TransactionTypeEnum.INCOME)
+            .subscribe((tableData) => (this.incomes = tableData || []));
     }
 }
