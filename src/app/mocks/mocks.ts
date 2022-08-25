@@ -224,14 +224,19 @@ export const mockWalletTransactions: TransactionInterface[] = (() => {
 
 export const mockReport: ReportInterface = {
     expense: [
-        { walletId: '1', date: 1659356954, category: 'Food', amount: 150, payer: 'Me' },
-        { walletId: '1', date: 1659443354, category: 'Food', amount: 350, payer: 'Joe' },
-        { walletId: '1', date: 1659529754, category: 'Health', amount: 450, payer: 'Joe' },
-        { walletId: '1', date: 1660134554, category: 'Health', amount: 550, payer: 'Me' },
-        { walletId: '1', date: 1660152554, category: 'Health', amount: 650, payer: 'Me' },
+        { walletId: '1', date: 1659356954, category: 'Food', amount: 150, payerId: '1' },
+        { walletId: '1', date: 1659443354, category: 'Food', amount: 350, payerId: '2' },
+        { walletId: '2', date: 1659529754, category: 'Health', amount: 450, payerId: '2' },
+        { walletId: '4', date: 1660134554, category: 'Health', amount: 550, payerId: '1' },
+        { walletId: '3', date: 1660152554, category: 'Health', amount: 650, payerId: '1' },
     ],
     income: [
         { walletId: '1', date: 1660325354, category: 'Salary', amount: 3500 },
-        { walletId: '1', date: 1660267754, category: 'Gift', amount: 1100 },
+        { walletId: '2', date: 1660267754, category: 'Gift', amount: 1100 },
     ],
 };
+
+export const mockPayers = [
+    { name: 'Me', id: '1' },
+    { name: 'Joe', id: '2' },
+];

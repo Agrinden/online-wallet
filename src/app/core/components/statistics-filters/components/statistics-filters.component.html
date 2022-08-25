@@ -5,7 +5,7 @@
         <mat-label>Choose a wallet</mat-label>
         <mat-select formControlName="walletsId" multiple>
           <mat-select-trigger>
-            {{filterForm.value.walletsId.length > 0 ? filterForm.value.walletsId[0] : ''}}
+            {{filterForm.value.walletsId.length > 0 ? filterForm.value.walletsId[0].name : ''}}
             <span *ngIf="(filterForm.value.walletsId.length || 0) > 1" class="example-additional-selection">
               (+{{(filterForm.value.walletsId.length || 0) - 1}} {{filterForm.value.walletsId.length === 2 ? 'other' :
               'others'}})
@@ -78,11 +78,26 @@
         </mat-select>
       </mat-form-field>
     </div>
+
+    <div class="field">
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a Payer</mat-label>
+        <mat-select formControlName="payers" multiple>
+          <mat-select-trigger>
+            {{filterForm.value.payers.length > 0 ? filterForm.value.payers[0].name : ''}}
+            <span *ngIf="(filterForm.value.payers.length || 0) > 1" class="example-additional-selection">
+              (+{{(filterForm.value.payers.length || 0) - 1}} {{filterForm.value.payers.length === 2 ? 'other' :
+              'others'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let payer of payers" [value]="payer">{{payer.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </mat-dialog-content>
 
   <div class="filter-buttons">
-    <button mat-raised-button color="primary" [disabled]="createBtnDis ? true : null"
-      (click)="createFilters()">Create</button>
+    <button mat-raised-button color="primary" [disabled]="createBtnDis" (click)="createFilters()">Create</button>
     <button mat-raised-button color="primary" (click)="resetFilters()">Reset</button>
   </div>
 

@@ -8,7 +8,7 @@ interface IncomeReportItemInterface {
 }
 
 interface ExpenseReportItemInterface extends IncomeReportItemInterface {
-    payer: string;
+    payerId: string;
 }
 
 export interface ReportInterface {
@@ -19,6 +19,7 @@ export interface ReportInterface {
 export interface ReportFiltersInterface {
     start: Moment;
     end: Moment;
+    payers: { name: string; id: string }[];
     walletsId: { name: string; id: string }[];
     expenseCategories: { name: string; id: string }[];
     incomeCategories: { name: string; id: string }[];
