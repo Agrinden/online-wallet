@@ -32,6 +32,7 @@ export class IncomeTableComponent<T> implements OnInit, AfterViewInit, OnDestroy
     ) {}
 
     ngOnInit() {
+        console.log(this.tableData);
         this.initializeTable(this.tableData);
         this.isExpenses = this.tableType === TransactionTypeEnum.EXPENSE;
     }
