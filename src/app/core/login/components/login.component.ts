@@ -40,7 +40,8 @@ export class LoginComponent implements OnInit, OnDestroy {
                 .subscribe((response) => {
                     const token = response.headers.get('Authorization');
 
-                    this.cookieService.set(token);
+                    const user: UserInterface = jwtDecode(token);
+                    this.cookieService.set('token', token, user.exp);
 
                     this.userService.setUser();
 

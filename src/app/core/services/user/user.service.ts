@@ -43,7 +43,7 @@ export class UserService {
     }
 
     public setUser() {
-        const token = this.cookieService.get();
+        const token = this.cookieService.get('token');
 
         if (token) {
             const user: UserInterface = jwtDecode(token);
@@ -71,7 +71,7 @@ export class UserService {
 
         return combineLatest([
             this.oidcSecurityService.checkAuth().pipe(map(({ isAuthenticated }) => isAuthenticated)),
-            of(!!this.cookieService.get()),
+            of(!!this.cookieService.get('token')),
         ]).pipe(
             map(([isLoggedInByGoogle, isLoggedIn]) => {
                 return isLoggedInByGoogle || isLoggedIn;

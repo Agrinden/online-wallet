@@ -8,20 +8,23 @@ import { month, weekDays } from './date-constants';
     providedIn: CoreModule,
 })
 export class CookieService {
-    get(): string {
+    get(cookieName: string): string {
         const cookie = document.cookie;
-        let token = '';
+        let askedCookie = '';
         if (cookie !== '') {
-            token = cookie.split('=')[1];
+            const cookiesArr = cookie.split('=');
+            for (let i = 0; i < cookiesArr.length; i++) {
+                if (cookiesArr[i] === cookieName) askedCookie = cookiesArr[i + 1];
+            }
         }
-        return token;
+        console.log(askedCookie);
+        return askedCookie;
     }
 
-    set(token: string): void {
-        const user: UserInterface = jwtDecode(token);
-        const expDate = new Date(user.exp * 1000);
+    set(cookieName: string, cookie: string, expirationDate: number): void {
+        const expDate = new Date(expirationDate * 1000);
 
-        document.cookie = `token=${token}; expires=${weekDays[expDate.getUTCDay()]}, ${expDate.getUTCDate()} ${
+        document.cookie = `${cookieName}=${cookie}; expires=${weekDays[expDate.getUTCDay()]}, ${expDate.getUTCDate()} ${
             month[expDate.getUTCMonth()]
         } ${expDate.getUTCFullYear()} ${expDate.getUTCHours()}:${expDate.getUTCMinutes()}:${expDate.getUTCSeconds()} UTC; SameSite=Strict; Secure; path=/`;
     }
