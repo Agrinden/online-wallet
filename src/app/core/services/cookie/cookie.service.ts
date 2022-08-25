@@ -17,7 +17,6 @@ export class CookieService {
                 if (cookiesArr[i] === cookieName) askedCookie = cookiesArr[i + 1];
             }
         }
-        console.log(askedCookie);
         return askedCookie;
     }
 
