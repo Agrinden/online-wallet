@@ -1,4 +1,4 @@
-import { forkJoin, map, Observable } from 'rxjs';
+import { catchError, forkJoin, map, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CategoryInterface, CategoryTemplateInterface } from '@app/shared';
@@ -46,8 +46,12 @@ export class CategoryApiService extends CategoryService {
             .pipe(map((category) => this.frontendMapper(category)));
     }
 
-    public delete(id: string): Observable<null> {
-        return this.http.delete<null>(`${environment.apiUrl}/categories/${id}`);
+    public delete(id: string): Observable<null | unknown> {
+        return this.http.delete<null>(`${environment.apiUrl}/categories/${id}`).pipe(
+            catchError((err) => {
+                return of(err);
+            })
+        );
     }
 
     public isNameUnique(name: string): Observable<boolean> {

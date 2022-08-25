@@ -5,6 +5,7 @@ import { Observable, Subject, takeUntil, filter } from 'rxjs';
 import { DialogDataInterface } from '@app/shared/interfaces/dialog-data.interface';
 import { AddCategoryComponent } from '@app/shared/add-category/components/add-category.component';
 import {
+    categoryDeletionFailedMessage,
     CategoryWrapperService,
     deleteCategoryMessage,
     deleteCategorySuccessMessage,
@@ -89,12 +90,16 @@ export class CategoriesComponent implements OnDestroy {
                 this.categoryWrapperService
                     .delete(id, parentId)
                     .pipe(takeUntil(this.destroy$))
-                    .subscribe(() => {
-                        this.incomeCategories$ = this.categoryWrapperService.getIncomes();
-                        this.expenseCategories$ = this.categoryWrapperService.getExpenses();
-                        this.snackbarService.openSuccess(
-                            parentId ? deleteSubcategorySuccessMessage : deleteCategorySuccessMessage
-                        );
+                    .subscribe((res: any) => {
+                        if (res && res.status === 409) {
+                            this.snackbarService.openSuccess(categoryDeletionFailedMessage);
+                        } else {
+                            this.incomeCategories$ = this.categoryWrapperService.getIncomes();
+                            this.expenseCategories$ = this.categoryWrapperService.getExpenses();
+                            this.snackbarService.openSuccess(
+                                parentId ? deleteSubcategorySuccessMessage : deleteCategorySuccessMessage
+                            );
+                        }
                     });
             });
     }
