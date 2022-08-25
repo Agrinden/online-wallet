@@ -25,7 +25,7 @@
     </ng-container>
     <ng-container matColumnDef="walletId">
       <th class="wallet-container" mat-header-cell *matHeaderCellDef>Wallet</th>
-      <td mat-cell *matCellDef="let element">{{ element.walletId }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.walletName }}</td>
     </ng-container>
     <ng-container matColumnDef="payer" *ngIf="isExpenses">
       <th mat-header-cell class="payer-container" *matHeaderCellDef>Payer</th>
@@ -33,7 +33,7 @@
     </ng-container>
     <ng-container matColumnDef="note">
       <th class="note-container" mat-header-cell *matHeaderCellDef>Note</th>
-      <td mat-cell *matCellDef="let element">{{ element.note }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.notes }}</td>
     </ng-container>
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
