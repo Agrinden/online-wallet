@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { logoutContent } from '@app/core/services/user-delete/user-delete-constants';
 import { WarningDialogService } from '@app/core/services/warn-dialog/warning-dialog.service';
+import { UserInterface } from '@app/shared';
 import { ConfirmationDialogChoise } from '@app/shared/enums/dialog-enums';
 import { mockUser } from '@core';
 import { settingsMenu, userProfileMenu } from '@core/constants';
@@ -14,6 +15,8 @@ import { filter, Subject, takeUntil } from 'rxjs';
 })
 export class UserProfileComponent {
     private destroy$ = new Subject();
+    public user: UserInterface = this.userService.user;
+
     constructor(
         private userService: UserService,
         private userDeleteService: UserDeleteService,
@@ -23,8 +26,6 @@ export class UserProfileComponent {
     public userProfileItems = userProfileMenu;
 
     public settingsMenuItems = settingsMenu;
-
-    public user = mockUser;
 
     public logout(): void {
         this.warnDialogService

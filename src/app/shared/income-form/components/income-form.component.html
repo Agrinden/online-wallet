@@ -9,8 +9,8 @@
         <span class="field-title">Choose your wallet *</span>
         <mat-form-field class="income-field" appearance="fill">
           <mat-label>Choose your wallet</mat-label>
-          <mat-select formControlName="wallet">
-            <mat-option *ngFor="let item of wallets$ | async" [value]="item.currency">
+          <mat-select formControlName="walletId">
+            <mat-option *ngFor="let item of wallets" [value]="item.id">
               {{ item.name }}
             </mat-option>
           </mat-select>
@@ -22,7 +22,7 @@
           <mat-label aria-required="true">Amount</mat-label>
           <input formControlName="amount" matInput type="text" #toClear
             (focus)="incomeForm.controls.amount.value || (toClear.value = '')" />
-          <span matSuffix class="currency-icon">{{ currency | currencyIcon}}</span>
+          <span matSuffix class="currency-icon">{{ currency | currencyIcon: wallets}}</span>
         </mat-form-field>
         <div class="errors" *ngIf="incomeForm.controls.amount.errors">
           <span class="error-message" *ngIf="isValidField('amount')">Input only numbers</span>
@@ -33,7 +33,7 @@
         <mat-form-field class="income-field" appearance="fill">
           <mat-label>Please choose the category</mat-label>
           <mat-select formControlName="category">
-            <mat-option *ngFor="let item of categories$ | async" [value]="item.name">
+            <mat-option *ngFor="let item of categories$ | async" [value]="item">
               {{ item.name }}
             </mat-option>
           </mat-select>
@@ -69,7 +69,8 @@
     </div>
 
     <mat-dialog-actions class="down-button">
-      <button mat-button [mat-dialog-close]="incomeForm.value" [disabled]="incomeForm.invalid">Add</button>
+      <button mat-button [mat-dialog-close]="incomeForm.value" [disabled]="incomeForm.invalid"
+        (click)="addIncome()">Add</button>
       <button mat-button (click)="openConfirmationDialog()">Cancel</button>
     </mat-dialog-actions>
   </form>

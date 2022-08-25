@@ -1,4 +1,4 @@
-<span class="user-name">Hi, {{ (user | async)?.name }}</span>
+<span class="user-name">Hi, {{ user.username }}</span>
 <div [matMenuTriggerFor]="menu">
     <ng-content select=".profile-menu"></ng-content>
 </div>

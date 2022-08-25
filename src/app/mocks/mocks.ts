@@ -31,37 +31,6 @@ export const payers$ = of([
     },
 ]);
 
-export const WALLETS: Observable<WalletInterface[]> = of([
-    {
-        id: '1',
-        name: 'Wallet1',
-        isDefault: true,
-        currency: 'USD',
-        balance: 0,
-    },
-    {
-        id: '2',
-        name: 'Wallet55',
-        isDefault: false,
-        currency: 'EUR',
-        balance: 0,
-    },
-    {
-        id: '3',
-        name: 'My wallet',
-        isDefault: false,
-        currency: 'GEL',
-        balance: 0,
-    },
-    {
-        id: '4',
-        name: 'New test wallet',
-        isDefault: false,
-        currency: 'PLN',
-        balance: 0,
-    },
-]);
-
 export const CURRENCIES: string[] = ['EUR', 'USD', 'GEL', 'PLN'];
 
 export const CATEGORIES: CategoryInterface[] = [
@@ -156,39 +125,32 @@ export const CATEGORIES: CategoryInterface[] = [
     {
         id: '5',
         name: 'Other',
-        transactionType: TransactionTypeEnum.INCOME,
+        transactionType: TransactionTypeEnum.EXPENSE,
         colorScheme: '#eca427',
     },
-];
-
-export const mockWallets: WalletInterface[] = [
     {
-        id: '1',
-        name: 'My default wallet',
-        balance: 5000,
-        currency: 'USD',
-        isDefault: true,
+        id: '6',
+        name: 'Salary',
+        transactionType: TransactionTypeEnum.INCOME,
+        colorScheme: '#4efc03',
     },
     {
-        id: '2',
-        name: 'My wallet 2',
-        balance: 8000,
-        currency: 'EUR',
-        isDefault: false,
+        id: '7',
+        name: 'Gifts',
+        transactionType: TransactionTypeEnum.INCOME,
+        colorScheme: '#8c03fc',
     },
     {
-        id: '3',
-        name: 'My wallet 3',
-        balance: 500,
-        currency: 'USD',
-        isDefault: false,
+        id: '8',
+        name: 'Business',
+        transactionType: TransactionTypeEnum.INCOME,
+        colorScheme: '#581ac9',
     },
     {
-        id: '4',
-        name: 'My wallet 4',
-        balance: 7200,
-        currency: 'PLN',
-        isDefault: false,
+        id: '9',
+        name: 'Trading',
+        transactionType: TransactionTypeEnum.INCOME,
+        colorScheme: '#fc7b03',
     },
 ];
 

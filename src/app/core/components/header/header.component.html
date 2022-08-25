@@ -6,13 +6,13 @@
                     mat-tab-link
                     routerLinkActive="active-link"
                     *ngFor="let link of menuItems"
-                    #rla="routerLinkActive"
-                    [active]="rla.isActive"
+                    #routerLinkActive="routerLinkActive"
+                    [active]="routerLinkActive.isActive"
                     [routerLink]="link.route"
                     [routerLinkActiveOptions]="{ exact: true }"
                 >
                     <mat-icon aria-hidden="false" class="header-icons"> {{ link.icon }} </mat-icon>
-                    <span class="link-name">{{ link.name }}</span>
+                    <span>{{ link.name }}</span>
                 </a>
             </nav>
         </div>

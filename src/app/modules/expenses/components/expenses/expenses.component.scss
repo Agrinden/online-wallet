@@ -57,3 +57,13 @@
         }
     }
 }
+
+:host {
+    @media screen and (max-width: 1220px) {
+        .expenses-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+}

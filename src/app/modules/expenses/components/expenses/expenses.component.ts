@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { IncomeDataService } from '@app/core';
+import { TransactionInterface } from '@app/shared';
 import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
 import { TransactionDialogComponent } from '@modules/main-page';
-import { EXPENSE_DATA } from './../../../../mocks/expense-table';
 
 @Component({
     selector: 'app-expenses',
@@ -11,9 +12,15 @@ import { EXPENSE_DATA } from './../../../../mocks/expense-table';
 })
 export class ExpensesComponent {
     public tableTypes = TransactionTypeEnum;
-    public expenses = EXPENSE_DATA;
+    public expenses: TransactionInterface[] = [];
 
-    constructor(private dialog: MatDialog) {}
+    constructor(private dialog: MatDialog, private incomeDataService: IncomeDataService) {}
+
+    ngOnInit(): void {
+        this.incomeDataService
+            .get(TransactionTypeEnum.EXPENSE)
+            .subscribe((tableData) => (this.expenses = tableData || []));
+    }
 
     public onAddTransactionClick(): void {
         this.dialog.open(TransactionDialogComponent, {
