@@ -1,5 +1,6 @@
 <main>
   <h1>Create your report</h1>
-  <statistics-filters></statistics-filters>
-  <statistics-table></statistics-table>
+  <statistics-filters (setFilters)="setFilters($event)"></statistics-filters>
+  <div *ngIf="filters && report.expense.length === 0 && report.income.length === 0">No matching data</div>
+  <app-report-table [report]='report' *ngIf="report.expense.length > 0 || report.income.length > 0"></app-report-table>
 </main>

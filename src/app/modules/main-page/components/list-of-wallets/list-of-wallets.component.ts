@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { WalletService } from '@core';
+import { WalletsStoreService } from '@core';
 import { WalletInterface } from '@shared/interfaces/wallet.interface';
 
 import { Navigation, SwiperOptions } from 'swiper';
@@ -16,8 +16,7 @@ SwiperCore.use([Navigation]);
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class ListOfWalletsComponent implements OnInit, OnDestroy {
-    private readonly destroy$: Subject<null> = new Subject();
+export class ListOfWalletsComponent implements OnInit {
     public readonly config: SwiperOptions = {
         slidesPerView: 1,
         navigation: true,
@@ -28,21 +27,11 @@ export class ListOfWalletsComponent implements OnInit, OnDestroy {
             550: { slidesPerView: 3, spaceBetween: 15 },
         },
     };
-    public wallets!: WalletInterface[];
+    public wallets$!: Observable<WalletInterface[]>;
 
-    constructor(private walletService: WalletService) {}
+    constructor(private readonly walletStoreService: WalletsStoreService) {}
 
     ngOnInit(): void {
-        this.walletService
-            .getWallets()
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((wallets) => {
-                this.wallets = wallets;
-            });
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next(null);
-        this.destroy$.complete();
+        this.wallets$ = this.walletStoreService.wallets$;
     }
 }

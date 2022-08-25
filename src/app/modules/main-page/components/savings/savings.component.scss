@@ -1,0 +1,17 @@
+@import 'mixins';
+
+.saving-container {
+    @include generalWidth;
+    align-items: center;
+    flex-direction: column;
+    width: 132px;
+    height: 132px;
+    .mat-icon {
+        width: 70px;
+        height: 70px;
+    }
+    .pig-icon {
+        font-size: 70px;
+        cursor: pointer;
+    }
+}

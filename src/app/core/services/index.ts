@@ -8,3 +8,4 @@ export * from './snackbar/snackbar.service';
 export * from './http-transaction/http-transaction.service';
 export * from './warn-dialog/warning-dialog.service';
 export * from './income-data/income-data.service';
+export * from './wallets-store/wallets-store.service';

@@ -1,8 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { CategoryService, WalletService } from '@app/core/services';
 import { CategoryInterface, WalletInterface } from '@app/shared';
 import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -11,14 +12,19 @@ import { Observable } from 'rxjs';
     styleUrls: ['./statistics-filters.component.scss'],
 })
 export class StatisticsFiltersComponent implements OnInit {
+    @Output() setFilters = new EventEmitter();
+
+    public JSON = JSON;
     public filterForm!: FormGroup;
     public transactionTypeEnum = TransactionTypeEnum;
     public createBtnDis = true;
 
-    public wallets$!: Observable<WalletInterface[]>;
-    public categories$!: Observable<CategoryInterface[]>;
-    public incomeCategories: CategoryInterface[] = [];
-    public expenseCategories: CategoryInterface[] = [];
+    private wallets$!: Observable<WalletInterface[]>;
+    private categories$!: Observable<CategoryInterface[]>;
+
+    public incomeCategories: { name: string; id: string }[] = [];
+    public expenseCategories: { name: string; id: string }[] = [];
+    public walletsList: { name: string; id: string }[] = [];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -29,15 +35,30 @@ export class StatisticsFiltersComponent implements OnInit {
 
     ngOnInit(): void {
         this.filterForm = this.getInitializedFilterForm();
-        this.wallets$ = this.walletService.getWallets();
+        this.wallets$ = this.walletService.getWalletList();
         this.categories$ = this.categoryService.get();
 
-        console.log(this.filterForm);
+        this.wallets$.forEach((wallets) => {
+            this.walletsList = wallets.map((wallet) => ({ name: wallet.name, id: wallet.id }));
+        });
+
         this.categories$.forEach((categories) => {
             categories.forEach((category) => {
-                this[`${category.transactionType}Categories`].push(category);
+                this[`${category.transactionType}Categories`].push({ name: category.name, id: category.id });
             });
         });
+
+        if (this.incomeCategories.length > 0)
+            this.incomeCategories.unshift({
+                id: '0',
+                name: 'All categories',
+            });
+
+        if (this.expenseCategories.length > 0)
+            this.expenseCategories.unshift({
+                id: '0',
+                name: 'All categories',
+            });
 
         this.filterForm.valueChanges.subscribe((formValues) => {
             this.cdr.detectChanges();
@@ -47,7 +68,7 @@ export class StatisticsFiltersComponent implements OnInit {
 
     private getInitializedFilterForm(): FormGroup {
         const form = this.formBuilder.group({
-            wallets: [''],
+            walletsId: [''],
             start: null,
             end: null,
             incomeCategories: [''],
@@ -56,23 +77,39 @@ export class StatisticsFiltersComponent implements OnInit {
         return form;
     }
 
-    public toggleAllSelection(key: TransactionTypeEnum) {
+    public toggleAllSelection(key: TransactionTypeEnum, elementId: string) {
         const newObj = this.filterForm.value;
-        const allIndex = newObj[`${key}Categories`].indexOf('All categories');
+        const isAllExists = newObj[`${key}Categories`].some((el: { name: string; id: string }) => el.id === '0');
 
-        if (
-            (allIndex >= 0 ? newObj[`${key}Categories`].length - 1 : newObj[`${key}Categories`].length) !==
-            this[`${key}Categories`].length
-        ) {
-            this.filterForm.setValue({
-                ...this.filterForm.value,
-                [`${key}Categories`]: ['All categories'].concat(this[`${key}Categories`].map((el) => el.name)),
-            });
+        if (elementId === '0') {
+            if (isAllExists) {
+                console.log('1');
+                this.filterForm.setValue({
+                    ...this.filterForm.value,
+                    [`${key}Categories`]: this[`${key}Categories`],
+                });
+            } else {
+                console.log('2');
+                this.filterForm.setValue({
+                    ...this.filterForm.value,
+                    [`${key}Categories`]: [''],
+                });
+            }
         } else {
-            this.filterForm.setValue({
-                ...this.filterForm.value,
-                [`${key}Categories`]: [''],
-            });
+            if (isAllExists && newObj[`${key}Categories`].length === this[`${key}Categories`].length - 1) {
+                console.log('3');
+                console.log(newObj[`${key}Categories`].slice(1));
+                this.filterForm.setValue({
+                    ...this.filterForm.value,
+                    [`${key}Categories`]: newObj[`${key}Categories`].slice(1),
+                });
+            } else if (!isAllExists && newObj[`${key}Categories`].length === this[`${key}Categories`].length - 1) {
+                console.log('4');
+                this.filterForm.setValue({
+                    ...this.filterForm.value,
+                    [`${key}Categories`]: this[`${key}Categories`],
+                });
+            }
         }
     }
 
@@ -106,13 +143,11 @@ export class StatisticsFiltersComponent implements OnInit {
     }
 
     public createFilters(): void {
-        console.log(this.filterForm);
+        this.setFilters.emit(this.filterForm.value);
     }
 
     public resetFilters(): void {
-        console.log(this.createBtnDis);
-        this.createBtnDis = true;
         this.filterForm = this.getInitializedFilterForm();
-        console.log(this.createBtnDis);
+        this.createBtnDis = true;
     }
 }

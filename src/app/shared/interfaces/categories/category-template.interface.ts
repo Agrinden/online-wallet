@@ -4,4 +4,5 @@ export interface CategoryTemplateInterface {
     name: string;
     colorScheme?: string; // will be replaced with ColorSchemeEnum(could feature)
     transactionType: TransactionTypeEnum;
+    parentId?: string;
 }

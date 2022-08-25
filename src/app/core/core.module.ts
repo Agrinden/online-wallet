@@ -8,21 +8,14 @@ import {
     HeaderComponent,
     NotificationsComponent,
     UserProfileComponent,
-    StatisticsTableComponent,
     StatisticsFiltersComponent,
 } from '@core/components';
 import { StatisticsFiltersModule } from './components/statistics-filters/statistics-filters.module';
 
 @NgModule({
     imports: [CommonModule, SharedModule, LayoutModule, IncomeFormModule, StatisticsFiltersModule],
-    exports: [HeaderComponent, StatisticsFiltersComponent, StatisticsTableComponent],
-    declarations: [
-        HeaderComponent,
-        UserProfileComponent,
-        NotificationsComponent,
-        DeleteAccountToasterComponent,
-        StatisticsTableComponent,
-    ],
+    exports: [HeaderComponent, StatisticsFiltersComponent],
+    declarations: [HeaderComponent, UserProfileComponent, NotificationsComponent, DeleteAccountToasterComponent],
     providers: [DatePipe],
 })
 export class CoreModule {}

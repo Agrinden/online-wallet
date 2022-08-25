@@ -13,7 +13,7 @@ export class OpenIncomeFormComponent {
 
     public openForm(): void {
         this.dialog
-            .open(IncomeFormComponent, { disableClose: true })
+            .open(IncomeFormComponent, { disableClose: true, autoFocus: false })
             .beforeClosed()
             .pipe(filter((data) => !!data))
             .subscribe();
