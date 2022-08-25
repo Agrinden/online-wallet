@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateWalletFormComponent } from '@app/modules/main-page/components/create-wallet-form/create-wallet-form.component';
 import { DialogService } from '@app/shared/dialog/services/dialog.service';
 import { DialogDataInterface } from '@app/shared/interfaces/dialog-data.interface';
-import { WalletService } from '@core';
+import { WalletsStoreService } from '@core';
 import { TransactionDialogComponent } from '@modules/main-page';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { RECENT_TRANSACTIONS_DATA } from '@app/mocks/recent-transactions';
@@ -23,7 +23,7 @@ export class MainPageComponent implements OnDestroy {
 
     constructor(
         private dialogService: DialogService,
-        private walletService: WalletService,
+        private walletStoreService: WalletsStoreService,
         private dialog: MatDialog
     ) {}
 
@@ -60,7 +60,7 @@ export class MainPageComponent implements OnDestroy {
                 filter((res) => !!res)
             )
             .subscribe((wallet) => {
-                this.walletService.createWallet(wallet).pipe(takeUntil(this.destroy$)).subscribe();
+                this.walletStoreService.add(wallet).pipe(takeUntil(this.destroy$)).subscribe();
             });
     }
 

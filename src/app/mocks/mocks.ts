@@ -5,6 +5,7 @@ import { TransactionInterface } from '@shared/interfaces/transaction.interface';
 
 import { Observable, of } from 'rxjs';
 import { WalletInterface } from '@shared/interfaces/wallet.interface';
+import { ReportInterface } from '@shared/interfaces/custom-report-interface';
 
 export const mockNotifications = [
     {
@@ -208,3 +209,15 @@ export const mockWalletTransactions: TransactionInterface[] = (() => {
         };
     });
 })();
+
+export const mockReport: ReportInterface = {
+    expense: [
+        { category: 'Food', amount: 150, payer: 'Me' },
+        { category: 'Food', amount: 350, payer: 'Joe' },
+        { category: 'Health', amount: 50, payer: 'Me' },
+    ],
+    income: [
+        { category: 'Salary', amount: 3500 },
+        { category: 'Gift', amount: 1100 },
+    ],
+};
