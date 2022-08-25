@@ -11,3 +11,5 @@ export * from './income-data/income-data.service';
 export * from './category/category-api.service';
 export * from './category/category-service.abstract';
 export * from './category/category-wrapper.service';
+export * from './wallets-store/wallets-store.service';
+
