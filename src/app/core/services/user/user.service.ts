@@ -26,6 +26,7 @@ export class UserService {
     ) {}
 
     get user(): any | null {
+        if (!this.userSubject$.getValue()) this.setUser();
         return this.userSubject$.getValue();
     }
 

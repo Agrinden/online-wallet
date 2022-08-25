@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
         if (!this.userService.user) this.userService.setUser();
 
         if (this.userService.user.isAdmin) {
-            if (this.router.url === '/admin_panel') {
+            if (this.router.url === '/adminPanel') {
                 this.menuItems = [additionalMenuTabs.userPanel];
             } else {
                 this.menuItems = [...defaultMenuTabs, additionalMenuTabs.adminPanel];
