@@ -135,7 +135,7 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
         const date = formData?.date ? moment(formData?.date, 'DD/MM/YYYY') : moment();
         const form = this.formBuilder.group<TransactionFormInterface>({
             id: new FormControl<number | null>(formData?.id),
-            wallet: new FormControl<string>('', Validators.required),
+            wallet: new FormControl<string>(formData?.walletId, Validators.required),
             amount: new FormControl<number | null>(+formData?.amount | 0, [
                 Validators.required,
                 Validators.pattern(/^(?!0+[1-9])(?:\d+|\d(?:\d)+)(?:[.]\d+)?$/),
