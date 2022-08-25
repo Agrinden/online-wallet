@@ -6,7 +6,7 @@ import {
     CategoryInterface,
     IncomeFormInterface,
 } from '@app/shared';
-import { CategoryService, CategoryWrapperService, WalletService } from '@core';
+import { CategoryService, WalletService, CategoryWrapperService } from '@core';
 import { ConfirmationDialogChoise } from './../../enums/dialog-enums';
 import { closeWarning } from './../../../core/services/user-delete/user-delete-constants';
 import { WarningDialogService } from './../../../core/services/warn-dialog/warning-dialog.service';
@@ -59,7 +59,7 @@ export class IncomeFormComponent implements OnInit {
             .getWallets()
             .pipe(takeUntil(this.destroy$))
             .subscribe((wallets) => (this.wallets = wallets));
-        this.categories$ = this.incomeDataService.getIncomeCategories();
+        this.categories$ = this.categoryService.getIncomes();
     }
 
     public isValidField(controlName: keyof IncomeFormInterface): boolean {
@@ -146,6 +146,7 @@ export class IncomeFormComponent implements OnInit {
             )
             .subscribe((category) => {
                 this.categoryService.create(category, type);
+                this.categories$ = this.categoryService.getIncomes();
             });
     }
 

@@ -38,7 +38,7 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
 
     private destroy$ = new Subject();
     public currentDate!: moment.Moment;
-    public categories$: Observable<any> = this.transactionService.categories$;
+    public categories$!: Observable<CategoryInterface[]>;
     public wallets: WalletInterface[] = [];
     public payers$: Observable<any> = payers$;
 
@@ -59,6 +59,7 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
             .pipe(takeUntil(this.destroy$))
             .subscribe((wallets) => (this.wallets = wallets));
         this.setFormData();
+        this.categories$ = this.categoryService.getExpenses();
     }
 
     ngAfterViewInit() {
@@ -84,7 +85,7 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
 
     public addExpense(): void {
         if (this.dataForm && this.dataForm.valid) {
-            const expenseFormData = this.dataForm.value;
+            const expenseFormData = this.dataForm.value as any;
             const expenseData: TransactionDTOInterface = {
                 amount: String(expenseFormData.amount),
                 category: {
@@ -94,7 +95,7 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
                     name: '',
                 },
                 date: moment(expenseFormData.date).format('YYYY-MM-DD'),
-                notes: String(expenseFormData.note),
+                notes: expenseFormData.note,
                 payer: String(expenseFormData.payer),
                 subcategory: String(expenseFormData.subcategory?.name),
                 transactionType: TransactionTypeEnum.EXPENSE,
