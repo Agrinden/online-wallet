@@ -40,6 +40,10 @@ const routes: Routes = [
                 path: RouteUrls.statistics,
                 loadChildren: () => import('./modules/statistics/statistics.module').then((m) => m.StatisticsModule),
             },
+            {
+                path: RouteUrls.adminPanel,
+                loadChildren: () => import('./modules/admin-panel/admin-panel.module').then((m) => m.AdminPanelModule),
+            },
         ],
     },
 

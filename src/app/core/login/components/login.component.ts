@@ -5,7 +5,9 @@ import { Router } from '@angular/router';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Subject, take, takeUntil } from 'rxjs';
 import { RouteUrls } from '@app/core';
-import { AccessTokenService } from '@core/services';
+import { CookieService } from '@app/core/services/cookie/cookie.service';
+import jwtDecode from 'jwt-decode';
+import { UserInterface } from '@app/shared';
 
 @Component({
     templateUrl: './login.component.html',
@@ -21,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         private formBuilder: FormBuilder,
         private oidcSecurityService: OidcSecurityService,
         private userService: UserService,
-        private accessTokenService: AccessTokenService
+        private cookieService: CookieService
     ) {}
 
     public ngOnInit(): void {
@@ -38,7 +40,10 @@ export class LoginComponent implements OnInit, OnDestroy {
                 .subscribe((response) => {
                     const token = response.headers.get('Authorization');
 
-                    this.accessTokenService.set(token);
+                    const user: UserInterface = jwtDecode(token);
+                    this.cookieService.set('token', token, user.exp);
+
+                    this.userService.setUser();
 
                     this.router.navigate([RouteUrls.main]);
                 });
