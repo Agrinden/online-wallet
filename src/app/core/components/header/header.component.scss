@@ -1,6 +1,22 @@
 :host {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+
     .sidenav-container {
         height: 100%;
+        width: 100%;
+
+        @media screen and (max-width: 1024px) {
+            .link-name {
+                display: none;
+            }
+
+            .mat-tab-link {
+                min-width: 30px;
+            }
+        }
 
         .header-container {
             width: 100%;

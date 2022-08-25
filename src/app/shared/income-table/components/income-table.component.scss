@@ -1,12 +1,13 @@
-@import "mixins";
-@import "variables";
+@import 'mixins';
+@import 'variables';
 
 :host ::ng-deep {
     .mat-sort-header-container {
         justify-content: center;
     }
     .table-container {
-        width: 1220px;
+        width: 1280px;
+        margin-bottom: 20px;
 
         .income-table {
             width: 100%;

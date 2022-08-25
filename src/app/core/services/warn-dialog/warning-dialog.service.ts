@@ -15,6 +15,7 @@ export class WarningDialogService {
                 data: {
                     dialogHeading: dialogContent.dialogHeading,
                     dialogContent: dialogContent.dialogContent,
+                    hasTimer: dialogContent.hasTimer,
                 },
                 width: '400px',
                 height: 'fit-content',
