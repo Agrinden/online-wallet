@@ -1,20 +1,22 @@
-import { filter } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserFormInterface, UserInterface } from '@app/shared';
 import { RouteUrls } from '@core/constants';
 import { CoreModule } from '@core/core.module';
-import { BehaviorSubject, catchError, combineLatest, map, Observable, of } from 'rxjs';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { CookieService } from '../cookie/cookie.service';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
-import { UserFormInterface, UserInterface } from '@app/shared';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 import jwtDecode from 'jwt-decode';
+import { BehaviorSubject, catchError, combineLatest, map, Observable, of, Subject } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { CookieService } from '../cookie/cookie.service';
 
 @Injectable({
     providedIn: CoreModule,
 })
 export class UserService {
+    public unsubscribeOnSignout$ = new Subject();
+
     private readonly userSubject$ = new BehaviorSubject<any | null>(null);
     readonly activeUser$ = this.userSubject$.asObservable();
 
@@ -59,6 +61,8 @@ export class UserService {
         this.cookieService.clear();
         this.oidcSecurityService.logoff();
         this.router.navigate([RouteUrls.login]);
+        this.unsubscribeOnSignout$.next(null);
+        this.unsubscribeOnSignout$.complete();
         return this.http.get<any>(`${environment.apiUrl}/users/logout`, { observe: 'response' }).pipe(
             filter((response) => response.status === 200),
             catchError((error) => {
@@ -68,8 +72,6 @@ export class UserService {
     }
 
     public get isLoggedIn$(): Observable<boolean> {
-        // return this.activeUser$.pipe(map((user) => !!user));
-
         return combineLatest([
             this.oidcSecurityService.checkAuth().pipe(map(({ isAuthenticated }) => isAuthenticated)),
             of(!!this.cookieService.get('token')),

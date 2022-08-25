@@ -1,11 +1,10 @@
 import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
 import { CategoryInterface } from '@app/shared/interfaces/categories/category.interface';
-import { IncomeWalletInterface } from '@app/shared/interfaces/income-wallet.interface';
 import { TransactionInterface } from '@shared/interfaces/transaction.interface';
 
-import { Observable, of } from 'rxjs';
-import { WalletInterface } from '@shared/interfaces/wallet.interface';
 import { ReportInterface } from '@shared/interfaces/custom-report-interface';
+import { WalletInterface } from '@shared/interfaces/wallet.interface';
+import { Observable, of } from 'rxjs';
 
 export const mockNotifications = [
     {

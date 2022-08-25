@@ -4,11 +4,17 @@ export const dialogContent = {
 };
 
 export const closeWarning = {
-    dialogHeading: 'Close warning',
+    dialogHeading: 'Warning',
     dialogContent: 'Do you really want to cancel the adding transaction process? All your entered data will be lost',
 };
 
 export const logoutContent = {
     dialogHeading: 'Logout',
     dialogContent: 'Are you sure that you really want to log out from the system?',
+};
+
+export const autoLogoutContent = {
+    dialogHeading: 'Idle Auto Logout',
+    dialogContent: 'Your session is to expire due to long inactivity. Do you want to extend it?',
+    hasTimer: true,
 };

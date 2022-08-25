@@ -1,9 +1,9 @@
-import { MainPageModule } from './../main-page/main-page.module';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '@shared/shared.module';
+import { NgModule } from '@angular/core';
 import { CoreModule } from '@core/core.module';
 import { ExpensesComponent, ExpensesRoutingModule } from '@modules/expenses';
+import { SharedModule } from '@shared/shared.module';
+import { MainPageModule } from './../main-page/main-page.module';
 
 @NgModule({
     declarations: [ExpensesComponent],

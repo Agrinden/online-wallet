@@ -2,7 +2,7 @@
     <div>
         <h1>{{ wallet.name }}</h1>
         <p *ngIf="wallet.isDefault">default wallet</p>
-        <p>Balance: {{ wallet.balance ?? 0 }} {{ wallet.currency }}</p>
+        <p>Balance: {{ wallet.balance }} {{ wallet.currency }}</p>
     </div>
 
     <div>

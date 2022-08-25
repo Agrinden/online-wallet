@@ -10,7 +10,7 @@ export class WalletsStoreService {
 
     constructor(private readonly walletService: WalletService) {}
 
-    private get wallets(): WalletInterface[] {
+    public get wallets(): WalletInterface[] {
         return this.walletsSubject$.value;
     }
 

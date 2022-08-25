@@ -1,11 +1,11 @@
 <div class="incomes-container">
-  <h2 class="income-title">Your Incomes</h2>
-  <open-income-form></open-income-form>
-  <div class="table-container">
+    <h2 class="income-title">Your Incomes</h2>
+    <open-income-form></open-income-form>
+
     <app-view-income></app-view-income>
-    <div *ngIf="incomes.length; else noData">
-      <income-table [tableData]="incomes" [tableType]="tableTypes.INCOME"></income-table>
+
+    <div *ngIf="incomes.length; else noData" class="incomes-table">
+        <income-table [tableData]="incomes" [tableType]="tableTypes.INCOME"></income-table>
     </div>
     <ng-template #noData><span class="no-transactions">No income transactions.</span> </ng-template>
-  </div>
 </div>
