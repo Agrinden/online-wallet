@@ -1,6 +1,6 @@
 import { environment } from '@env/environment';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { CoreModule } from '@core/core.module';
 import { WalletInterface, CreateWalletInterface } from '@app/shared';
@@ -12,8 +12,8 @@ import { HttpClient } from '@angular/common/http';
 export class WalletService {
     constructor(private http: HttpClient) {}
 
-    public createWallet(wallet: CreateWalletInterface): Observable<WalletInterface> {
-        return this.http.post<WalletInterface>(`${environment.apiUrl}/wallets`, wallet);
+    public createWallet(wallet: CreateWalletInterface): Observable<string> {
+        return this.http.post<string>(`${environment.apiUrl}/wallets`, wallet);
     }
 
     public getWallet(id: number): Observable<WalletInterface | null> {
