@@ -1,0 +1,87 @@
+@import 'mixins';
+@import 'variables';
+
+:host::ng-deep {
+    .mat-placeholder-required {
+        display: none !important;
+    }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+:host {
+    .form {
+        width: 460px;
+        .mat-typography {
+            display: flex;
+            flex-direction: column;
+
+            .field {
+                @include generalWidth(flex, space-between);
+                .field-title {
+                    display: inline-block;
+                    white-space: nowrap;
+                    padding-top: 15px;
+                }
+                .data-field {
+                    width: 300px;
+                }
+                .example-full-width {
+                    width: 300px;
+                }
+                .errors {
+                    position: absolute;
+                    color: red;
+                    padding-top: 50px;
+                    padding-left: 160px;
+                    margin: 2px 0;
+                }
+                .note-error {
+                    position: absolute;
+                    color: red;
+                    padding-top: 50px;
+                    padding-left: 160px;
+                    margin-top: 66px;
+                }
+                .currency-icon {
+                    font-size: 20px;
+                }
+            }
+            .note-field {
+                margin-top: 10px;
+                .mat-select-placeholder[title='required'] {
+                    display: none;
+                }
+            }
+            .new-category {
+                @include generalWidth(flex, space-between);
+                font-size: small;
+                margin: 0 0 15px 160px;
+                white-space: nowrap;
+                .add-new-category {
+                    color: rgb(88, 181, 227);
+                    text-decoration: underline;
+                    padding-left: 19px;
+                    cursor: pointer;
+                }
+            }
+        }
+        .form-error {
+            position: absolute;
+            color: red;
+            margin-bottom: 10px;
+            padding-left: 160px;
+        }
+        .down-button {
+            @include generalWidth(flex, flex-end);
+        }
+    }
+}

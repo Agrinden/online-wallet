@@ -1,0 +1,96 @@
+<div class="categories-container">
+    <div class="categories-expense">
+        <div class="categories-header">
+            <h2>Categories of Expenses</h2>
+            <div class="add-button-container">
+                <button mat-fab color="primary" (click)="createCategory(type.EXPENSE)">
+                    <mat-icon>add</mat-icon>
+                </button>
+                <span>Add expense category</span>
+            </div>
+        </div>
+        <mat-accordion togglePosition="before" multi>
+            <mat-expansion-panel *ngFor="let category of expenseCategories$ | async">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="category-title">
+                        <div class="category-color" [ngStyle]="{ 'background-color': category.colorScheme }"></div>
+                        <div class="category-name">
+                            {{ category.name }}
+                        </div>
+                    </mat-panel-title>
+                    <mat-panel-description class="categories-controls">
+                        <div>
+                            <button mat-icon-button (click)="editCategory(category, $event)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button (click)="deleteCategory(category.id, $event)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div>
+                    <div *ngFor="let subcategory of category.subcategories" class="subcategories">
+                        <div class="subcategory-title">
+                            <div
+                                class="subcategory-color"
+                                [ngStyle]="{ 'background-color': subcategory.colorScheme }"
+                            ></div>
+                            <div class="subcategory-name">{{ subcategory.name }}</div>
+                        </div>
+
+                        <div>
+                            <button mat-icon-button (click)="editCategory(subcategory, $event, category.id)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button (click)="deleteCategory(subcategory.id, $event, category.id)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="add-subcategory-btn">
+                        <button
+                            mat-raised-button
+                            (click)="createCategory(type.EXPENSE, category.id, category.colorScheme)"
+                        >
+                            + Add expense subcategory
+                        </button>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+    <div class="categories-income">
+        <div class="categories-header">
+            <h2>Categories of Incomes</h2>
+            <div class="add-button-container">
+                <button mat-fab color="primary" (click)="createCategory(type.INCOME)">
+                    <mat-icon>add</mat-icon>
+                </button>
+                <span>Add income category</span>
+            </div>
+        </div>
+        <mat-accordion>
+            <mat-expansion-panel *ngFor="let category of incomeCategories$ | async" disabled>
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="category-title">
+                        <div class="category-color" [ngStyle]="{ 'background-color': category.colorScheme }"></div>
+                        <div class="category-name">
+                            {{ category.name }}
+                        </div>
+                    </mat-panel-title>
+                    <mat-panel-description class="categories-controls">
+                        <div>
+                            <button mat-icon-button (click)="editCategory(category, $event)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button (click)="deleteCategory(category.id, $event)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>

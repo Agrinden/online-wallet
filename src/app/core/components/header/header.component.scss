@@ -1,0 +1,58 @@
+:host {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+
+    .sidenav-container {
+        height: 100%;
+        width: 100%;
+
+        @media screen and (max-width: 1024px) {
+            .link-name {
+                display: none;
+            }
+
+            .mat-tab-link {
+                min-width: 30px;
+            }
+        }
+
+        .header-container {
+            width: 100%;
+            align-items: flex-end;
+            display: flex;
+
+            .header-icons {
+                cursor: pointer;
+                font-size: 30px;
+                width: 30px;
+                height: 30px;
+                margin: 0 10px;
+            }
+
+            .active-link {
+                background: var(--active-link);
+            }
+
+            .header-content {
+                flex-grow: 2;
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+            }
+
+            .header-right-icons {
+                display: flex;
+                font-size: 14px;
+                justify-content: flex-end;
+                position: absolute;
+                right: 0;
+                .header-right-user-icons {
+                    display: flex;
+                    padding-right: 16px;
+                }
+            }
+        }
+    }
+}

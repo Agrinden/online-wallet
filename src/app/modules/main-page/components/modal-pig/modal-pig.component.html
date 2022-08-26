@@ -1,0 +1,40 @@
+<form class="form" [formGroup]="pigForm">
+  <span class="title">Create piggy-bank</span>
+  <mat-dialog-content class="mat-typography">
+    <mat-form-field appearance="fill">
+      <mat-label aria-required="true">Piggy bank name</mat-label>
+      <input formControlName="saving" matInput />
+    </mat-form-field>
+    <div *ngIf="pigForm.invalid && pigForm.controls['saving'].errors">
+      <span class="error-message" *ngIf="pigForm.controls['saving'].errors['pattern']">
+        Only latin letters, numbers and special characters are allowed
+      </span>
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Currency</mat-label>
+      <mat-select formControlName="currency">
+        <mat-option *ngFor="let item of currencyTitle" [value]="item">
+          {{ item }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label aria-required="true">Target</mat-label>
+      <input formControlName="amount" matInput type="number" />
+    </mat-form-field>
+  </mat-dialog-content>
+  <div *ngIf="pigForm.controls['amount'].errors">
+    <span class="error-message" *ngIf="pigForm.controls['amount'].errors['pattern']">Only two digits after the decimal
+      point allowed</span>
+  </div>
+  <div *ngIf="pigForm.invalid && pigForm.touched">
+    <span class="error-message">Please fill in all required fields</span>
+  </div>
+  <mat-dialog-actions class="down-button">
+    <button mat-button [mat-dialog-close]="pigForm.value" cdkFocusInitial [disabled]="pigForm.invalid"
+      (click)="onSave()">
+      Save
+    </button>
+    <button mat-button (click)="openConfirmationDialog()">Cancel</button>
+  </mat-dialog-actions>
+</form>

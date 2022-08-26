@@ -1,0 +1,81 @@
+:host {
+    .main-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .amount-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+
+            .add-button {
+                display: inline-block;
+                align-items: center;
+                background-color: gray;
+                width: 300px;
+                height: 40px;
+                font-size: medium;
+                border: 1px solid black;
+
+                cursor: pointer;
+            }
+        }
+        .choose-wallet {
+            font-size: 20px;
+            padding-left: 20px;
+        }
+        .wallets-wrapper {
+            margin: 30px 0;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+
+            .add-button-container {
+                width: 130px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 10px;
+            }
+            .list-of-wallets {
+                max-width: 600px;
+                margin: 0 20px 0 40px;
+                width: calc(100% - 130px);
+            }
+        }
+        .recent-table {
+            display: flex;
+            flex-direction: column;
+            padding: 0 15px;
+            width: 100%;
+
+            .transaction-list-title {
+                font-size: 18px;
+            }
+            .no-transactions {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 20px;
+                width: 1220px;
+                height: 40px;
+                border-radius: 5px;
+                background-color: #424242;
+                font-size: 20px;
+            }
+        }
+    }
+}
+
+:host {
+    @media screen and (max-width: 1220px) {
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+}

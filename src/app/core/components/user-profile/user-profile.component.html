@@ -1,0 +1,44 @@
+<span class="user-name">Hi, {{ user.username }}</span>
+<div [matMenuTriggerFor]="menu">
+    <ng-content select=".profile-menu"></ng-content>
+</div>
+
+<mat-menu #menu="matMenu">
+    <ng-container *ngFor="let item of userProfileItems">
+        <ng-container [ngSwitch]="item.name">
+            <ng-container *ngSwitchCase="'Settings'">
+                <button mat-menu-item [matMenuTriggerFor]="settings">
+                    <mat-icon> {{ item.icon }} </mat-icon>
+                    <span> {{ item.name }} </span>
+                </button>
+            </ng-container>
+            <ng-container *ngSwitchCase="'Logout'">
+                <button mat-menu-item (click)="logout()">
+                    <mat-icon> {{ item.icon }} </mat-icon>
+                    <span> {{ item.name }} </span>
+                </button>
+            </ng-container>
+            <ng-container *ngSwitchCase="'Delete account'">
+                <button mat-menu-item (click)="openDialog()">
+                    <mat-icon> {{ item.icon }} </mat-icon>
+                    <span> {{ item.name }} </span>
+                </button>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+                <button mat-menu-item>
+                    <mat-icon> {{ item.icon }} </mat-icon>
+                    <span> {{ item.name }} </span>
+                </button>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+</mat-menu>
+
+<mat-menu #settings="matMenu">
+    <ng-container *ngFor="let item of settingsMenuItems">
+        <button mat-menu-item>
+            <mat-icon> {{ item.icon }} </mat-icon>
+            <span> {{ item.name }} </span>
+        </button>
+    </ng-container>
+</mat-menu>

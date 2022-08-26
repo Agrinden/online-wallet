@@ -1,0 +1,118 @@
+@mixin generalWidth($margin: 0 auto, $display: flex) {
+    margin: $margin;
+    display: $display;
+}
+
+$backColor: #225367;
+
+.wrapper {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(45deg, $backColor, #c5dde8);
+    background-size: 100% 100%;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form {
+    @include generalWidth;
+    flex-direction: column;
+    width: 400px;
+    margin-top: 50px;
+    border: 1px solid white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.logo {
+    display: inline-block;
+    justify-content: flex-start;
+    max-width: 100%;
+    width: 240px;
+    padding-top: 30px;
+    margin-left: 40px;
+}
+
+.login-btn {
+    color: blue;
+    display: flex;
+    justify-content: center;
+}
+
+.example-full-width {
+    position: relative;
+    width: 360px;
+}
+
+.eye-icon {
+    position: absolute;
+    margin-left: -20px;
+    margin-top: -10px;
+    color: white;
+    cursor: pointer;
+}
+
+.forgot-password {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    color: white;
+}
+
+.welcome {
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    font-size: 23px;
+    margin-top: 5px;
+    font-style: italic;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-shadow: 3px 3px gray;
+    line-height: 60px;
+}
+
+.errors {
+    color: #cb004d;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    color: #cb004d;
+}
+
+@media screen and (max-width: 720px) {
+    .welcome {
+        font-size: 2rem;
+        margin-top: 30px;
+        line-height: 30px;
+    }
+    .form {
+        width: 320px;
+    }
+    .example-full-width {
+        width: 280px;
+    }
+    .logo {
+        width: 180px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .welcome {
+        font-size: 3rem;
+        margin-top: 15px;
+        line-height: 30px;
+    }
+    .form {
+        width: 260px;
+        padding: 0 5px;
+    }
+    .example-full-width {
+        width: 240px;
+    }
+    .logo {
+        width: 120px;
+    }
+}
