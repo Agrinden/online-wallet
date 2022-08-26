@@ -77,7 +77,7 @@ export class IncomeFormComponent implements OnInit {
     private getInitializedForm(formData: TransactionInterface): FormGroup<IncomeFormInterface> {
         const date = formData?.date ? moment(formData.date, 'DD/MM/YYYY') : moment();
         const form = this.formBuilder.group<IncomeFormInterface>({
-            walletId: new FormControl<number>(+formData?.walletId | 0, Validators.required),
+            walletId: new FormControl<string>(formData?.walletId ? formData?.walletId : '0', Validators.required),
             amount: new FormControl<number>(+formData?.amount | 0, [
                 Validators.required,
                 Validators.pattern(/^(?!0+[1-9])(?:\d+|\d(?:\d)+)(?:[.]\d+)?$/),
@@ -107,7 +107,7 @@ export class IncomeFormComponent implements OnInit {
                     const incomeData: TransactionDTOInterface = {
                         amount: String(incomeFormData.amount),
                         category: {
-                            id: +incomeFormData.category.id,
+                            id: incomeFormData.category.id,
                             categoryType: TransactionTypeEnum.INCOME,
                             color: '',
                             name: '',
@@ -159,7 +159,7 @@ export class IncomeFormComponent implements OnInit {
             const incomeData: TransactionDTOInterface = {
                 amount: String(incomeFormData.amount),
                 category: {
-                    id: +incomeFormData.category.id,
+                    id: incomeFormData.category.id,
                     categoryType: TransactionTypeEnum.INCOME,
                     color: '',
                     name: '',

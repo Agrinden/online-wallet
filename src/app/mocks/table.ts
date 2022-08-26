@@ -4,7 +4,7 @@ import { TransactionInterface } from '@app/shared';
 
 export const INCOME_DATA: TransactionInterface[] = [
     {
-        id: 1,
+        id: '1',
         type: TransactionTypeEnum.INCOME,
         date: '28/07/2022',
         category: { id: '', transactionType: TransactionTypeEnum.INCOME, name: 'Transport & auto' },
@@ -16,7 +16,7 @@ export const INCOME_DATA: TransactionInterface[] = [
         note: 'What a nice surprise!',
     },
     {
-        id: 2,
+        id: '2',
         type: TransactionTypeEnum.INCOME,
         date: '29/07/2022',
         category: { id: '', transactionType: TransactionTypeEnum.INCOME, name: 'Home & utilities' },
@@ -28,7 +28,7 @@ export const INCOME_DATA: TransactionInterface[] = [
         note: 'Found it.',
     },
     {
-        id: 3,
+        id: '3',
         type: TransactionTypeEnum.INCOME,
         date: '30/07/2022',
         category: { id: '', transactionType: TransactionTypeEnum.INCOME, name: 'Entertainment' },

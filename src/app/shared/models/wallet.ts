@@ -8,7 +8,7 @@ export class Wallet implements WalletInterface {
     public readonly recentTransactions$ = this.recentTransactionsSubject$.asObservable();
 
     constructor(
-        public readonly id: number,
+        public readonly id: string,
         public name: string,
         public isDefault: boolean,
         public currency: string,

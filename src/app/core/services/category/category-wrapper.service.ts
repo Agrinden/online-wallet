@@ -21,7 +21,7 @@ export class CategoryWrapperService extends CategoryService {
     ) {
         super();
         this.service = this.categoryApiService;
-        this.router.queryParams.subscribe((params) => {
+        this.router.queryParams.subscribe((params: any) => {
             this.service = params['useCategoriesMock'] ? this.categoryMockService : this.categoryApiService;
         });
     }

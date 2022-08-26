@@ -176,7 +176,7 @@ export const CATEGORIES: CategoryInterface[] = [
 export const mockWalletTransactions: TransactionInterface[] = (() => {
     return new Array(20).fill(null).map((_, index) => {
         return {
-            id: index,
+            id: `${index}`,
             category: { id: '', transactionType: TransactionTypeEnum.INCOME, name: 'Salary' },
             amount: Math.round(Math.random() * 1000 - 500),
             date: `2022-07-${30 - index}T17:26:33.581Z`,

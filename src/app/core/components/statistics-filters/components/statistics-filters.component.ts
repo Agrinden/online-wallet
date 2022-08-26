@@ -4,6 +4,7 @@ import { CategoryService, CategoryWrapperService, WalletService } from '@app/cor
 import { mockPayers } from '@app/mocks';
 import { CategoryInterface, WalletInterface } from '@app/shared';
 import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
+import { ReportFiltersInterface } from '@app/shared/interfaces/custom-report-interface';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -22,7 +23,7 @@ export class StatisticsFiltersComponent implements OnInit {
     private categories$!: Observable<CategoryInterface[]>;
 
     public INCOMECategories: { name: string; id: string }[] = [];
-    public expenseCategories: { name: string; id: string }[] = [];
+    public EXPENSECategories: { name: string; id: string }[] = [];
     public walletsList: { name: string; id: string }[] = [];
     public payers = mockPayers;
 
@@ -36,7 +37,7 @@ export class StatisticsFiltersComponent implements OnInit {
     ngOnInit(): void {
         this.filterForm = this.getInitializedFilterForm();
         this.wallets$ = this.walletService.getMockWallets();
-        this.categories$ = this.сategoryWrapperService.getIncomes();
+        this.categories$ = this.сategoryWrapperService.getCategories();
 
         this.wallets$.forEach((wallets) => {
             this.walletsList = wallets.map((wallet) => ({ name: wallet.name, id: wallet.id }));
@@ -54,13 +55,13 @@ export class StatisticsFiltersComponent implements OnInit {
                 name: 'All categories',
             });
 
-        if (this.expenseCategories.length > 0)
-            this.expenseCategories.unshift({
+        if (this.EXPENSECategories.length > 0)
+            this.EXPENSECategories.unshift({
                 id: '0',
                 name: 'All categories',
             });
 
-        this.filterForm.valueChanges.subscribe((formValues) => {
+        this.filterForm.valueChanges.subscribe((formValues: FormGroup<any>) => {
             this.cdr.detectChanges();
             this.createBtnDis = this.checkFormValidation(formValues);
         });
@@ -72,8 +73,8 @@ export class StatisticsFiltersComponent implements OnInit {
             payers: [''],
             start: null,
             end: null,
-            incomeCategories: [''],
-            expenseCategories: [''],
+            INCOMECategories: [''],
+            EXPENSECategories: [''],
         });
         return form;
     }
@@ -117,7 +118,7 @@ export class StatisticsFiltersComponent implements OnInit {
                 switch (key) {
                     case 'wallet':
                     case 'incomeCategories':
-                    case 'expenseCategories':
+                    case 'EXPENSECategories':
                     case 'payerId':
                         if (element.length === 0) return true;
                         break;

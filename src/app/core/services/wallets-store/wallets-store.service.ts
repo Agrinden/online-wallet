@@ -30,7 +30,7 @@ export class WalletsStoreService {
         return this.walletService.createWallet(wallet).pipe(
             tap((id) => {
                 const newWallet: WalletInterface = {
-                    id: +id,
+                    id: id,
                     balance: 0,
                     ...wallet,
                 };
@@ -63,7 +63,7 @@ export class WalletsStoreService {
     }
 
     public delete(id: string): Observable<WalletInterface[]> {
-        return this.walletService.delete(Number(id)).pipe(
+        return this.walletService.delete(id).pipe(
             tap(() => {
                 this.walletsSubject$.next(this.wallets.filter((wallet) => String(wallet.id) !== String(id)));
             }),

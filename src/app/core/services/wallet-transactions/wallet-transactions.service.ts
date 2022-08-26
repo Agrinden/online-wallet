@@ -14,7 +14,7 @@ import { TransactionInterface } from '@app/shared';
 export class WalletTransactionsService {
     constructor(private readonly datePipe: DatePipe) {}
 
-    public get(id: number, from: number, quantity: number): Observable<TransactionInterface[]> {
+    public get(id: string, from: number, quantity: number): Observable<TransactionInterface[]> {
         return of(mockWalletTransactions.slice(from, from + quantity)).pipe(
             map((walletTransactions) => {
                 return walletTransactions.map((transaction) => ({

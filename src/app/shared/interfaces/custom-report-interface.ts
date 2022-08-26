@@ -21,6 +21,6 @@ export interface ReportFiltersInterface {
     end: Moment;
     payers: { name: string; id: string }[];
     walletsId: { name: string; id: string }[];
-    expenseCategories: { name: string; id: string }[];
-    incomeCategories: { name: string; id: string }[];
+    EXPENSECategories: { name: string; id: string }[];
+    INCOMECategories: { name: string; id: string }[];
 }

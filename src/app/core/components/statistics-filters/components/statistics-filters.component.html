@@ -34,20 +34,20 @@
     <div class="field">
       <mat-form-field appearance="fill">
         <mat-label>Choose income category</mat-label>
-        <mat-select formControlName="incomeCategories" multiple>
+        <mat-select formControlName="INCOMECategories" multiple>
           <mat-select-trigger>
-            {{filterForm.value.incomeCategories.length > 0 ? filterForm.value.incomeCategories[0].name :
+            {{filterForm.value.INCOMECategories.length > 0 ? filterForm.value.INCOMECategories[0].name :
             ''}}
             <span
-              *ngIf="((filterForm.value.incomeCategories.length || 0) > 1) && (filterForm.value.incomeCategories[0].id !== 0)"
+              *ngIf="((filterForm.value.INCOMECategories.length || 0) > 1) && (filterForm.value.INCOMECategories[0].id !== 0)"
               class="example-additional-selection">
-              (+{{(filterForm.value.incomeCategories.length || 0) - 1}} {{filterForm.value.incomeCategories.length === 2
+              (+{{(filterForm.value.INCOMECategories.length || 0) - 1}} {{filterForm.value.INCOMECategories.length === 2
               ? 'other' :
               'others'}})
             </span>
           </mat-select-trigger>
 
-          <mat-option *ngFor="let incomeCategory of incomeCategories" [value]="incomeCategory"
+          <mat-option *ngFor="let incomeCategory of INCOMECategories" [value]="incomeCategory"
             (click)="toggleAllSelection(transactionTypeEnum.INCOME, incomeCategory.id)">
             {{incomeCategory.name}}
           </mat-option>
@@ -58,20 +58,20 @@
     <div class="field">
       <mat-form-field appearance="fill">
         <mat-label>Choose expense category</mat-label>
-        <mat-select formControlName="expenseCategories" multiple>
+        <mat-select formControlName="EXPENSECategories" multiple>
           <mat-select-trigger>
-            {{filterForm.value.expenseCategories.length > 0 ? filterForm.value.expenseCategories[0].name :
+            {{filterForm.value.EXPENSECategories.length > 0 ? filterForm.value.EXPENSECategories[0].name :
             ''}}
             <span
-              *ngIf="((filterForm.value.expenseCategories.length || 0) > 1) && (filterForm.value.expenseCategories[0].id !== 0)"
+              *ngIf="((filterForm.value.EXPENSECategories.length || 0) > 1) && (filterForm.value.EXPENSECategories[0].id !== 0)"
               class="example-additional-selection">
-              (+{{(filterForm.value.expenseCategories.length || 0) - 1}} {{filterForm.value.expenseCategories.length ===
+              (+{{(filterForm.value.EXPENSECategories.length || 0) - 1}} {{filterForm.value.EXPENSECategories.length ===
               2 ? 'other' :
               'others'}})
             </span>
           </mat-select-trigger>
 
-          <mat-option *ngFor="let expenseCategory of expenseCategories"
+          <mat-option *ngFor="let expenseCategory of EXPENSECategories"
             (click)="toggleAllSelection(transactionTypeEnum.EXPENSE, expenseCategory.id)" [value]="expenseCategory">
             {{expenseCategory.name}}
           </mat-option>

@@ -17,7 +17,7 @@ export class StatisticsComponent {
         this.filters = filters;
 
         this.report.expense = mockReport.expense.filter((expense) => {
-            const expenseFilter = filters.expenseCategories.some((el) => el.name === expense.category);
+            const expenseFilter = filters.EXPENSECategories.some((el) => el.name === expense.category);
             if (!expenseFilter) return false;
 
             const fitDate =
@@ -34,7 +34,7 @@ export class StatisticsComponent {
         });
 
         this.report.income = mockReport.income.filter((income) => {
-            const expenseFilter = filters.incomeCategories.some((el) => el.name === income.category);
+            const expenseFilter = filters.INCOMECategories.some((el) => el.name === income.category);
             if (!expenseFilter) return false;
 
             const fitDate =
