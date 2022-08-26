@@ -4,7 +4,7 @@ import { Moment } from 'moment';
 import { CategoryInterface } from './categories/category.interface';
 
 export interface TransactionInterface {
-    id: number;
+    id: string;
     type: string;
     walletId: string;
     amount: number;
@@ -19,7 +19,7 @@ export interface TransactionInterface {
 export interface TransactionDTOInterface {
     amount: string;
     category: {
-        id: number;
+        id: string;
         categoryType: string;
         color: string;
         name: string;
@@ -29,15 +29,15 @@ export interface TransactionDTOInterface {
     payer: string;
     subcategory: string;
     transactionType: string;
-    walletId: number;
+    walletId: string;
 }
 
 export interface IncomeDataInterface {
-    id: number;
+    id: string;
     date: Moment;
     category: CategoryInterface;
     amount: number;
-    walletId: number;
+    walletId: string;
     note: string;
 }
 
@@ -51,7 +51,7 @@ export interface UpdateTransactionInterface extends CreateTransactionInterface {
 }
 
 export interface TransactionFormInterface {
-    id: AbstractControl<number | null>;
+    id: AbstractControl<string | null>;
     wallet: AbstractControl<string | null>;
     amount: AbstractControl<number | null>;
     category: AbstractControl<CategoryInterface | null>;

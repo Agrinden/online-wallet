@@ -30,7 +30,7 @@ export class IncomeDataService {
         const obj: any = {
             transactionsType: transactionType,
             sortBy: 'DATEDESC',
-            page: '1',
+            page: '0',
             size: '10',
         };
         const queryParams = Object.keys(obj)

@@ -89,7 +89,7 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
             const expenseData: TransactionDTOInterface = {
                 amount: String(expenseFormData.amount),
                 category: {
-                    id: Number(expenseFormData.category?.id),
+                    id: expenseFormData.category?.id ? expenseFormData.category?.id : '',
                     categoryType: TransactionTypeEnum.EXPENSE,
                     color: '',
                     name: '',
@@ -99,7 +99,7 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
                 payer: String(expenseFormData.payer),
                 subcategory: String(expenseFormData.subcategory?.name),
                 transactionType: TransactionTypeEnum.EXPENSE,
-                walletId: Number(expenseFormData.wallet),
+                walletId: expenseFormData.wallet ? expenseFormData.wallet : '',
             };
             this.incomeDataService.add(expenseData).subscribe();
         }
@@ -161,7 +161,7 @@ export class AddEditTransactionFormComponent implements OnInit, AfterViewInit, O
     private getInitializedForm(formData: TransactionInterface): FormGroup<TransactionFormInterface> {
         const date = formData?.date ? moment(formData?.date, 'DD/MM/YYYY') : moment();
         const form = this.formBuilder.group<TransactionFormInterface>({
-            id: new FormControl<number | null>(formData?.id),
+            id: new FormControl<string | null>(formData?.id),
             wallet: new FormControl<string>(formData?.walletId, Validators.required),
             amount: new FormControl<number | null>(+formData?.amount | 0, [
                 Validators.required,

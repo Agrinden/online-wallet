@@ -46,7 +46,7 @@ export class TransactionDialogComponent {
             const formData: TransactionDTOInterface = {
                 amount: String(form.amount),
                 category: {
-                    id: Number(form.category.value?.id),
+                    id: form.category.value?.id ? form.category.value?.id : '',
                     categoryType: String(form.category.value?.transactionType),
                     color: '',
                     name: '',
@@ -56,7 +56,7 @@ export class TransactionDialogComponent {
                 payer: '',
                 subcategory: '',
                 transactionType: String(form.category.value?.transactionType),
-                walletId: Number(form.wallet.value),
+                walletId: form.wallet.value ? form.wallet.value : '',
             };
             this.incomeDataService.edit(formData, String(form.id.value)).subscribe();
         } else this.dialog.closeAll();

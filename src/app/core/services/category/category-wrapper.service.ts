@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 import { CategoryService } from './category-service.abstract';
 import { CategoryInterface, CategoryTemplateInterface } from '@app/shared';
 import { TransactionTypeEnum } from '@app/shared/enums/transaction-type.enum';
+import { Observable, of } from 'rxjs';
+import { CATEGORIES } from '@app/mocks';
 
 @Injectable({
     providedIn: 'root',
@@ -19,10 +21,15 @@ export class CategoryWrapperService extends CategoryService {
     ) {
         super();
         this.service = this.categoryApiService;
-        this.router.queryParams.subscribe((params) => {
+        this.router.queryParams.subscribe((params: any) => {
             this.service = params['useCategoriesMock'] ? this.categoryMockService : this.categoryApiService;
         });
     }
+
+    getCategories(): Observable<CategoryInterface[]> {
+        return of(CATEGORIES);
+    }
+
     getIncomes() {
         return this.service.getIncomes();
     }

@@ -1,0 +1,104 @@
+<form class="form" [formGroup]="filterForm">
+  <mat-dialog-content class="mat-typography">
+    <div class="field">
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a wallet</mat-label>
+        <mat-select formControlName="walletsId" multiple>
+          <mat-select-trigger>
+            {{filterForm.value.walletsId.length > 0 ? filterForm.value.walletsId[0].name : ''}}
+            <span *ngIf="(filterForm.value.walletsId.length || 0) > 1" class="example-additional-selection">
+              (+{{(filterForm.value.walletsId.length || 0) - 1}} {{filterForm.value.walletsId.length === 2 ? 'other' :
+              'others'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let wallet of walletsList" [value]="wallet">{{wallet.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="datePicker">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate formControlName="start" placeholder="Start date">
+          <input matEndDate formControlName="end" placeholder="End date">
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+      <mat-error *ngIf="!!filterForm.controls['start'].errors">Invalid start date</mat-error>
+      <mat-error *ngIf="!!filterForm.controls['end'].errors">Invalid end date</mat-error>
+    </div>
+
+    <div class="field">
+      <mat-form-field appearance="fill">
+        <mat-label>Choose income category</mat-label>
+        <mat-select formControlName="INCOMECategories" multiple>
+          <mat-select-trigger>
+            {{filterForm.value.INCOMECategories.length > 0 ? filterForm.value.INCOMECategories[0].name :
+            ''}}
+            <span
+              *ngIf="((filterForm.value.INCOMECategories.length || 0) > 1) && (filterForm.value.INCOMECategories[0].id !== 0)"
+              class="example-additional-selection">
+              (+{{(filterForm.value.INCOMECategories.length || 0) - 1}} {{filterForm.value.INCOMECategories.length === 2
+              ? 'other' :
+              'others'}})
+            </span>
+          </mat-select-trigger>
+
+          <mat-option *ngFor="let incomeCategory of INCOMECategories" [value]="incomeCategory"
+            (click)="toggleAllSelection(transactionTypeEnum.INCOME, incomeCategory.id)">
+            {{incomeCategory.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="field">
+      <mat-form-field appearance="fill">
+        <mat-label>Choose expense category</mat-label>
+        <mat-select formControlName="EXPENSECategories" multiple>
+          <mat-select-trigger>
+            {{filterForm.value.EXPENSECategories.length > 0 ? filterForm.value.EXPENSECategories[0].name :
+            ''}}
+            <span
+              *ngIf="((filterForm.value.EXPENSECategories.length || 0) > 1) && (filterForm.value.EXPENSECategories[0].id !== 0)"
+              class="example-additional-selection">
+              (+{{(filterForm.value.EXPENSECategories.length || 0) - 1}} {{filterForm.value.EXPENSECategories.length ===
+              2 ? 'other' :
+              'others'}})
+            </span>
+          </mat-select-trigger>
+
+          <mat-option *ngFor="let expenseCategory of EXPENSECategories"
+            (click)="toggleAllSelection(transactionTypeEnum.EXPENSE, expenseCategory.id)" [value]="expenseCategory">
+            {{expenseCategory.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="field">
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a Payer</mat-label>
+        <mat-select formControlName="payers" multiple>
+          <mat-select-trigger>
+            {{filterForm.value.payers.length > 0 ? filterForm.value.payers[0].name : ''}}
+            <span *ngIf="(filterForm.value.payers.length || 0) > 1" class="example-additional-selection">
+              (+{{(filterForm.value.payers.length || 0) - 1}} {{filterForm.value.payers.length === 2 ? 'other' :
+              'others'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let payer of payers" [value]="payer">{{payer.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+  <div class="filter-buttons">
+    <button mat-raised-button color="primary" [disabled]="createBtnDis" (click)="createFilters()">Create</button>
+    <button mat-raised-button color="primary" (click)="resetFilters()">Reset</button>
+  </div>
+
+</form>

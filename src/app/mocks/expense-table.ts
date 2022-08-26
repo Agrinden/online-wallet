@@ -3,7 +3,7 @@ import { TransactionInterface } from '@app/shared';
 
 export const EXPENSE_DATA: TransactionInterface[] = [
     {
-        id: 1,
+        id: '1',
         type: TransactionTypeEnum.EXPENSE,
         date: '28/07/2022',
         category: { id: '', transactionType: TransactionTypeEnum.EXPENSE, name: 'Transport & auto' },
@@ -15,7 +15,7 @@ export const EXPENSE_DATA: TransactionInterface[] = [
         note: 'Oh no what a price!',
     },
     {
-        id: 2,
+        id: '2',
         type: TransactionTypeEnum.EXPENSE,
         date: '20/07/2022',
         category: { id: '', transactionType: TransactionTypeEnum.EXPENSE, name: 'Home & utilities' },
@@ -27,7 +27,7 @@ export const EXPENSE_DATA: TransactionInterface[] = [
         note: 'Very nice...',
     },
     {
-        id: 3,
+        id: '3',
         type: TransactionTypeEnum.EXPENSE,
         date: '05/08/2022',
         category: { id: '', transactionType: TransactionTypeEnum.EXPENSE, name: 'Entertainment' },

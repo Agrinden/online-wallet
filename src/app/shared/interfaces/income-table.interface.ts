@@ -1,5 +1,5 @@
 export interface IncomeTableInterface {
-    id: number;
+    id: string;
     date: string;
     category: string;
     amount: string;

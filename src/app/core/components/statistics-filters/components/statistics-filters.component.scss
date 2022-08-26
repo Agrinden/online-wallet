@@ -1,0 +1,31 @@
+@import "mixins";
+
+:host::ng-deep {
+  .mat-placeholder-required {
+    display: none !important;
+  }
+}
+.form {
+  .mat-typography {
+    width: fit-content;
+    margin: 0 auto;
+    overflow: visible;
+    justify-content: center;
+
+    .datePicker {
+      margin: 10px 10px 20px 0;
+    }
+
+    @include generalWidth(flex, flex-start);
+    .field {
+      height: 50px;
+      margin: 10px 10px 20px 0;
+    }
+  }
+
+  .filter-buttons {
+    gap: 10px;
+    justify-content: center;
+    display: flex;
+  }
+}

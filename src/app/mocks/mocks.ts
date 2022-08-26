@@ -31,6 +31,37 @@ export const payers$ = of([
     },
 ]);
 
+export const WALLETS: Observable<WalletInterface[]> = of([
+    {
+        id: '1',
+        name: 'Wallet USD',
+        isDefault: true,
+        currency: 'USD',
+        balance: 0,
+    },
+    {
+        id: '2',
+        name: 'Wallet EUR',
+        isDefault: false,
+        currency: 'EUR',
+        balance: 0,
+    },
+    {
+        id: '3',
+        name: 'Wallet GEL',
+        isDefault: false,
+        currency: 'GEL',
+        balance: 0,
+    },
+    {
+        id: '4',
+        name: 'Wallet PLN',
+        isDefault: false,
+        currency: 'PLN',
+        balance: 0,
+    },
+]);
+
 export const CURRENCIES: string[] = ['EUR', 'USD', 'GEL', 'PLN'];
 
 export const CATEGORIES: CategoryInterface[] = [
@@ -132,32 +163,20 @@ export const CATEGORIES: CategoryInterface[] = [
         id: '6',
         name: 'Salary',
         transactionType: TransactionTypeEnum.INCOME,
-        colorScheme: '#4efc03',
+        colorScheme: '#eca427',
     },
     {
         id: '7',
-        name: 'Gifts',
+        name: 'Gift',
         transactionType: TransactionTypeEnum.INCOME,
-        colorScheme: '#8c03fc',
-    },
-    {
-        id: '8',
-        name: 'Business',
-        transactionType: TransactionTypeEnum.INCOME,
-        colorScheme: '#581ac9',
-    },
-    {
-        id: '9',
-        name: 'Trading',
-        transactionType: TransactionTypeEnum.INCOME,
-        colorScheme: '#fc7b03',
+        colorScheme: '#eca427',
     },
 ];
 
 export const mockWalletTransactions: TransactionInterface[] = (() => {
     return new Array(20).fill(null).map((_, index) => {
         return {
-            id: index,
+            id: `${index}`,
             category: { id: '', transactionType: TransactionTypeEnum.INCOME, name: 'Salary' },
             amount: Math.round(Math.random() * 1000 - 500),
             date: `2022-07-${30 - index}T17:26:33.581Z`,
@@ -173,12 +192,19 @@ export const mockWalletTransactions: TransactionInterface[] = (() => {
 
 export const mockReport: ReportInterface = {
     expense: [
-        { category: 'Food', amount: 150, payer: 'Me' },
-        { category: 'Food', amount: 350, payer: 'Joe' },
-        { category: 'Health', amount: 50, payer: 'Me' },
+        { walletId: '1', date: 1659356954, category: 'Food', amount: 150, payerId: '1' },
+        { walletId: '1', date: 1659443354, category: 'Food', amount: 350, payerId: '2' },
+        { walletId: '2', date: 1659529754, category: 'Health', amount: 450, payerId: '2' },
+        { walletId: '4', date: 1660134554, category: 'Health', amount: 550, payerId: '1' },
+        { walletId: '3', date: 1660152554, category: 'Health', amount: 650, payerId: '1' },
     ],
     income: [
-        { category: 'Salary', amount: 3500 },
-        { category: 'Gift', amount: 1100 },
+        { walletId: '1', date: 1660325354, category: 'Salary', amount: 3500 },
+        { walletId: '2', date: 1660267754, category: 'Gift', amount: 1100 },
     ],
 };
+
+export const mockPayers = [
+    { name: 'Me', id: '1' },
+    { name: 'Joe', id: '2' },
+];

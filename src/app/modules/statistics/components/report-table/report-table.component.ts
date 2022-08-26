@@ -5,7 +5,7 @@ interface ReportTableItemInterface {
     category?: string;
     income?: number;
     expense?: number;
-    payer?: string;
+    payerId?: string;
     subTableTitle?: string;
 }
 interface ColumnInterface {
@@ -35,7 +35,7 @@ export class ReportTaleComponent implements OnChanges {
         },
         {
             title: 'Payer',
-            dataField: 'payer',
+            dataField: 'payerId',
         },
     ];
     public readonly displayedColumns = this.columns.map(({ dataField }) => dataField);
@@ -48,7 +48,7 @@ export class ReportTaleComponent implements OnChanges {
 
         this.reportTableData = [
             { subTableTitle: 'Expense categories' },
-            ...this.report.expense.map(({ category, amount, payer }) => ({ category, payer, expense: amount })),
+            ...this.report.expense.map(({ category, amount, payerId }) => ({ category, payerId, expense: amount })),
             { subTableTitle: 'Incomes categories' },
             ...this.report.income.map(({ category, amount }) => ({ category, income: amount })),
         ];
