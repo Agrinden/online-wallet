@@ -40,26 +40,26 @@ export class TransactionDialogComponent {
                     takeUntil(this.destroy$)
                 )
                 .subscribe(() => {
-                    const form = this.transactionForm.data as TransactionFormInterface;
-                    const formData: TransactionDTOInterface = {
-                        amount: String(form.amount),
-                        category: {
-                            id: !!form.category.value?.id ? form.category.value?.id : '',
-                            categoryType: String(form.category.value?.transactionType),
-                            color: '',
-                            name: '',
-                        },
-                        date: moment(form.date.value).format('YYYY-MM-DD'),
-                        notes: String(form.note.value),
-                        payer: '',
-                        subcategory: '',
-                        transactionType: String(form.category.value?.transactionType),
-                        walletId: !!form.wallet.value ? form.wallet.value : '',
-                    };
-                    this.incomeDataService.edit(formData, String(form.id.value)).subscribe();
+                    this.dialog.closeAll();
                 });
-        }
-        this.dialog.closeAll();
+            const form = this.transactionForm.data as TransactionFormInterface;
+            const formData: TransactionDTOInterface = {
+                amount: String(form.amount),
+                category: {
+                    id: form.category.value?.id ? form.category.value?.id : '',
+                    categoryType: String(form.category.value?.transactionType),
+                    color: '',
+                    name: '',
+                },
+                date: moment(form.date.value).format('YYYY-MM-DD'),
+                notes: String(form.note.value),
+                payer: '',
+                subcategory: '',
+                transactionType: String(form.category.value?.transactionType),
+                walletId: form.wallet.value ? form.wallet.value : '',
+            };
+            this.incomeDataService.edit(formData, String(form.id.value)).subscribe();
+        } else this.dialog.closeAll();
     }
 
     ngOnDestroy(): void {

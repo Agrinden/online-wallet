@@ -6,7 +6,7 @@ import {
     CategoryInterface,
     IncomeFormInterface,
 } from '@app/shared';
-import { CategoryService, CategoryWrapperService, WalletService } from '@core';
+import { CategoryService, WalletService, CategoryWrapperService } from '@core';
 import { ConfirmationDialogChoise } from './../../enums/dialog-enums';
 import { closeWarning } from './../../../core/services/user-delete/user-delete-constants';
 import { WarningDialogService } from './../../../core/services/warn-dialog/warning-dialog.service';
@@ -59,7 +59,7 @@ export class IncomeFormComponent implements OnInit {
             .getWallets()
             .pipe(takeUntil(this.destroy$))
             .subscribe((wallets) => (this.wallets = wallets));
-        this.categories$ = this.incomeDataService.getIncomeCategories();
+        this.categories$ = this.categoryService.getIncomes();
     }
 
     public isValidField(controlName: keyof IncomeFormInterface): boolean {
@@ -103,26 +103,26 @@ export class IncomeFormComponent implements OnInit {
                     takeUntil(this.destroy$)
                 )
                 .subscribe(() => {
-                    const incomeFormData = this.incomeForm.value as IncomeDataInterface;
-                    const incomeData: TransactionDTOInterface = {
-                        amount: String(incomeFormData.amount),
-                        category: {
-                            id: incomeFormData.category.id,
-                            categoryType: TransactionTypeEnum.INCOME,
-                            color: '',
-                            name: '',
-                        },
-                        date: incomeFormData.date.format('YYYY-MM-DD'),
-                        notes: incomeFormData.note,
-                        payer: '',
-                        subcategory: '',
-                        transactionType: TransactionTypeEnum.INCOME,
-                        walletId: incomeFormData.walletId,
-                    };
-                    this.incomeDataService.edit(incomeData, String(incomeFormData.id)).subscribe();
+                    this.dialog.closeAll();
                 });
-        }
-        this.dialog.closeAll();
+            const incomeFormData = this.incomeForm.value as IncomeDataInterface;
+            const incomeData: TransactionDTOInterface = {
+                amount: String(incomeFormData.amount),
+                category: {
+                    id: incomeFormData.category.id,
+                    categoryType: TransactionTypeEnum.INCOME,
+                    color: '',
+                    name: '',
+                },
+                date: incomeFormData.date.format('YYYY-MM-DD'),
+                notes: incomeFormData.note,
+                payer: '',
+                subcategory: '',
+                transactionType: TransactionTypeEnum.INCOME,
+                walletId: incomeFormData.walletId,
+            };
+            this.incomeDataService.edit(incomeData, String(incomeFormData.id)).subscribe();
+        } else this.dialog.closeAll();
     }
 
     public createCategory(type: TransactionTypeEnum) {
@@ -146,6 +146,7 @@ export class IncomeFormComponent implements OnInit {
             )
             .subscribe((category) => {
                 this.categoryService.create(category, type);
+                this.categories$ = this.categoryService.getIncomes();
             });
     }
 
